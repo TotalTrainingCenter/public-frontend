@@ -37,9 +37,11 @@ fi
 cd "$ROOT_DIR"
 
 echo "Building locally"
-cd src/dependencies/tiptap-extension-resize-image
-npm i && npm run build
-cd ../../../
+# ⚠️ total-frontend 와 달리 tiptap 서브모듈을 쓰지 않는다(에디터가 없다).
+#    src/dependencies 가 없으므로 그쪽을 빌드하려 하면 set -e 때문에 즉시 죽는다.
+#
+# ⚠️ npm run build 는 fetch:content → vite build → prerender → sitemap 까지 포함한다.
+#    fetch:content 가 공개 API(VITE_API_BASE_URL)를 호출하므로 백엔드가 먼저 떠 있어야 한다.
 npm i && npm run build
 
 if [[ ! -d "$LOCAL_BUILD_PATH" ]]; then
