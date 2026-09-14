@@ -8,12 +8,15 @@ import { siteConfig } from '@variables/site'
 import heroDashboardImgDark from '@images/front-pages/landing-page/hero-dashboard-dark.png'
 import heroDashboardImgLight from '@images/front-pages/landing-page/hero-dashboard-light.png'
 
-import heroElementsImgDark from '@images/front-pages/landing-page/hero-elements-dark.png'
-import heroElementsImgLight from '@images/front-pages/landing-page/hero-elements-light.png'
-
 const theme = useTheme()
 
-const heroElementsImg = useGenerateImageVariant(heroElementsImgLight, heroElementsImgDark)
+/*
+ * 히어로 목업은 실제 서비스 화면(활동 목록)이다.
+ *
+ * ⚠️ Vuexy 원본에는 그 위에 hero-elements 오버레이가 얹혀 있었는데,
+ *    "Congratulations John · $48.9k · Revenue Report $25,825" 같은 가짜 매출 카드였다.
+ *    이 서비스와 무관한 조작된 수치라 걷어냈다. 다시 넣지 말 것.
+ */
 const heroDashboardImg = useGenerateImageVariant(heroDashboardImgLight, heroDashboardImgDark)
 
 const { x, y } = useMouse({ touch: false })
@@ -87,11 +90,6 @@ const translateMouse = computed(() => {
       <div class="position-relative">
         <div class="blank-section" />
         <div class="hero-animation-img position-absolute">
-          <!--
-            ⚠️ 이 이미지는 아직 Vuexy 데모의 대시보드 스크린샷이다.
-            실제 서비스 화면이 아니므로 공개 전에 TTC 플랫폼 캡처로 반드시 교체할 것.
-            교체 대상: @images/front-pages/landing-page/hero-dashboard-{light,dark}.png
-          -->
           <a
             :href="siteConfig.platformUrl"
             target="_blank"
@@ -104,14 +102,8 @@ const translateMouse = computed(() => {
             >
               <img
                 :src="heroDashboardImg"
-                alt="Hero Dashboard"
+                alt="종합 훈련 센터 활동 목록 화면"
                 class="animation-img"
-              >
-              <img
-                :src="heroElementsImg"
-                alt="hero elements"
-                class="hero-elements-img animation-img position-absolute"
-                style="transform: translateZ(1rem);"
               >
             </div>
           </a>
@@ -303,12 +295,6 @@ section {
   img {
     inline-size: 100%;
   }
-}
-
-.hero-elements-img {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 0;
 }
 
 .feature-cards {
