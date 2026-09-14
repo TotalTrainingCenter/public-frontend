@@ -378,3 +378,63 @@ TTL 600초라(`application-fileupload.properties:18`) 프리렌더 HTML 에 구�
 4. 토큰 없이 `GET /v1/board/getBoardList` → 여전히 401
 5. 공개 응답 JSON 에 `account` / `username` 문자열이 없는지 grep
 6. 관리자에서 `publicnotice` 에 글 작성 → `npm run build` → `dist/notice/<slug>/index.html` 생성 확인
+
+
+---
+
+## 11. total-frontend 복사본으로 재구성 + 저장소 분리
+
+"설정·배포가 total 이랑 같은 게 맞냐"는 지적에서 출발했다. 맞지 않았다 —
+처음 만들 때 Docker·nginx 설정을 임의로 지웠고, 출발점도 Vuexy 템플릿이었다.
+그래서 `total-frontend` 복사본을 베이스로 처음부터 다시 만들었다.
+
+### 복사본에서 먼저 막은 것 (둘 다 위험했다)
+- `.deploy.env` 의 `DEPLOY_PATH=/var/www/total` → `/var/www/public`
+  그대로 `npm run deploy` 를 돌렸으면 랜딩이 `rsync --delete` 로 **운영 플랫폼을 덮어썼다**
+- `.git` 원격이 `total-frontend.git` (브랜치 development) 을 가리키고 있었다
+
+### 걷어낸 것 / 넣은 것
+제거: 관리자 페이지 25개, `src/views`, `src/navigation`, 관리자 레이아웃·컴포넌트,
+인증 가드 일체, FCM·소켓·Firebase, PrimeVue, MSW, tiptap 서브모듈,
+플랫폼 전용 엔티티·변수 15개, 미사용 유틸·컴포넌트 4개
+
+유지: `.dockerignore` · Dockerfile 2종 · docker-compose 2종 · nginx.conf ·
+deploy.sh · `@entity`/`@variables` 규약 · eslint · tsconfig
+
+추가: Vuexy 랜딩 섹션 기반 홈, 공개 페이지 13종, SEO 기계장치, 브랜드 자산
+
+`BusinessInfoWidget` 은 한 번 뺐다가 되살렸다. 실제 사업자 정보가 들어 있고
+통신판매업 표기 의무와 직결된다.
+
+### 이번에 잡은 버그 2개
+
+**앱이 부팅 중 죽던 문제**
+`themeConfig.app.title` 을 `'종합 훈련 센터'` 로 바꿨더니 `TypeError: argument name is invalid`
+로 렌더 자체가 안 됐다. Vuexy 가 이 값을 쿠키/스토리지 키 네임스페이스로 쓰는데
+(`@layouts/stores/config.ts` 의 `namespaceConfig`) 공백·한글이 유효한 쿠키 이름이 아니었다.
+→ `total_training_center_public` 으로 고정하고 경고 주석을 박았다.
+
+**프리렌더가 첫 라우트에서 멈추던 문제**
+`waitUntil: 'networkidle0'` 이 원인. 폰트 로더·아이콘 때문에 네트워크가 조용해지지 않아
+라우트마다 타임아웃까지 매달렸다. → `domcontentloaded` + `waitForSelector('h1')` 로 교체.
+판단 기준은 '네트워크가 한가한가'가 아니라 '본문이 그려졌는가'여야 한다.
+
+### typecheck 오류에 대하여
+21건이 남지만 전부 `@core`/`@layouts` 템플릿 코드다.
+**`total-frontend` 원본도 같은 원인으로 57건 실패**하는 것을 확인했다. 이번 작업으로 생긴 것이 아니다.
+공개 사이트 코드(`src/views` · `src/pages` · `src/@variables` · `scripts`)에는 오류가 없다.
+
+### 저장소
+`https://github.com/TotalTrainingCenter/public-frontend.git` 을 새로 받아 연결했다.
+플랫폼 커밋 99개 히스토리는 가져오지 않았다(`total-frontend` 에 그대로 남아 있다).
+브랜치 `development` 에 초기 커밋을 올렸다.
+
+푸시 후 확인: `.deploy.env` · `.env` · `dist` · `node_modules` 는 올라가지 않았고,
+값이 빈 `.example` 템플릿 2개만 포함됐다.
+
+### 남은 일
+- [ ] **히어로 대시보드 이미지 교체** — 아직 Vuexy 데모 스크린샷이다.
+      실제 서비스 화면이 아니므로 공개 전에 반드시 바꿀 것
+      (`@images/front-pages/landing-page/hero-dashboard-{light,dark}.png`)
+- [ ] 백엔드 배포 후 `/v1/public/**` 동작 확인
+- [ ] apex/www → total 301 제거 → vhost 반영 → `npm run deploy`
