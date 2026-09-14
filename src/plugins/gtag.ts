@@ -5,7 +5,7 @@ import { router } from './1.router'
 export default function (app: App) {
   if (process.env.NODE_ENV === 'production') {
     const gtag = createGtag({
-      tagId: 'G-M6K6CZGYTB',
+      tagId: 'G-HQFH04TH3D',
       pageTracker: {
         router,
       },
