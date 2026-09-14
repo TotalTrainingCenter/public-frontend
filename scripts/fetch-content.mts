@@ -17,6 +17,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, extname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { activityMeta, COMMON_ACTIVITY_GROUP_ID } from '../src/@variables/activity-meta.js'
+import { BOARD_ATTRIBUTE_KEY, PUBLIC_CATEGORY } from '../src/@variables/public-category.js'
 import { membershipMeta } from '../src/@variables/membership-meta.js'
 import { extractText, renderTiptap } from './tiptap-html.mjs'
 import type { TiptapNode } from './tiptap-html.mjs'
@@ -28,6 +29,9 @@ const imageDir = resolve(root, 'public/content')
 const API_BASE = process.env.VITE_API_BASE_URL
   ?? process.env.API_BASE_URL
   ?? 'https://api.training-center.org'
+
+/** 카테고리별 목록 엔드포인트. 경로가 한 곳에만 있도록 모아 둔다. */
+const contentsUrl = (category: string) => `/v1/public/contents?category=${category}`
 
 const fail = (message: string): never => {
   console.error(`\n❌ 콘텐츠 수집 실패 — ${message}`)
@@ -212,7 +216,7 @@ const main = async () => {
   mkdirSync(outDir, { recursive: true })
 
   // ── 공지
-  const noticeRaw = await api<{ total: number; list: PublicContent[] }>('/v1/public/contents?category=publicnotice')
+  const noticeRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.notice.key))
   const notices: { slug: string; title: string; description: string; date: string; html: string }[] = []
   for (const item of noticeRaw.list) {
     const { html, text } = await toHtml(item.content)
@@ -225,9 +229,9 @@ const main = async () => {
       html,
     })
   }
-  assertSlugs(notices, '공개 공지(publicnotice)')
+  assertSlugs(notices, `${PUBLIC_CATEGORY.notice.label}(${PUBLIC_CATEGORY.notice.key})`)
 
-  writeFileSync(resolve(outDir, 'notices.ts'), `${header('공개 API /v1/public/contents?category=publicnotice')}
+  writeFileSync(resolve(outDir, 'notices.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.notice.key)}`)}
 import type { INotice } from '@entity/ContentEntry'
 
 export const notices: INotice[] = [
@@ -244,13 +248,13 @@ export const findNotice = (slug: string) => notices.find(item => item.slug === s
 `, 'utf-8')
 
   // ── FAQ
-  const faqRaw = await api<{ total: number; list: PublicContent[] }>('/v1/public/contents?category=publicfaq')
+  const faqRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.faq.key))
   const faqs = faqRaw.list.map(item => ({
     question: item.subject ?? '',
     answer: (item.content ?? '').trim(),
   })).filter(f => f.question && f.answer)
 
-  writeFileSync(resolve(outDir, 'faqs.ts'), `${header('공개 API /v1/public/contents?category=publicfaq')}
+  writeFileSync(resolve(outDir, 'faqs.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.faq.key)}`)}
 export interface IFaq {
   question: string
   answer: string
@@ -265,7 +269,7 @@ ${faqs.map(f => `  {
 `, 'utf-8')
 
   // ── 후기
-  const storyRaw = await api<{ total: number; list: PublicContent[] }>('/v1/public/contents?category=publicstory')
+  const storyRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.story.key))
   const stories: { slug: string; title: string; description: string; date: string; html: string; relatedActivity: string }[] = []
   for (const item of storyRaw.list) {
     const { html, text } = await toHtml(item.content)
@@ -276,12 +280,12 @@ ${faqs.map(f => `  {
       description: summarize(item, text),
       date: dateOf(item),
       html,
-      relatedActivity: item.attributes?.relatedActivity ?? '',
+      relatedActivity: item.attributes?.[BOARD_ATTRIBUTE_KEY.relatedActivity] ?? '',
     })
   }
-  assertSlugs(stories, '공개 후기(publicstory)')
+  assertSlugs(stories, `${PUBLIC_CATEGORY.story.label}(${PUBLIC_CATEGORY.story.key})`)
 
-  writeFileSync(resolve(outDir, 'stories.ts'), `${header('공개 API /v1/public/contents?category=publicstory')}
+  writeFileSync(resolve(outDir, 'stories.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.story.key)}`)}
 import type { IStory } from '@entity/ContentEntry'
 
 export const stories: IStory[] = [
