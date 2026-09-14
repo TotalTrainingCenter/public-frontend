@@ -2,7 +2,6 @@
 import { useMouse } from '@vueuse/core'
 import { useTheme } from 'vuetify'
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
-import joinArrow from '@images/front-pages/icons/Join-community-arrow.png'
 import { activityGroups, totalActivityCount } from '@variables/activities'
 import { siteConfig } from '@variables/site'
 import heroDashboardImgDark from '@images/front-pages/landing-page/hero-dashboard-dark.png'
@@ -53,17 +52,7 @@ const translateMouse = computed(() => {
               일상 속 행동과 습관을 활동 주제로 제시하고, 수행한 뒤 기록하고 인증받는 플랫폼.<br class="d-none d-md-inline">
               지금 {{ activityGroups.length }}개 주제 · {{ totalActivityCount }}개 활동이 준비돼 있습니다.
             </h6>
-            <div class="position-relative">
-              <h6 class="position-absolute hero-btn-item d-md-flex d-none text-h6 text-medium-emphasis">
-                7일 무료
-                <VImg
-                  :src="joinArrow"
-                  class="flip-in-rtl"
-                  width="54"
-                  height="31"
-                />
-              </h6>
-
+            <div>
               <div class="d-flex flex-wrap justify-center gap-4">
                 <VBtn
                   :size="$vuetify.display.smAndUp ? 'large' : 'default'"
@@ -80,6 +69,10 @@ const translateMouse = computed(() => {
                   활동 주제 둘러보기
                 </VBtn>
               </div>
+
+              <p class="text-body-2 text-medium-emphasis mt-6 mb-0">
+                LVL.0 등급은 7일 무료입니다. 해보고 결정하셔도 됩니다.
+              </p>
             </div>
           </div>
         </VContainer>
@@ -299,10 +292,5 @@ section {
 
 .feature-cards {
   margin-block-start: 6.25rem;
-}
-
-.hero-btn-item {
-  inset-block-start: 80%;
-  inset-inline-start: 5%;
 }
 </style>

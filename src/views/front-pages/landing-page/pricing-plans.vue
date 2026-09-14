@@ -21,7 +21,11 @@ const planImages = [paperPlane, plane]
     <VContainer>
       <div class="pricing-plans">
         <!-- 👉 Headers  -->
-        <div class="headers d-flex justify-center flex-column align-center flex-wrap">
+        <!--
+          원본에는 헤더와 카드 사이에 요금 토글(mt-6 mb-16)이 있었다.
+          이 서비스는 등급이 둘뿐이라 토글을 뺐고, 그 여백은 여기서 준다.
+        -->
+        <div class="headers d-flex justify-center flex-column align-center flex-wrap mb-12">
           <VChip
             label
             color="primary"
@@ -45,7 +49,7 @@ const planImages = [paperPlane, plane]
           </div>
         </div>
 
-        <VRow>
+        <VRow class="ga-2">
           <VCol
             v-for="(plan, index) in membershipPlans"
             :key="plan.code"
@@ -113,7 +117,7 @@ const planImages = [paperPlane, plane]
             </VCard>
           </VCol>
         </VRow>
-        <p class="text-center text-body-2 text-disabled mt-8 mb-0">
+        <p class="text-center text-body-2 text-disabled mt-10 mb-0">
           기관·단체 단위 운영 등급은
           <RouterLink to="/partnership">
             제휴 문의
@@ -142,23 +146,13 @@ const planImages = [paperPlane, plane]
 }
 
 .pricing-plans {
-  margin-block: 5.25rem;
+  margin-block: 6.5rem;
 }
 
 @media (max-width: 600px) {
   .pricing-plans {
-    margin-block: 4rem;
+    margin-block: 4.5rem;
   }
-}
-
-.save-upto-chip {
-  inset-block-start: -1.5rem;
-  inset-inline-end: -7rem;
-}
-
-.pricing-plan-arrow {
-  inset-block-start: -0.5rem;
-  inset-inline-end: -8rem;
 }
 
 .section-title {
@@ -177,9 +171,5 @@ const planImages = [paperPlane, plane]
   inline-size: 120%;
   inset-block-end: 0;
   inset-inline-start: -12%;
-}
-
-.annual-price-text {
-  inset-block-end: -40%;
 }
 </style>
