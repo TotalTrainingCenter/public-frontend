@@ -49,7 +49,7 @@ const planImages = [paperPlane, plane]
           </div>
         </div>
 
-        <VRow class="ga-2">
+        <VRow>
           <VCol
             v-for="(plan, index) in membershipPlans"
             :key="plan.code"
