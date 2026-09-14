@@ -4,12 +4,16 @@ import { stories } from '../src/@variables/stories'
 
 export interface RouteEntry {
   path: string
+
   /** true 면 프리렌더는 하되 sitemap.xml 에는 넣지 않는다 (noindex 페이지). */
   excludeFromSitemap?: boolean
+
   /** 사이트맵 우선순위 (0.0 ~ 1.0). */
   priority: number
+
   /** 변경 주기. */
   changefreq: 'daily' | 'weekly' | 'monthly' | 'yearly'
+
   /** 최종 수정일 (YYYY-MM-DD). */
   lastmod?: string
 }
@@ -32,6 +36,13 @@ export const getRoutes = (): RouteEntry[] => [
 
   // 정책 원문은 policy.training-center.org 에 있다. 중복 색인을 피해 사이트맵에서 제외.
   { path: '/policy', priority: 0.3, changefreq: 'yearly', excludeFromSitemap: true },
+
+  /*
+   * 404 페이지. Apache 의 ErrorDocument 가 이 스냅샷을 쓴다.
+   * 없는 주소가 200 으로 랜딩 페이지를 돌려주면(soft 404) 검색엔진이
+   * 중복 콘텐츠로 보고 오타 URL 까지 색인한다.
+   */
+  { path: '/404', priority: 0.1, changefreq: 'yearly', excludeFromSitemap: true },
   { path: '/notice', priority: 0.7, changefreq: 'weekly' },
   { path: '/stories', priority: 0.8, changefreq: 'weekly' },
 

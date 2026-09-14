@@ -16,7 +16,7 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, extname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { activityMeta, COMMON_ACTIVITY_GROUP_ID } from '../src/@variables/activity-meta.js'
+import { COMMON_ACTIVITY_GROUP_ID, activityMeta } from '../src/@variables/activity-meta.js'
 import { BOARD_ATTRIBUTE_KEY, PUBLIC_CATEGORY } from '../src/@variables/public-category.js'
 import { membershipMeta } from '../src/@variables/membership-meta.js'
 import { extractText, renderTiptap } from './tiptap-html.mjs'
@@ -39,7 +39,7 @@ const fail = (message: string): never => {
   process.exit(1)
 }
 
-const api = async <T,>(path: string): Promise<T> => {
+const api = async <T>(path: string): Promise<T> => {
   const url = `${API_BASE}${path}`
 
   let response: Response
@@ -142,7 +142,7 @@ interface PublicMembershipPlan {
 }
 
 const q = (value: string | null | undefined): string =>
-  `'${String(value ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r?\n/g, '\\n')}'`
+  `'${String(value ?? '').replace(/\\/g, '\\\\').replace(/'/g, '\\\'').replace(/\r?\n/g, '\\n')}'`
 
 const header = (source: string) => `/**
  * ⚠️ 자동 생성 파일 — 직접 고치지 말 것.
@@ -249,6 +249,7 @@ export const findNotice = (slug: string) => notices.find(item => item.slug === s
 
   // ── FAQ
   const faqRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.faq.key))
+
   const faqs = faqRaw.list.map(item => ({
     question: item.subject ?? '',
     answer: (item.content ?? '').trim(),
@@ -321,8 +322,10 @@ export const findStory = (slug: string) => stories.find(item => item.slug === sl
   }
 
   const proofType = (proof: string): string => {
-    if (/영상/.test(proof)) return '동영상'
-    if (/사진|캡처|이미지|스크린샷|인증샷/.test(proof)) return '이미지'
+    if (/영상/.test(proof))
+      return '동영상'
+    if (/사진|캡처|이미지|스크린샷|인증샷/.test(proof))
+      return '이미지'
 
     return '텍스트'
   }
@@ -348,11 +351,12 @@ ${renderItems(common?.items ?? []).replace(/^ {6}/gm, '  ')}
 ]
 
 export const activityGroups: IPublicActivityGroup[] = [
-${groups.map((group) => {
+${groups.map(group => {
   const meta = activityMeta[group.id]
   const names = group.items.map(i => i.title).filter(Boolean).slice(0, 4).join(', ')
   const title = meta.category.endsWith('활동') ? meta.category : `${meta.category} 활동`
   const description = `${names} 등 ${group.items.length}가지. ${meta.category} 주제의 활동을 수행하고 인증으로 남겨 보세요.`
+
   const intro = `${meta.category} 주제에는 ${group.items.length}개의 활동이 있습니다. `
     + '활동마다 무엇을 인증해야 하는지 정해져 있어, 무엇을 할지 고민할 필요 없이 고르고 수행하면 됩니다.'
 
@@ -386,6 +390,7 @@ export const totalActivityCount = activityGroups
 
     return value === 0 ? '무료' : `₩${value.toLocaleString('ko-KR')}`
   }
+
   const periodLabel = (plan: PublicMembershipPlan) =>
     plan.durationInDays ? `${plan.durationInDays}일` : `${plan.durationInMonths ?? 1}개월`
 
@@ -393,7 +398,7 @@ export const totalActivityCount = activityGroups
 import type { IPublicMembershipPlan } from '@entity/PublicMembershipPlan'
 
 export const membershipPlans: IPublicMembershipPlan[] = [
-${plans.map((plan) => {
+${plans.map(plan => {
   const meta = membershipMeta[plan.name ?? ''] ?? { recommended: false, features: [] }
 
   return `  {

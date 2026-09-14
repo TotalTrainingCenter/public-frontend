@@ -63,6 +63,7 @@ const alignStyle = (attrs?: Record<string, any>): string =>
   attrs?.textAlign && attrs.textAlign !== 'left' ? ` style="text-align:${escapeAttr(String(attrs.textAlign))}"` : ''
 
 export interface RenderOptions {
+
   /** 이미지 src 를 바꿔치기한다. 빌드 때 내려받은 로컬 경로를 돌려주면 된다. */
   resolveImageSrc?: (src: string) => string
 }

@@ -17,7 +17,7 @@
  * 사전 준비: npm i -D puppeteer
  */
 import { createServer } from 'node:http'
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import puppeteer from 'puppeteer'
@@ -53,7 +53,7 @@ const MIME: Record<string, string> = {
 // dist 를 SPA fallback 방식으로 서빙하는 최소 정적 서버
 const server = createServer((req, res) => {
   const urlPath = decodeURIComponent((req.url ?? '/').split('?')[0])
-  let filePath = join(distDir, urlPath)
+  const filePath = join(distDir, urlPath)
 
   try {
     // 이전 라우트에서 생성된 스냅샷을 다시 읽지 않도록 HTML 은 항상 원본
@@ -119,6 +119,16 @@ for (const route of routes) {
 
 await browser.close()
 server.close()
+
+/*
+ * Apache 의 ErrorDocument 는 /404.html 을 찾는다.
+ * 프리렌더 결과(dist/404/index.html)를 그 경로로도 복사해 둔다.
+ */
+const notFoundSnapshot = join(distDir, '404', 'index.html')
+if (existsSync(notFoundSnapshot)) {
+  copyFileSync(notFoundSnapshot, join(distDir, '404.html'))
+  console.log('  ✔ 404.html')
+}
 
 if (failed > 0) {
   console.error(`\n❌ ${failed}개 라우트 프리렌더 실패. 배포를 중단한다.`)

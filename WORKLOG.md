@@ -286,7 +286,7 @@ DataGrip MCP 는 세션에 연결돼 있지 않아(레지스트리에도 없음)
 사용자가 알려준 설정을 프로젝트 루트 `.mcp.json` 에 등록해 두었다.
 
 ```json
-{ "mcpServers": { "datagrip": { "type": "http", "url": "http://127.0.0.1:64402/stream" } } }
+{ mcpServers: { datagrip: { type: 'http', url: 'http://127.0.0.1:64402/stream' } } }
 ```
 
 엔드포인트는 검증됨 (`DataGrip MCP Server 2026.2.5`, protocol 2025-06-18).
