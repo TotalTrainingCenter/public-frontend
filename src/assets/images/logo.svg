@@ -10,11 +10,16 @@
 
   ⚠️ 색은 currentColor 로 둔다. 부모의 color 를 따라가야
      라이트/다크 테마와 단색 인쇄에 모두 대응된다.
+  ⚠️ width/height 를 빼지 말 것. 이 파일은 themeConfig 에서 ?raw 로 읽어
+     innerHTML 로 주입되는데(부모에 line-height:0), 내재 크기가 없으면
+     사이드바·네비바에서 높이 0 으로 접혀 로고가 사라진다.
   ⚠️ viewBox 40x40 과 stroke-width 3.6 은 세트다. 한쪽만 바꾸면 균형이 깨진다.
   ⚠️ dasharray 는 호 길이(≈70.9)를 5등분한 값이다. 호를 바꾸면 다시 계산할 것.
 -->
 <svg
   xmlns="http://www.w3.org/2000/svg"
+  width="30"
+  height="30"
   viewBox="0 0 40 40"
   fill="none"
   role="img"
