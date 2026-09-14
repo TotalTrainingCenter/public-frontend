@@ -1,0 +1,40 @@
+<!--
+  종합 훈련 센터 심볼 마크.
+
+  컨셉: 기록이 쌓여 루틴이 되고, 인증이 그 루틴을 뚫고 나간다.
+    - 분절된 원 = 하루치 기록 하나하나. 그것이 이어져 순환(루틴)을 이룬다.
+    - 열린 틈   = 아직 끝나지 않았다는 뜻. 닫힌 원은 완결이지만 루틴은 계속된다.
+    - 체크      = 수행하고 기록해 인증받았다는 표시.
+    - 상승 획   = 체크의 긴 획이 틈을 통과해 밖으로 나간다. 반복이 쌓여 제자리를
+                  벗어나는 순간, 곧 '훈련'의 결과.
+
+  ⚠️ 색은 currentColor 로 둔다. 부모의 color 를 따라가야
+     라이트/다크 테마와 단색 인쇄에 모두 대응된다.
+  ⚠️ viewBox 40x40 과 stroke-width 3.6 은 세트다. 한쪽만 바꾸면 균형이 깨진다.
+  ⚠️ dasharray 는 호 길이(≈70.9)를 5등분한 값이다. 호를 바꾸면 다시 계산할 것.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 40 40"
+  fill="none"
+  role="img"
+  aria-label="종합 훈련 센터"
+>
+  <!-- 루틴: 하루치 기록이 이어져 만들어진 순환. 오른쪽 위가 열려 있다. -->
+  <path
+    d="M33.79 17.57 A14 14 0 1 1 22.43 6.21"
+    stroke="currentColor"
+    stroke-width="3.6"
+    stroke-linecap="round"
+    stroke-dasharray="8 6.17"
+  />
+
+  <!-- 인증: 틈을 통과해 상승하는 체크 -->
+  <path
+    d="M12.5 19.5 L18.5 25.5 L34 9"
+    stroke="currentColor"
+    stroke-width="3.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

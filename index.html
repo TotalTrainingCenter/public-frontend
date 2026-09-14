@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>종합 훈련 센터 | 일상을 루틴으로, 일상을 훈련으로</title>
+  <link rel="stylesheet" type="text/css" href="/loader.css" />
+
+  <!--
+    ℹ️ 기본(폴백) 메타. 실제 페이지별 메타는 각 페이지의 useSeo() 가 덮어쓴다.
+       프리렌더 빌드 결과물에는 페이지별 값이 정적으로 박힌다.
+  -->
+  <meta name="description" content="종합 훈련 센터는 일상 속 행동과 습관을 활동 주제로 제시하고, 수행 후 기록하고 인증받는 기록형 커뮤니티 플랫폼입니다." />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="canonical" href="https://training-center.org/" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#7367F0" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="종합 훈련 센터" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="종합 훈련 센터 | 일상을 루틴으로, 일상을 훈련으로" />
+  <meta property="og:description" content="일상 속 행동과 습관을 활동 주제로 제시하고, 수행 후 기록하고 인증받는 기록형 커뮤니티 플랫폼." />
+  <meta property="og:url" content="https://training-center.org/" />
+  <meta property="og:image" content="https://training-center.org/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="종합 훈련 센터" />
+  <meta name="twitter:description" content="일상을 루틴으로, 일상을 훈련으로" />
+  <meta name="twitter:image" content="https://training-center.org/og-image.png" />
+
+  <!-- TODO: apex 도메인으로 네이버/구글 소유확인 재등록 후 아래 값 교체 -->
+  <!-- <meta name="naver-site-verification" content="" /> -->
+  <!-- <meta name="google-site-verification" content="" /> -->
+</head>
+
+<body>
+  <div id="app">
+    <div id="loading-bg">
+      <div class="loading-logo">
+        <!-- SVG Logo -->
+        <svg width="86" height="48" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M0.00183571 0.3125V7.59485C0.00183571 7.59485 -0.141502 9.88783 2.10473 11.8288L14.5469 23.6837L21.0172 23.6005L19.9794 10.8126L17.5261 7.93369L9.81536 0.3125H0.00183571Z"
+            fill="var(--initial-loader-color)"
+/>
+          <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.17969 17.7762L13.3027 3.75173L17.589 8.02192L8.17969 17.7762Z" fill="#161616"
+/>
+          <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.58203 17.2248L14.8129 5.24231L17.6211 8.05247L8.58203 17.2248Z" fill="#161616"
+/>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8.25781 17.6914L25.1339 0.3125H33.9991V7.62657C33.9991 7.62657 33.8144 10.0645 32.5743 11.3686L21.0179 23.6875H14.5487L8.25781 17.6914Z"
+            fill="var(--initial-loader-color)"
+/>
+        </svg>
+      </div>
+      <div class=" loading">
+        <div class="effect-1 effects"></div>
+        <div class="effect-2 effects"></div>
+        <div class="effect-3 effects"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+  <script>
+    const loaderColor = localStorage.getItem('vuexy-initial-loader-bg') || '#FFFFFF'
+    const primaryColor = localStorage.getItem('vuexy-initial-loader-color') || '#7367F0'
+
+    if (loaderColor)
+      document.documentElement.style.setProperty('--initial-loader-bg', loaderColor)
+    if (loaderColor)
+      document.documentElement.style.setProperty('--initial-loader-bg', loaderColor)
+
+    if (primaryColor)
+      document.documentElement.style.setProperty('--initial-loader-color', primaryColor)
+    </script>
+  </body>
+</html>

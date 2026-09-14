@@ -1,0 +1,37 @@
+// These are styles which are both common in layout w/ vertical nav & horizontal nav
+@use "@layouts/styles/rtl";
+@use "@layouts/styles/placeholders";
+@use "@layouts/styles/mixins";
+@use "@configured-variables" as variables;
+
+html,
+body {
+  min-block-size: 100%;
+}
+
+.layout-page-content {
+  @include mixins.boxed-content(true);
+
+  flex-grow: 1;
+
+  // TODO: Use grid gutter variable here
+  padding-block: 1.5rem;
+}
+
+.layout-footer {
+  .footer-content-container {
+    // 모바일에서는 내용이 여러 줄로 쌓이므로 높이를 고정하지 않는다.
+    // 고정하면 줄이 늘어났을 때 위아래로 잘려 나간다.
+    min-block-size: variables.$layout-vertical-nav-footer-height;
+  }
+
+  .layout-footer-sticky & {
+    position: sticky;
+    inset-block-end: 0;
+    will-change: transform;
+  }
+
+  .layout-footer-hidden & {
+    display: none;
+  }
+}

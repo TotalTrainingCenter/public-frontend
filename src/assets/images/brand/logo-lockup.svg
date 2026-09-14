@@ -1,0 +1,47 @@
+<!--
+  가로형 로고 락업. 마크 + 한글 워드마크 + 영문 보조.
+  좁은 화면에서는 마크만(logo-mark.svg) 쓴다.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 236 40"
+  fill="none"
+  role="img"
+  aria-label="종합 훈련 센터 Total Training Center"
+>
+  <g>
+    <path
+      d="M33.79 17.57 A14 14 0 1 1 22.43 6.21"
+      stroke="currentColor"
+      stroke-width="3.6"
+      stroke-linecap="round"
+      stroke-dasharray="8 6.17"
+    />
+    <path
+      d="M12.5 19.5 L18.5 25.5 L34 9"
+      stroke="currentColor"
+      stroke-width="3.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <text
+    x="52" y="19"
+    fill="currentColor"
+    font-family="Pretendard, Apple SD Gothic Neo, Noto Sans KR, sans-serif"
+    font-size="17"
+    font-weight="700"
+    letter-spacing="-0.3"
+  >종합 훈련 센터</text>
+
+  <text
+    x="52" y="33"
+    fill="currentColor"
+    opacity="0.6"
+    font-family="Pretendard, Apple SD Gothic Neo, Noto Sans KR, sans-serif"
+    font-size="9"
+    font-weight="500"
+    letter-spacing="1.4"
+  >TOTAL TRAINING CENTER</text>
+</svg>
