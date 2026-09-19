@@ -41,11 +41,18 @@ useSeo({
         class="mx-auto"
         style="max-inline-size: 46rem;"
       >
-        <!-- eslint-disable-next-line vue/no-v-html -- 본문은 scripts/tiptap-html.mts 가 허용 목록 방식으로 생성한다 -->
+        <!--
+          본문은 scripts/tiptap-html.mts 가 허용 목록 방식으로 만든 HTML 이다.
+          텍스트는 전부 이스케이프되고, 거기서 만들어 내는 태그만 나갈 수 있다.
+          eslint-disable-next-line 은 여는 태그 줄에만 걸려 정작 v-html 줄을 덮지 못하므로
+          블록으로 끈다.
+        -->
+        <!-- eslint-disable vue/no-v-html -->
         <div
           class="content-body"
           v-html="notice.html"
         />
+        <!-- eslint-enable vue/no-v-html -->
 
         <VDivider class="my-10" />
 
