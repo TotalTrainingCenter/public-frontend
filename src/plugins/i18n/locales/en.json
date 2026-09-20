@@ -213,7 +213,8 @@
     "loading": "Loading",
     "noData": "No data",
     "requestFailed": "The server did not respond, or the request failed.",
-    "saved": "Saved"
+    "saved": "Saved",
+    "uploadStartFailed": "Could not start the upload."
   },
   "nav": {
     "about": "About",

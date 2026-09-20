@@ -213,7 +213,8 @@
     "loading": "불러오는 중입니다",
     "noData": "데이터가 없습니다",
     "requestFailed": "서버로 부터 응답이 없거나 요청 중 오류가 발생하였습니다.",
-    "saved": "저장되었습니다"
+    "saved": "저장되었습니다",
+    "uploadStartFailed": "업로드를 시작하지 못했습니다."
   },
   "nav": {
     "about": "소개",

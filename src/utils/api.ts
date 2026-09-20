@@ -1,4 +1,5 @@
 import { ofetch } from 'ofetch'
+import { getI18n } from '@/plugins/i18n'
 
 export const $api = ofetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -18,7 +19,7 @@ export const $api = ofetch.create({
     }
     else {
       // eslint-disable-next-line no-alert
-      alert(response._data.message || '서버로부터 응답이 없거나 요청 중 오류가 발생하였습니다')
+      alert(response._data.message || getI18n().global.t('message.requestFailed'))
     }
   },
 })
