@@ -27,6 +27,10 @@ export const siteConfig = {
   /** 로그인이 필요한 공식 플랫폼(기존 SPA) 주소. */
   platformUrl: env('VITE_PLATFORM_URL') || 'https://total.training-center.org',
 
+  /**
+   * 사이트맵/RSS 등 로케일 개념이 없는 산출물의 기본값.
+   * ⚠️ 페이지 메타의 og:locale 은 이걸 쓰지 않는다. useSeo 가 현재 언어로 만든다.
+   */
   locale: 'ko_KR',
   ogImage: '/og-image.png',
 

@@ -212,6 +212,7 @@
     "confirmDelete": "Are you sure you want to delete this?",
     "loading": "Loading",
     "noData": "No data",
+    "requestFailed": "The server did not respond, or the request failed.",
     "saved": "Saved"
   },
   "nav": {
@@ -231,6 +232,9 @@
     "partnership": "Partnership",
     "platformCta": "Go to the platform",
     "stories": "Stories"
+  },
+  "noti": {
+    "defaultTitle": "You have a new notification."
   },
   "page": {
     "activitiesJsonName": "Total Training Center activity topics",
@@ -349,5 +353,20 @@
     "verifyBody": "Two rules. First, upload right after doing it. Second, keep it unedited. A private checklist is easy to tick and move on from; a record that needs evidence is hard to skip. Those two rules are what separate this from a habit app.",
     "verifySummary": "Right after, unedited. That is what makes a record trustworthy.",
     "verifyTitle": "Get it verified"
+  },
+  "valid": {
+    "alpha": "Only letters are allowed.",
+    "alphaDash": "Only letters, numbers, - and _ are allowed.",
+    "between": "Enter a value between {min} and {max}.",
+    "confirmed": "Passwords do not match.",
+    "email": "Enter a valid email address.",
+    "integer": "Only numbers are allowed.",
+    "length": "Must be exactly {n} characters.",
+    "minAge": "You must be at least {age} years old to sign up.",
+    "password": "Use at least 8 characters with upper- and lower-case letters, a number and a symbol.",
+    "regex": "The format is invalid.",
+    "required": "This field is required.",
+    "requiredSelect": "Please make a selection.",
+    "url": "Enter a valid URL."
   }
 }

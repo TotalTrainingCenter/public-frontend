@@ -1,6 +1,14 @@
 import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
+import { getI18n } from '@/plugins/i18n'
 import { siteConfig } from '@variables/site'
+
+/** vue-i18n 로케일 → og:locale 표기. */
+const OG_LOCALE: Record<string, string> = {
+  ko: 'ko_KR',
+  ja: 'ja_JP',
+  en: 'en_US',
+}
 
 export interface SeoOptions {
 
@@ -37,7 +45,10 @@ export const useSeo = (options: SeoOptions) => {
    *    <title> 은 새로고침 전까지 그대로다. 프리렌더는 __PRERENDER_LOCALE__ 로
    *    ko 가 강제되므로 색인용 HTML 은 언제나 한국어다.
    */
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
+
+  /* og:locale 은 언어_지역 형식이라 로케일 코드를 그대로 쓸 수 없다. */
+  const ogLocale = OG_LOCALE[locale.value] ?? OG_LOCALE.en
 
   const canonical = `${siteConfig.url}${route.path === '/' ? '/' : route.path.replace(/\/$/, '')}`
   const title = `${options.title} | ${t('site.name')}`
@@ -59,7 +70,7 @@ export const useSeo = (options: SeoOptions) => {
 
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: t('site.name') },
-      { property: 'og:locale', content: siteConfig.locale },
+      { property: 'og:locale', content: ogLocale },
       { property: 'og:title', content: title },
       { property: 'og:description', content: options.description },
       { property: 'og:url', content: canonical },
@@ -77,7 +88,13 @@ export const useSeo = (options: SeoOptions) => {
   })
 }
 
-/** 사이트 전역 Organization / WebSite 구조화 데이터. 랜딩에서 1회만 사용. */
+/*
+ * 사이트 전역 Organization / WebSite 구조화 데이터. 랜딩에서 1회만 사용.
+ *
+ * 컴포저블이 아니라 i18n 인스턴스에서 직접 꺼낸다.
+ * ⚠️ Organization.name 은 법인/브랜드 식별자라 번역하지 않는다.
+ *    영문 표기는 alternateName 이 맡는다. 설명문과 사이트 표시명만 로케일을 따른다.
+ */
 export const organizationJsonLd = () => ([
   {
     '@context': 'https://schema.org',
@@ -86,13 +103,13 @@ export const organizationJsonLd = () => ([
     'alternateName': siteConfig.nameEn,
     'url': siteConfig.url,
     'logo': `${siteConfig.url}/ttc_logo.png`,
-    'description': siteConfig.description,
+    'description': getI18n().global.t('site.description'),
     'sameAs': Object.values(siteConfig.sns).filter(Boolean),
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    'name': siteConfig.name,
+    'name': getI18n().global.t('site.name'),
     'url': siteConfig.url,
     'inLanguage': 'ko-KR',
   },

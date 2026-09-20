@@ -19,8 +19,3 @@ export const defaultForm = reactive<ActivityForm>({
   required: false,
   parentActivity: undefined,
 })
-
-export const activityType = [
-  { title: '공통', value: 'COMMON' },
-  { title: '옵션', value: 'OPTIONAL' },
-]
