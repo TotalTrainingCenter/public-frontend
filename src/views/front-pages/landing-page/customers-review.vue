@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { register } from 'swiper/element/bundle'
-import { stories } from '@variables/stories'
+
+const { stories } = useLocalizedContent()
 
 /**
  * 활동 후기 섹션.
@@ -12,7 +13,7 @@ import { stories } from '@variables/stories'
  */
 register()
 
-const featured = computed(() => stories.slice(0, 6))
+const featured = computed(() => stories.value.slice(0, 6))
 </script>
 
 <template>
@@ -29,18 +30,18 @@ const featured = computed(() => stories.slice(0, 6))
             size="small"
             class="mb-4"
           >
-            활동 후기
+            {{ $t('landing.reviewChip') }}
           </VChip>
           <h2 class="d-flex align-center text-h4 mb-1 flex-wrap justify-center">
             <div class="position-relative me-2">
               <div class="section-title">
-                먼저 시작한
+                {{ $t('landing.reviewHeadingA') }}
               </div>
             </div>
-            사람들
+            {{ $t('landing.reviewHeadingB') }}
           </h2>
           <p class="text-body-1 mb-0">
-            잘 해낸 이야기만 모으지 않았습니다. 무너진 날의 기록도 함께 있습니다.
+            {{ $t('landing.reviewLead') }}
           </p>
         </div>
 
@@ -84,7 +85,7 @@ const featured = computed(() => stories.slice(0, 6))
             to="/stories"
             variant="tonal"
           >
-            후기 더 보기
+            {{ $t('landing.reviewMoreCta') }}
           </VBtn>
         </div>
       </div>

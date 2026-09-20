@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { activityGroups, totalActivityCount } from '@variables/activities'
 import { siteConfig } from '@variables/site'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { activityGroups, totalActivityCount } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
 useSeo({
-  title: '활동 주제',
-  description:
-    '건강·생활 습관, 정리·청소, 식사·요리, 학습·자기계발, 사회적 활동, 감성·정서 안정. '
-    + `종합 훈련 센터에서 인증할 수 있는 ${totalActivityCount}개 활동을 주제별로 확인하세요.`,
+  title: t('page.activitiesTitle'),
+  description: t('page.activitiesSeoDesc', { n: totalActivityCount.value }),
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    'name': '종합 훈련 센터 활동 주제',
-    'numberOfItems': activityGroups.length,
-    'itemListElement': activityGroups.map((group, index) => ({
+    'name': t('page.activitiesJsonName'),
+    'numberOfItems': activityGroups.value.length,
+    'itemListElement': activityGroups.value.map((group, index) => ({
       '@type': 'ListItem',
       'position': index + 1,
       'name': group.title,
@@ -28,8 +29,8 @@ useSeo({
 <template>
   <PageHeader
     eyebrow="Activities"
-    title="활동 주제"
-    :lead="`${activityGroups.length}개 주제, ${totalActivityCount}개 활동. 관심 있는 것부터 고르면 됩니다.`"
+    :title="$t('page.activitiesTitle')"
+    :lead="$t('page.activitiesLead', { groups: activityGroups.length, activities: totalActivityCount })"
   />
 
   <VContainer class="pb-16">
@@ -58,7 +59,7 @@ useSeo({
                 size="small"
                 variant="tonal"
               >
-                활동 {{ group.items.length }}개
+                {{ $t('landing.activitiesCount', { n: group.items.length }) }}
               </VChip>
             </div>
 
@@ -71,7 +72,7 @@ useSeo({
             </p>
 
             <p class="text-body-2 text-disabled mb-0">
-              추천 대상 · {{ group.targets.join(', ') }}
+              {{ $t('page.activitiesTargets', { list: group.targets.join(', ') }) }}
             </p>
           </VCardText>
         </VCard>
@@ -83,11 +84,11 @@ useSeo({
       variant="tonal"
       class="mt-8"
     >
-      활동 주제는 계속 늘어납니다. 개인 활동뿐 아니라 기업·학교·공공기관 단위 운영도
+      {{ $t('page.activitiesMorePre') }}
       <RouterLink to="/partnership">
-        제휴 문의
+        {{ $t('nav.partnership') }}
       </RouterLink>
-      를 통해 협의할 수 있습니다.
+      {{ $t('page.activitiesMorePost') }}
     </VAlert>
   </VContainer>
 </template>

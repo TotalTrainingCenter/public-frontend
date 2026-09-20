@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { stories } from '@variables/stories'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { stories } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
 useSeo({
-  title: '활동 후기',
+  title: t('page.storiesTitle'),
   description:
-    '실제 참여자들의 루틴 인증 후기와 변화 기록을 모았습니다.',
+    t('page.storiesSeoDesc'),
 })
 </script>
 
 <template>
   <PageHeader
     eyebrow="Stories"
-    title="활동 후기"
-    lead="먼저 시작한 분들의 기록입니다."
+    :title="$t('page.storiesTitle')"
+    :lead="$t('page.storiesLead')"
   />
 
   <VContainer class="pb-16">

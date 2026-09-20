@@ -51,7 +51,15 @@ export const siteConfig = {
 } as const
 
 export interface NavItem {
-  title: string
+
+  /**
+   * i18n 메시지 키. 화면에 그릴 때 컴포넌트가 $t() 로 푼다.
+   *
+   * ⚠️ 이 파일은 scripts/generate-sitemap.mts 에서도 임포트된다.
+   *    Node 에는 vue-i18n 이 없으므로 여기에 번역문이나 $t 를 두면 안 된다.
+   *    사이트맵은 `to` 만 읽으므로 키만 들고 있어도 문제없다.
+   */
+  titleKey: string
   to?: string
   href?: string
   children?: NavItem[]
@@ -60,32 +68,32 @@ export interface NavItem {
 /** 상단 GNB. TheNavbar 와 sitemap 생성 스크립트가 공유한다. */
 export const navigation: NavItem[] = [
   {
-    title: '소개',
+    titleKey: 'nav.about',
     to: '/about',
     children: [
-      { title: '서비스 소개', to: '/about' },
-      { title: '주요 기능', to: '/features' },
+      { titleKey: 'nav.aboutService', to: '/about' },
+      { titleKey: 'nav.features', to: '/features' },
     ],
   },
   {
-    title: '활동',
+    titleKey: 'nav.activities',
     to: '/activities',
     children: [
-      { title: '활동 주제', to: '/activities' },
-      { title: '이용 가이드', to: '/guide' },
+      { titleKey: 'nav.activityTopics', to: '/activities' },
+      { titleKey: 'nav.guide', to: '/guide' },
     ],
   },
-  { title: '멤버십', to: '/membership' },
+  { titleKey: 'nav.membership', to: '/membership' },
   {
-    title: '소식',
+    titleKey: 'nav.news',
     to: '/notice',
     children: [
-      { title: '공지사항', to: '/notice' },
-      { title: '활동 후기', to: '/stories' },
+      { titleKey: 'nav.notice', to: '/notice' },
+      { titleKey: 'nav.stories', to: '/stories' },
     ],
   },
-  { title: '제휴 문의', to: '/partnership' },
-  { title: 'FAQ', to: '/faq' },
+  { titleKey: 'nav.partnership', to: '/partnership' },
+  { titleKey: 'nav.faq', to: '/faq' },
 ]
 
 /**
@@ -97,19 +105,19 @@ export const navigation: NavItem[] = [
  *    (2) 법적 문서가 두 벌이 되어 개정 시 어긋난다.
  */
 export const policyDocuments: NavItem[] = [
-  { title: '서비스 이용약관', href: `${siteConfig.policyUrl}/policy2` },
-  { title: '개인정보 수집 및 처리방침', href: `${siteConfig.policyUrl}/policy1` },
-  { title: '유료서비스 및 환불정책', href: `${siteConfig.policyUrl}/policy3` },
-  { title: '콘텐츠 및 커뮤니티 운영정책', href: `${siteConfig.policyUrl}/policy4` },
-  { title: '성인 콘텐츠 및 연령확인 정책', href: `${siteConfig.policyUrl}/policy5` },
-  { title: '위치기반서비스 이용약관', href: `${siteConfig.policyUrl}/policy6` },
-  { title: '청소년 보호정책', href: `${siteConfig.policyUrl}/policy7` },
-  { title: '마케팅 정보 수신 동의', href: `${siteConfig.policyUrl}/policy8` },
+  { titleKey: 'policy.terms', href: `${siteConfig.policyUrl}/policy2` },
+  { titleKey: 'policy.privacy', href: `${siteConfig.policyUrl}/policy1` },
+  { titleKey: 'policy.refund', href: `${siteConfig.policyUrl}/policy3` },
+  { titleKey: 'policy.community', href: `${siteConfig.policyUrl}/policy4` },
+  { titleKey: 'policy.adult', href: `${siteConfig.policyUrl}/policy5` },
+  { titleKey: 'policy.location', href: `${siteConfig.policyUrl}/policy6` },
+  { titleKey: 'policy.youth', href: `${siteConfig.policyUrl}/policy7` },
+  { titleKey: 'policy.marketing', href: `${siteConfig.policyUrl}/policy8` },
 ]
 
 /** 푸터 하단 법적 고지 링크. */
 export const policyLinks: NavItem[] = [
-  { title: '서비스 이용약관', href: `${siteConfig.policyUrl}/policy2` },
-  { title: '개인정보 수집 및 처리방침', href: `${siteConfig.policyUrl}/policy1` },
-  { title: '약관 및 정책 전체', to: '/policy' },
+  { titleKey: 'policy.terms', href: `${siteConfig.policyUrl}/policy2` },
+  { titleKey: 'policy.privacy', href: `${siteConfig.policyUrl}/policy1` },
+  { titleKey: 'policy.all', to: '/policy' },
 ]

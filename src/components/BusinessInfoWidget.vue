@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
+const { t } = useI18n()
+
 // 👉 사업자 정보 (여기 값만 실제 정보로 바꾸면 됩니다)
+// ⚠️ 아래 값은 법적 등록 정보다. 번역하지 말 것. 라벨만 i18n 키를 쓴다.
 const businessInfo = {
   companyName: '종합 훈련 센터 (Total Training Center)',
   ceo: '김태민',
@@ -21,15 +24,15 @@ const ftcUrl = computed(
 )
 
 const rows = computed(() => [
-  { icon: 'tabler-building-store', label: '상호명', value: businessInfo.companyName },
-  { icon: 'tabler-user', label: '대표자', value: businessInfo.ceo },
-  { icon: 'tabler-id-badge-2', label: '사업자등록번호', value: businessInfo.regNo },
+  { icon: 'tabler-building-store', label: t('business.companyName'), value: businessInfo.companyName },
+  { icon: 'tabler-user', label: t('business.ceo'), value: businessInfo.ceo },
+  { icon: 'tabler-id-badge-2', label: t('business.regNo'), value: businessInfo.regNo },
 
-  // { icon: 'tabler-certificate', label: '통신판매업 신고번호', value: businessInfo.mailOrderNo },
-  { icon: 'tabler-map-pin', label: '사업장 주소', value: businessInfo.address },
-  { icon: 'tabler-phone', label: '대표 전화', value: businessInfo.tel },
-  { icon: 'tabler-mail', label: '이메일', value: businessInfo.email },
-  { icon: 'tabler-shield-lock', label: '개인정보관리책임자', value: businessInfo.privacyOfficer },
+  // { icon: 'tabler-certificate', label: t('business.mailOrderNo'), value: businessInfo.mailOrderNo },
+  { icon: 'tabler-map-pin', label: t('business.address'), value: businessInfo.address },
+  { icon: 'tabler-phone', label: t('business.tel'), value: businessInfo.tel },
+  { icon: 'tabler-mail', label: t('business.email'), value: businessInfo.email },
+  { icon: 'tabler-shield-lock', label: t('business.privacyOfficer'), value: businessInfo.privacyOfficer },
 ])
 
 const copiedLabel = ref<string | null>(null)
@@ -67,7 +70,7 @@ onKeyStroke('Escape', () => {
         <div class="business-info-widget__header d-flex align-center justify-space-between pa-4">
           <div class="d-flex flex-column">
             <span class="text-body-2 font-weight-medium text-white">
-              사업자 정보
+              {{ $t('business.sectionTitle') }}
             </span>
             <span class="text-caption text-white opacity-75">
               {{ businessInfo.companyName }}
@@ -78,7 +81,7 @@ onKeyStroke('Escape', () => {
             variant="text"
             color="white"
             size="small"
-            aria-label="사업자 정보 닫기"
+            :aria-label="$t('business.close')"
             @click="isOpen = false"
           />
         </div>
@@ -119,7 +122,7 @@ onKeyStroke('Escape', () => {
                   :color="copiedLabel === row.label ? 'success' : undefined"
                   variant="text"
                   size="x-small"
-                  :aria-label="`${row.label} 복사`"
+                  :aria-label="$t('business.copy', { label: row.label })"
                   @click="copy(row)"
                 />
               </template>
@@ -139,7 +142,7 @@ onKeyStroke('Escape', () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            사업자등록정보 조회
+            {{ $t('business.lookup') }}
           </VBtn>
         </div>
       </VCard>
@@ -153,7 +156,7 @@ onKeyStroke('Escape', () => {
       elevation="6"
       class="business-info-widget__launcher"
       :aria-expanded="isOpen"
-      aria-label="사업자 정보 보기"
+      :aria-label="$t('business.open')"
       @click="isOpen = !isOpen"
     >
       <VIcon
@@ -165,7 +168,7 @@ onKeyStroke('Escape', () => {
         activator="parent"
         location="left"
       >
-        사업자 정보
+        {{ $t('business.sectionTitle') }}
       </VTooltip>
     </VBtn>
   </div>

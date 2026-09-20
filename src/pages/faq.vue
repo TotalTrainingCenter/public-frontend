@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { faqs } from '@variables/faqs'
 import { siteConfig } from '@variables/site'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { faqs } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
 useSeo({
-  title: '자주 묻는 질문',
-  description:
-    '이용 요금, 인증 방법, 하루 소요 시간, 단체 이용까지. 종합 훈련 센터 이용 중 '
-    + '자주 묻는 질문을 모았습니다.',
+  title: t('page.faqTitle'),
+  description: t('page.faqSeoDesc'),
 
   // FAQPage 스키마는 구글 검색결과에 질문이 펼쳐진 형태로 노출될 수 있다.
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     'inLanguage': 'ko-KR',
-    'mainEntity': faqs.map(faq => ({
+    'mainEntity': faqs.value.map(faq => ({
       '@type': 'Question',
       'name': faq.question,
       'acceptedAnswer': {
@@ -31,8 +32,8 @@ useSeo({
 <template>
   <PageHeader
     eyebrow="FAQ"
-    title="자주 묻는 질문"
-    lead="여기서 해결되지 않으면 언제든 문의해 주세요."
+    :title="$t('page.faqTitle')"
+    :lead="$t('page.faqLead')"
   />
 
   <VContainer class="pb-16">
@@ -66,7 +67,7 @@ useSeo({
       >
         <VCardText class="text-center py-8">
           <h2 class="text-h6 mb-4">
-            찾는 답이 없으신가요?
+            {{ $t('page.faqNoAnswer') }}
           </h2>
 
           <VBtn :href="`mailto:${siteConfig.contact.email}`">

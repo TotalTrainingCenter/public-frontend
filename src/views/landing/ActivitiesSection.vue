@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { activityGroups, totalActivityCount } from '@variables/activities'
+const { activityGroups, totalActivityCount } = useLocalizedContent()
 
-const featured = computed(() => activityGroups.slice(0, 3))
+const featured = computed(() => activityGroups.value.slice(0, 3))
 </script>
 
 <template>
@@ -22,15 +22,15 @@ const featured = computed(() => activityGroups.slice(0, 3))
         <h2 class="d-flex align-center text-h4 mb-1 flex-wrap justify-center">
           <div class="position-relative me-2">
             <div class="section-title">
-              어떤 활동을
+              {{ $t('landing.activitiesHeadingA') }}
             </div>
           </div>
-          하나요?
+          {{ $t('landing.activitiesHeadingB') }}
         </h2>
 
         <p class="text-body-1">
-          일상 속 행동과 습관을 주제별로 모아 세부 활동으로 제시합니다.
-          지금 {{ activityGroups.length }}개 주제, {{ totalActivityCount }}개 활동이 준비돼 있습니다.
+          {{ $t('landing.activitiesLead1') }}
+          {{ $t('landing.activitiesLead2', { groups: activityGroups.length, activities: totalActivityCount }) }}
         </p>
       </div>
 
@@ -51,7 +51,7 @@ const featured = computed(() => activityGroups.slice(0, 3))
                 variant="tonal"
                 class="mb-3"
               >
-                활동 {{ activity.items.length }}개
+                {{ $t('landing.activitiesCount', { n: activity.items.length }) }}
               </VChip>
 
               <h3 class="text-h6 mb-2">
@@ -71,7 +71,7 @@ const featured = computed(() => activityGroups.slice(0, 3))
           to="/activities"
           variant="tonal"
         >
-          활동 주제 전체 보기
+          {{ $t('cta.allActivities') }}
         </VBtn>
       </div>
     </VContainer>

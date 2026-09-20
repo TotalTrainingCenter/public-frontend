@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { findNotice, notices } from '@variables/notices'
 import { siteConfig } from '@variables/site'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { findNotice, notices } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
@@ -9,11 +12,11 @@ const route = useRoute('notice-slug')
 
 const notice = computed(() => findNotice(String(route.params.slug)))
 
-const others = computed(() => notices.filter(item => item.slug !== notice.value?.slug))
+const others = computed(() => notices.value.filter(item => item.slug !== notice.value?.slug))
 
 useSeo({
-  title: notice.value?.title ?? '공지사항',
-  description: notice.value?.description ?? '종합 훈련 센터의 공지사항입니다.',
+  title: notice.value?.title ?? t('page.noticeTitle'),
+  description: notice.value?.description ?? t('page.noticeFallbackDesc'),
   noindex: !notice.value,
   jsonLd: notice.value
     ? {
@@ -57,7 +60,7 @@ useSeo({
         <VDivider class="my-10" />
 
         <h2 class="text-h6 mb-3">
-          다른 공지
+          {{ $t('page.noticeOther') }}
         </h2>
 
         <ul
@@ -79,7 +82,7 @@ useSeo({
           variant="tonal"
           class="mt-6"
         >
-          공지 목록으로
+          {{ $t('page.noticeBackToList') }}
         </VBtn>
       </div>
     </VContainer>
@@ -90,11 +93,11 @@ useSeo({
     class="py-16 text-center"
   >
     <h1 class="text-h5 mb-4">
-      존재하지 않는 공지입니다.
+      {{ $t('page.noticeMissing') }}
     </h1>
 
     <VBtn to="/notice">
-      공지 목록으로
+      {{ $t('page.noticeBackToList') }}
     </VBtn>
   </VContainer>
 </template>

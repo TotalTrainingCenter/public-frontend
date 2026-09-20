@@ -1,7 +1,14 @@
 import type { IContentEntry } from './ContentEntry'
 
-/** 인증 수단. 활동마다 무엇을 올려야 인정되는지가 다르다. */
-export type ProofType = '이미지' | '동영상' | '텍스트'
+/**
+ * 인증 수단. 활동마다 무엇을 올려야 인정되는지가 다르다.
+ *
+ * ⚠️ 한국어 리터럴 유니온('이미지' | '동영상' | '텍스트')으로 두면 안 된다.
+ *    이 값은 운영 DB 에서 오고 로케일별로 번역되어 내려온다.
+ *    ja/en 생성 파일에 '写真' 같은 값이 들어오는 순간 타입체크가 깨진다.
+ *    표시용 문자열이므로 좁힐 실익도 없다.
+ */
+export type ProofType = string
 
 /** 활동 그룹에 속한 개별 활동. */
 export interface IPublicActivityItem {

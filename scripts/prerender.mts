@@ -79,10 +79,28 @@ const routes = getRoutes()
 
 let failed = 0
 
+/*
+ * ⚠️ 프리렌더는 앱 기본 로케일(en)이 아니라 한국어로 굽는다.
+ *
+ * 두 가지를 동시에 막는다.
+ *  1. 헤드리스 크롬의 navigator.language 는 'en-US' 다. 그냥 두면 브라우저
+ *     감지가 걸려서 정적 HTML 이 전부 영어가 된다.
+ *  2. 이 사이트의 색인 대상은 네이버이고, 네이버가 읽어야 하는 본문은
+ *     한국어다. 영어 HTML 이 색인되면 한국어 검색 노출이 통째로 사라진다.
+ *
+ * 앱의 resolveLocale() 이 이 주입값을 쿠키·브라우저보다 먼저 읽는다.
+ * 영어 스냅샷이 필요하면 PRERENDER_LOCALE=en 으로 덮는다.
+ */
+const PRERENDER_LOCALE = process.env.PRERENDER_LOCALE ?? 'ko'
+
 for (const route of routes) {
   const page = await browser.newPage()
 
   try {
+    await page.evaluateOnNewDocument(locale => {
+      ;(window as any).__PRERENDER_LOCALE__ = locale
+    }, PRERENDER_LOCALE)
+
     /*
      * ⚠️ waitUntil 로 'networkidle0' 을 쓰지 말 것.
      *    이 앱은 폰트 로더·아이콘·테마 스크립트 때문에 네트워크가 완전히 조용해지지 않아

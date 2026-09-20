@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useWindowScroll } from '@vueuse/core'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
+import NavBarI18n from '@core/components/I18n.vue'
+import { themeConfig } from '@themeConfig'
 import LogoLockup from '@images/brand/logo-lockup.svg?component'
 import LogoMark from '@images/brand/logo-mark.svg?component'
 import { navigation, siteConfig } from '@variables/site'
@@ -34,7 +36,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
         to="/"
         class="d-flex align-center text-primary"
         style="text-decoration: none;"
-        :aria-label="`${siteConfig.name} 홈`"
+        :aria-label="`${$t('site.name')} ${$t('nav.home')}`"
       >
         <!-- 넓은 화면은 락업(마크+워드마크), 좁은 화면은 마크만 -->
         <LogoLockup
@@ -53,11 +55,11 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
       <!-- 👉 데스크톱 GNB -->
       <nav
         class="d-none d-md-flex align-center gap-x-1"
-        aria-label="주요 메뉴"
+        :aria-label="$t('nav.mainMenu')"
       >
         <template
           v-for="item in navigation"
-          :key="item.title"
+          :key="item.titleKey"
         >
           <VBtn
             v-if="!item.children"
@@ -65,7 +67,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
             variant="text"
             :active="isActive(item)"
           >
-            {{ item.title }}
+            {{ $t(item.titleKey) }}
           </VBtn>
 
           <VBtn
@@ -73,7 +75,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
             variant="text"
             :active="isActive(item)"
           >
-            {{ item.title }}
+            {{ $t(item.titleKey) }}
 
             <VMenu
               activator="parent"
@@ -82,16 +84,21 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
               <VList>
                 <VListItem
                   v-for="child in item.children"
-                  :key="child.title"
+                  :key="child.titleKey"
                   :to="child.to"
                 >
-                  {{ child.title }}
+                  {{ $t(child.titleKey) }}
                 </VListItem>
               </VList>
             </VMenu>
           </VBtn>
         </template>
       </nav>
+
+      <NavBarI18n
+        v-if="themeConfig.app.i18n.enable && themeConfig.app.i18n.langConfig?.length"
+        :languages="themeConfig.app.i18n.langConfig"
+      />
 
       <NavbarThemeSwitcher />
 
@@ -101,7 +108,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
         color="primary"
         class="d-none d-sm-flex"
       >
-        공식 플랫폼 바로가기
+        {{ $t('nav.platformCta') }}
       </VBtn>
 
       <!-- 👉 모바일 햄버거 -->
@@ -109,7 +116,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
         icon
         variant="text"
         class="d-md-none"
-        aria-label="메뉴 열기"
+        :aria-label="$t('nav.openMenu')"
         @click="isDrawerOpen = true"
       >
         <VIcon icon="tabler-menu-2" />
@@ -125,40 +132,50 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
       <VList nav>
         <template
           v-for="item in navigation"
-          :key="item.title"
+          :key="item.titleKey"
         >
           <VListGroup v-if="item.children">
             <template #activator="{ props: activatorProps }">
               <VListItem
                 v-bind="activatorProps"
-                :title="item.title"
+                :title="$t(item.titleKey)"
               />
             </template>
 
             <VListItem
               v-for="child in item.children"
-              :key="child.title"
+              :key="child.titleKey"
               :to="child.to"
-              :title="child.title"
+              :title="$t(child.titleKey)"
             />
           </VListGroup>
 
           <VListItem
             v-else
             :to="item.to"
-            :title="item.title"
+            :title="$t(item.titleKey)"
           />
         </template>
       </VList>
 
       <template #append>
         <div class="pa-4">
+          <div
+            v-if="themeConfig.app.i18n.enable && themeConfig.app.i18n.langConfig?.length"
+            class="d-flex justify-center mb-2"
+          >
+            <NavBarI18n
+              :languages="themeConfig.app.i18n.langConfig"
+              location="top center"
+            />
+          </div>
+
           <VBtn
             :href="siteConfig.platformUrl"
             color="primary"
             block
           >
-            공식 플랫폼 바로가기
+            {{ $t('nav.platformCta') }}
           </VBtn>
         </div>
       </template>

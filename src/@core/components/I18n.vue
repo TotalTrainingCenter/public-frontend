@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { I18nLanguage } from '@layouts/types'
+import type { SupportedLocale } from '@/plugins/i18n'
+import { setLocale } from '@/plugins/i18n'
 
 interface Props {
   languages: I18nLanguage[]
@@ -34,7 +36,7 @@ const { locale } = useI18n({ useScope: 'global' })
           v-for="lang in props.languages"
           :key="lang.i18nLang"
           :value="lang.i18nLang"
-          @click.prevent="locale = lang.i18nLang"
+          @click.prevent="setLocale(lang.i18nLang as SupportedLocale)"
         >
           <!-- Language label -->
           <VListItemTitle>

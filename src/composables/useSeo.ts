@@ -30,8 +30,17 @@ export interface SeoOptions {
 export const useSeo = (options: SeoOptions) => {
   const route = useRoute()
 
+  /*
+   * 사이트명은 화면에 보이는 문자열이라 로케일을 따른다.
+   *
+   * ⚠️ 이 값은 setup 시점에 한 번 정해진다. 페이지 안에서 언어를 바꿔도
+   *    <title> 은 새로고침 전까지 그대로다. 프리렌더는 __PRERENDER_LOCALE__ 로
+   *    ko 가 강제되므로 색인용 HTML 은 언제나 한국어다.
+   */
+  const { t } = useI18n()
+
   const canonical = `${siteConfig.url}${route.path === '/' ? '/' : route.path.replace(/\/$/, '')}`
-  const title = `${options.title} | ${siteConfig.name}`
+  const title = `${options.title} | ${t('site.name')}`
 
   const image = options.image
     ? (options.image.startsWith('http') ? options.image : `${siteConfig.url}${options.image}`)
@@ -49,7 +58,7 @@ export const useSeo = (options: SeoOptions) => {
       { name: 'robots', content: options.noindex ? 'noindex, nofollow' : 'index, follow' },
 
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: siteConfig.name },
+      { property: 'og:site_name', content: t('site.name') },
       { property: 'og:locale', content: siteConfig.locale },
       { property: 'og:title', content: title },
       { property: 'og:description', content: options.description },

@@ -3,23 +3,23 @@ import { serviceSteps } from '@variables/features'
 import { siteConfig } from '@variables/site'
 import { useSeo } from '@/composables/useSeo'
 
+const { t } = useI18n()
+
 definePage({ meta: { layout: 'public' } })
 
 useSeo({
-  title: '주요 기능',
-  description:
-    '활동 주제 선택 → 수행 → 기록 → 인증 → 누적. 종합 훈련 센터의 다섯 단계 흐름과 '
-    + '수행 직후 원본 인증 원칙을 단계별로 설명합니다.',
+  title: t('page.featuresTitle'),
+  description: t('page.featuresSeoDesc'),
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    'name': '종합 훈련 센터 이용 흐름',
+    'name': t('page.featuresFlowName'),
     'inLanguage': 'ko-KR',
     'step': serviceSteps.map((step, index) => ({
       '@type': 'HowToStep',
       'position': index + 1,
-      'name': step.title,
-      'text': step.summary,
+      'name': t(step.titleKey),
+      'text': t(step.summaryKey),
       'url': `${siteConfig.url}/features#${step.anchor}`,
     })),
   },
@@ -29,8 +29,8 @@ useSeo({
 <template>
   <PageHeader
     eyebrow="Features"
-    title="주요 기능"
-    lead="활동 제시 → 수행 → 기록 → 인증 → 누적. 이 다섯 단계가 전부입니다."
+    :title="$t('page.featuresTitle')"
+    :lead="$t('page.featuresLead')"
   />
 
   <VContainer class="pb-16">
@@ -53,12 +53,12 @@ useSeo({
           </VAvatar>
 
           <h2 class="text-h5 mb-0">
-            {{ step.title }}
+            {{ $t(step.titleKey) }}
           </h2>
         </div>
 
         <p class="text-body-1 mb-0">
-          {{ step.body }}
+          {{ $t(step.bodyKey) }}
         </p>
       </section>
 
@@ -67,11 +67,11 @@ useSeo({
         variant="tonal"
         class="mb-8"
       >
-        단계별 화면과 실제 조작 순서는
+        {{ $t('page.featuresGuidePre') }}
         <RouterLink to="/guide">
-          이용 가이드
+          {{ $t('nav.guide') }}
         </RouterLink>
-        에서 확인하실 수 있습니다.
+        {{ $t('page.featuresGuidePost') }}
       </VAlert>
 
       <div class="text-center">
@@ -79,7 +79,7 @@ useSeo({
           :href="siteConfig.platformUrl"
           size="large"
         >
-          공식 플랫폼 바로가기
+          {{ $t('cta.platform') }}
         </VBtn>
       </div>
     </div>

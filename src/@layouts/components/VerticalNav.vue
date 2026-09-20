@@ -85,7 +85,7 @@ const hideTitleAndIcon = configStore.isVerticalNavMini(isHovered)
               v-show="!hideTitleAndIcon"
               class="app-logo-title"
             >
-              종합 훈련 센터
+              {{ $t('site.name') }}
             </h1>
           </Transition>
         </RouterLink>

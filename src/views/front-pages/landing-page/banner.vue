@@ -12,17 +12,17 @@ import { siteConfig } from '@variables/site'
       <div class="d-flex justify-center justify-md-space-between flex-wrap gap-6 gap-x-10 position-relative pt-12">
         <div class="align-self-center">
           <h2 class="banner-title text-primary mb-1">
-            오늘 하나만 해보세요
+            {{ $t('landing.bannerTitle') }}
           </h2>
           <p class="text-h5 text-medium-emphasis mb-8">
-            LVL.0 등급은 7일 무료입니다. 해보고 결정하셔도 됩니다.
+            {{ $t('landing.heroTrial') }}
           </p>
           <VBtn
             color="primary"
             :href="siteConfig.platformUrl"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           >
-            공식 플랫폼 바로가기
+            {{ $t('cta.platform') }}
           </VBtn>
         </div>
 

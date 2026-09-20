@@ -4,14 +4,16 @@ import diamond from '@images/svg/Diamond.svg'
 import laptop from '@images/svg/laptop.svg'
 import user from '@images/svg/user.svg'
 
-import { activityGroups, totalActivityCount } from '@variables/activities'
+const { activityGroups, totalActivityCount } = useLocalizedContent()
 
 // 수치는 운영 DB 에서 생성된 활동 목록을 그대로 센다. 손으로 적지 말 것.
+const { t } = useI18n()
+
 const statData = computed(() => ([
-  { title: '활동 주제', value: `${activityGroups.length}개`, icon: laptop, color: 'primary' },
-  { title: '세부 활동', value: `${totalActivityCount}개`, icon: user, color: 'success' },
-  { title: '인증 방식 (사진·영상·텍스트)', value: '3가지', icon: diamond, color: 'info' },
-  { title: '하루 필요 시간', value: '5분', icon: check, color: 'warning' },
+  { title: t('landing.statTopics'), value: t('landing.statCount', { n: activityGroups.value.length }), icon: laptop, color: 'primary' },
+  { title: t('landing.statActivities'), value: t('landing.statCount', { n: totalActivityCount.value }), icon: user, color: 'success' },
+  { title: t('landing.statProofTypes'), value: t('landing.statProofValue'), icon: diamond, color: 'info' },
+  { title: t('landing.statDailyTime'), value: t('landing.statTimeValue'), icon: check, color: 'warning' },
 ]))
 </script>
 

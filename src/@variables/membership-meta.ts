@@ -13,25 +13,30 @@ export interface IMembershipMeta {
   /** 추천 강조 여부. */
   recommended: boolean
 
-  /** 기능 비교 항목. `true` 는 제공, `false` 는 미제공. */
-  features: { label: string; available: boolean }[]
+  /**
+   * 기능 비교 항목. `true` 는 제공, `false` 는 미제공.
+   *
+   * ⚠️ 문구가 아니라 i18n 키를 담는다. 이 파일은 scripts/fetch-content.mts 가
+   *    Node 에서 임포트하므로 여기에 $t 나 번역문을 두면 안 된다. 화면에서 푼다.
+   */
+  features: { labelKey: string; available: boolean }[]
 }
 
 export const membershipMeta: Record<string, IMembershipMeta> = {
   'LVL.0': {
     recommended: false,
     features: [
-      { label: '활동 주제 전체 열람', available: true },
-      { label: '활동 수행 및 인증 기록', available: true },
-      { label: '기간 제한 없이 이어가기', available: false },
+      { labelKey: 'member.featAllTopics', available: true },
+      { labelKey: 'member.featRecord', available: true },
+      { labelKey: 'member.featUnlimited', available: false },
     ],
   },
   'LVL.1': {
     recommended: true,
     features: [
-      { label: '활동 주제 전체 열람', available: true },
-      { label: '활동 수행 및 인증 기록', available: true },
-      { label: '기간 제한 없이 이어가기', available: true },
+      { labelKey: 'member.featAllTopics', available: true },
+      { labelKey: 'member.featRecord', available: true },
+      { labelKey: 'member.featUnlimited', available: true },
     ],
   },
 }

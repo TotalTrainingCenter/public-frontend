@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { findStory, stories } from '@variables/stories'
-import { findActivityGroup } from '@variables/activities'
 import { siteConfig } from '@variables/site'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { findActivityGroup, findStory, stories } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
@@ -13,11 +15,11 @@ const story = computed(() => findStory(String(route.params.slug)))
 const relatedActivity = computed(() =>
   story.value?.relatedActivity ? findActivityGroup(story.value.relatedActivity) : undefined)
 
-const others = computed(() => stories.filter(item => item.slug !== story.value?.slug).slice(0, 3))
+const others = computed(() => stories.value.filter(item => item.slug !== story.value?.slug).slice(0, 3))
 
 useSeo({
-  title: story.value?.title ?? '활동 후기',
-  description: story.value?.description ?? '종합 훈련 센터 활동 후기입니다.',
+  title: story.value?.title ?? t('page.storiesTitle'),
+  description: story.value?.description ?? t('page.storyFallbackDesc'),
   noindex: !story.value,
   jsonLd: story.value
     ? {
@@ -67,7 +69,7 @@ useSeo({
         >
           <VCardText>
             <p class="text-body-2 mb-2">
-              이 후기에 나온 활동 주제
+              {{ $t('page.storyTopicHeading') }}
             </p>
 
             <h2 class="text-h6 mb-2">
@@ -79,7 +81,7 @@ useSeo({
             </p>
 
             <VBtn :to="`/activities/${relatedActivity.slug}`">
-              활동 주제 보기
+              {{ $t('page.storyTopicCta') }}
             </VBtn>
           </VCardText>
         </VCard>
@@ -87,7 +89,7 @@ useSeo({
         <VDivider class="my-10" />
 
         <h2 class="text-h6 mb-3">
-          다른 후기
+          {{ $t('page.storyOther') }}
         </h2>
 
         <ul
@@ -109,7 +111,7 @@ useSeo({
           variant="tonal"
           class="mt-6"
         >
-          후기 목록으로
+          {{ $t('page.storyBackToList') }}
         </VBtn>
       </div>
     </VContainer>
@@ -120,11 +122,11 @@ useSeo({
     class="py-16 text-center"
   >
     <h1 class="text-h5 mb-4">
-      존재하지 않는 글입니다.
+      {{ $t('page.storyMissing') }}
     </h1>
 
     <VBtn to="/stories">
-      후기 목록으로
+      {{ $t('page.storyBackToList') }}
     </VBtn>
   </VContainer>
 </template>

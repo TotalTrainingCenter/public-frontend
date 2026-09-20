@@ -20,18 +20,18 @@ import { siteConfig } from '@variables/site'
           class="mb-4"
           size="small"
         >
-          제휴 문의
+          {{ $t('landing.contactChip') }}
         </VChip>
         <h2 class="d-flex align-center text-h4 mb-1 flex-wrap justify-center">
           <div class="position-relative me-2">
             <div class="section-title">
-              함께 만들
+              {{ $t('landing.contactHeadingA') }}
             </div>
           </div>
-          분을 찾습니다
+          {{ $t('landing.contactHeadingB') }}
         </h2>
         <p class="text-body-1 mb-0">
-          기업, 학교, 공공기관 어디서든 협업 제안을 환영합니다.
+          {{ $t('landing.contactLead') }}
         </p>
       </div>
 
@@ -56,7 +56,7 @@ import { siteConfig } from '@variables/site'
                   <div class="d-flex justify-space-between flex-wrap gap-y-4">
                     <div
                       v-for="(item, index) in [
-                        { title: '제휴·문의 메일', icon: 'tabler-mail', color: 'primary', value: siteConfig.contact.email },
+                        { title: $t('landing.contactMailLabel'), icon: 'tabler-mail', color: 'primary', value: siteConfig.contact.email },
                       ]"
                       :key="index"
                       class="d-flex gap-x-3 align-center"
@@ -97,33 +97,33 @@ import { siteConfig } from '@variables/site'
             <VCard>
               <VCardItem class="pb-0">
                 <h3 class="text-h4 mb-1">
-                  문의하기
+                  {{ $t('landing.contactFormTitle') }}
                 </h3>
               </VCardItem>
 
               <VCardText>
                 <p class="mb-6">
-                  사내 습관 챌린지, 학급 단위 활동, 공공 캠페인 등 단체 단위 운영을 함께 설계해 드립니다.
-                  아래 내용을 담아 메일 주시면 확인 후 회신드립니다.
+                  {{ $t('landing.contactDesc1') }}
+                  {{ $t('landing.contactDesc2') }}
                 </p>
 
                 <VList class="mb-6">
-                  <VListItem title="단체명과 담당자 연락처" />
-                  <VListItem title="예상 참여 인원과 운영 기간" />
-                  <VListItem title="원하시는 활동 주제 또는 달성하려는 목표" />
-                  <VListItem title="기존에 운영 중인 프로그램이 있다면 그 내용" />
+                  <VListItem :title="$t('landing.contactItem1')" />
+                  <VListItem :title="$t('landing.contactItem2')" />
+                  <VListItem :title="$t('landing.contactItem3')" />
+                  <VListItem :title="$t('landing.contactItem4')" />
                 </VList>
 
                 <div class="d-flex flex-wrap gap-4">
-                  <VBtn :href="`mailto:${siteConfig.contact.email}?subject=[제휴 문의] 종합 훈련 센터`">
-                    메일로 문의하기
+                  <VBtn :href="`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent($t('landing.contactMailSubject'))}`">
+                    {{ $t('landing.contactMailCta') }}
                   </VBtn>
 
                   <VBtn
                     to="/partnership"
                     variant="tonal"
                   >
-                    제휴 안내 자세히 보기
+                    {{ $t('landing.contactMoreCta') }}
                   </VBtn>
                 </div>
               </VCardText>

@@ -3,12 +3,12 @@ import LogoMark from '@images/brand/logo-mark.svg?component'
 import { navigation, policyLinks, siteConfig } from '@variables/site'
 
 const snsLinks = computed(() => ([
-  { title: '인스타그램', href: siteConfig.sns.instagram, icon: 'tabler-brand-instagram' },
-  { title: '스레드', href: siteConfig.sns.threads, icon: 'tabler-brand-threads' },
-  { title: '페이스북', href: siteConfig.sns.facebook, icon: 'tabler-brand-facebook' },
-  { title: 'X', href: siteConfig.sns.x, icon: 'tabler-brand-x' },
-  { title: '네이버 블로그', href: siteConfig.sns.naverBlog, icon: 'tabler-notebook' },
-  { title: '네이버 카페', href: siteConfig.sns.naverCafe, icon: 'tabler-users' },
+  { titleKey: 'sns.instagram', href: siteConfig.sns.instagram, icon: 'tabler-brand-instagram' },
+  { titleKey: 'sns.threads', href: siteConfig.sns.threads, icon: 'tabler-brand-threads' },
+  { titleKey: 'sns.facebook', href: siteConfig.sns.facebook, icon: 'tabler-brand-facebook' },
+  { titleKey: 'sns.x', href: siteConfig.sns.x, icon: 'tabler-brand-x' },
+  { titleKey: 'sns.naverBlog', href: siteConfig.sns.naverBlog, icon: 'tabler-notebook' },
+  { titleKey: 'sns.naverCafe', href: siteConfig.sns.naverCafe, icon: 'tabler-users' },
 ].filter(item => item.href)))
 
 const year = new Date().getFullYear()
@@ -29,20 +29,20 @@ const year = new Date().getFullYear()
             />
 
             <span class="text-h6 font-weight-bold">
-              {{ siteConfig.name }}
+              {{ $t('site.name') }}
             </span>
           </div>
 
           <p class="text-body-2 mb-4">
-            {{ siteConfig.slogan }}
+            {{ $t('site.slogan') }}
           </p>
 
           <div class="d-flex gap-x-2">
             <VBtn
               v-for="sns in snsLinks"
-              :key="sns.title"
+              :key="sns.titleKey"
               :href="sns.href"
-              :aria-label="sns.title"
+              :aria-label="$t(sns.titleKey)"
               icon
               variant="text"
               size="small"
@@ -56,21 +56,21 @@ const year = new Date().getFullYear()
 
         <VCol
           v-for="item in navigation"
-          :key="item.title"
+          :key="item.titleKey"
           cols="6"
           md="2"
         >
           <div class="font-weight-medium mb-3">
-            {{ item.title }}
+            {{ $t(item.titleKey) }}
           </div>
 
           <ul class="public-footer__list">
             <li
               v-for="child in (item.children ?? [item])"
-              :key="child.title"
+              :key="child.titleKey"
             >
               <RouterLink :to="child.to!">
-                {{ child.title }}
+                {{ $t(child.titleKey) }}
               </RouterLink>
             </li>
           </ul>
@@ -91,7 +91,7 @@ const year = new Date().getFullYear()
         <ul class="public-footer__list public-footer__list--inline">
           <li
             v-for="policy in policyLinks"
-            :key="policy.title"
+            :key="policy.titleKey"
           >
             <!-- 정책 원문은 외부(policy.training-center.org), 허브는 내부 라우트 -->
             <a
@@ -100,14 +100,14 @@ const year = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
             >
-              {{ policy.title }}
+              {{ $t(policy.titleKey) }}
             </a>
 
             <RouterLink
               v-else
               :to="policy.to!"
             >
-              {{ policy.title }}
+              {{ $t(policy.titleKey) }}
             </RouterLink>
           </li>
         </ul>

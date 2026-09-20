@@ -10,14 +10,16 @@ import user from '@images/svg/user.svg'
  * 랜딩의 '왜 이 방식인가' 섹션.
  * 5단계 흐름(serviceSteps)은 /features 페이지가 다루고, 여기서는 차별점을 보여준다.
  */
-const featuresData = [
-  { title: '고르기만 하면 시작', desc: '무엇을 습관으로 삼을지 직접 설계하지 않아도 됩니다. 주제별로 정리된 활동에서 고르면 됩니다.', icon: laptop },
-  { title: '증거가 있는 기록', desc: '체크박스는 누구나 누릅니다. 수행 직후의 원본 기록을 남기니 스스로를 속이기 어렵습니다.', icon: check },
-  { title: '하루 5분이면 충분', desc: '물 한 병, 스트레칭 한 번, 책상 한 칸. 평일에도 무너지지 않는 크기로 설계했습니다.', icon: rocket },
-  { title: '혼자가 아닌 기록', desc: '같은 활동을 하는 사람들의 기록이 함께 쌓입니다. 나만 하고 있는 게 아니라는 감각이 남습니다.', icon: user },
-  { title: '무너져도 이어집니다', desc: '하루 빠뜨려도 처음부터 다시 시작하지 않습니다. 못 한 날도 기록의 일부입니다.', icon: paper },
-  { title: '개인을 넘어서', desc: '사회적 취약 계층에 도움이 되는 주제도 함께 만들고, 기업·학교·공공기관 협업도 엽니다.', icon: keyboard },
-]
+const { t } = useI18n()
+
+const featuresData = computed(() => ([
+  { title: t('landing.whyPickTitle'), desc: t('landing.whyPickDesc'), icon: laptop },
+  { title: t('landing.whyProofTitle'), desc: t('landing.whyProofDesc'), icon: check },
+  { title: t('landing.whyFiveTitle'), desc: t('landing.whyFiveDesc'), icon: rocket },
+  { title: t('landing.whyTogetherTitle'), desc: t('landing.whyTogetherDesc'), icon: user },
+  { title: t('landing.whyResumeTitle'), desc: t('landing.whyResumeDesc'), icon: paper },
+  { title: t('landing.whyBeyondTitle'), desc: t('landing.whyBeyondDesc'), icon: keyboard },
+]))
 </script>
 
 <template>
@@ -30,18 +32,18 @@ const featuresData = [
           class="mb-4"
           size="small"
         >
-          왜 이 방식인가
+          {{ $t('landing.whyChip') }}
         </VChip>
         <h2 class="d-flex text-h4 mb-1 align-center flex-wrap justify-center">
           <div class="position-relative me-2">
             <div class="section-title">
-              작심삼일로 끝나지
+              {{ $t('landing.whyHeadingA') }}
             </div>
           </div>
-          않는 이유
+          {{ $t('landing.whyHeadingB') }}
         </h2>
         <p class="text-body-1 mb-0">
-          의지가 부족해서가 아닙니다. 무엇을 할지 정하는 데 힘을 다 쓰고, 하고 나서 아무것도 남지 않기 때문입니다.
+          {{ $t('landing.whyLead') }}
         </p>
       </div>
       <VRow>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import boyWithLogo from '@images/front-pages/landing-page/faq-boy-with-logos.png'
 
-import { faqs } from '@variables/faqs'
+const { faqs } = useLocalizedContent()
 
 /**
  * 랜딩에는 대표 질문 5개만. 전체는 /faq 에서 본다.
  * 원본 데이터는 관리자(publicfaq 게시판)에서 관리된다.
  */
-const faqData = computed(() => faqs.slice(0, 5))
+const faqData = computed(() => faqs.value.slice(0, 5))
 </script>
 
 <template>
@@ -25,15 +25,15 @@ const faqData = computed(() => faqs.slice(0, 5))
             FAQ
           </VChip>
           <h2 class="d-flex align-center text-h4 mb-1 flex-wrap justify-center">
-            자주 묻는
+            {{ $t('landing.faqHeadingA') }}
             <div class="position-relative ms-2">
               <div class="section-title">
-                질문
+                {{ $t('landing.faqHeadingB') }}
               </div>
             </div>
           </h2>
           <p class="text-body-1 mb-0">
-            궁금한 점이 여기서 해결되지 않으면 언제든 문의해 주세요.
+            {{ $t('landing.faqLead') }}
           </p>
         </div>
         <VRow>

@@ -1,5 +1,5 @@
 export interface IPublicMembershipFeature {
-  label: string
+  labelKey: string
   available: boolean
 }
 

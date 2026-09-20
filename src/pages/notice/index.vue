@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { notices } from '@variables/notices'
 import { useSeo } from '@/composables/useSeo'
+
+const { t } = useI18n()
+
+const { notices } = useLocalizedContent()
 
 definePage({ meta: { layout: 'public' } })
 
 useSeo({
-  title: '공지사항',
+  title: t('page.noticeTitle'),
   description:
-    '종합 훈련 센터의 서비스 공지와 운영 소식을 확인하세요.',
+    t('page.noticeSeoDesc'),
 })
 </script>
 
 <template>
   <PageHeader
     eyebrow="Notice"
-    title="공지사항"
-    lead="서비스 운영과 관련된 소식을 전해드립니다."
+    :title="$t('page.noticeTitle')"
+    :lead="$t('page.noticeLead')"
   />
 
   <VContainer class="pb-16">

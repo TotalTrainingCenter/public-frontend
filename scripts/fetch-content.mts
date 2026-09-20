@@ -16,22 +16,42 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, extname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { COMMON_ACTIVITY_GROUP_ID, activityMeta } from '../src/@variables/activity-meta.js'
+import { COMMON_ACTIVITY_GROUP_ID, TARGET_LABELS, activityMeta } from '../src/@variables/activity-meta.js'
 import { BOARD_ATTRIBUTE_KEY, PUBLIC_CATEGORY } from '../src/@variables/public-category.js'
 import { membershipMeta } from '../src/@variables/membership-meta.js'
 import { extractText, renderTiptap } from './tiptap-html.mjs'
 import type { TiptapNode } from './tiptap-html.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const outDir = resolve(root, 'src/@variables/generated')
+const generatedDir = resolve(root, 'src/@variables/generated')
+
+/** 로케일별 생성물 위치. 루트에는 세 언어를 묶는 배럴만 둔다. */
+const localeOutDir = (locale: Locale) => resolve(generatedDir, locale)
 const imageDir = resolve(root, 'public/content')
 
 const API_BASE = process.env.VITE_API_BASE_URL
   ?? process.env.API_BASE_URL
   ?? 'https://api.training-center.org'
 
+/**
+ * 수집할 로케일.
+ *
+ * 프론트의 SUPPORTED_LOCALES(src/plugins/i18n/index.ts) 와 짝을 이룬다.
+ * 언어를 쿠키로 바꾸는 구조라 클라이언트가 세 언어를 모두 들고 있어야 한다.
+ *
+ * ⚠️ [SOURCE_LOCALE] 은 원문이다. 맨 먼저 수집해야 한다.
+ *    활동 메타·멤버십 메타가 한국어 값을 키로 쓰기 때문에, 번역본만으로는
+ *    메타를 찾지 못한다. (main 의 metaKeyByPlanId 주석 참고)
+ */
+const LOCALES = ['ko', 'ja', 'en'] as const
+
+type Locale = typeof LOCALES[number]
+
+const SOURCE_LOCALE: Locale = 'ko'
+
 /** 카테고리별 목록 엔드포인트. 경로가 한 곳에만 있도록 모아 둔다. */
-const contentsUrl = (category: string) => `/v1/public/contents?category=${category}`
+const contentsUrl = (category: string, locale: Locale) =>
+  `/v1/public/contents?category=${category}&locale=${locale}`
 
 const fail = (message: string): never => {
   console.error(`\n❌ 콘텐츠 수집 실패 — ${message}`)
@@ -209,14 +229,19 @@ const assertSlugs = (items: { slug: string }[], label: string) => {
   }
 }
 
-const main = async () => {
-  console.log(`콘텐츠 수집 — ${API_BASE}`)
-
-  rmSync(imageDir, { recursive: true, force: true })
+/**
+ * 한 로케일분을 수집해 `generated/<locale>/` 에 쓴다.
+ *
+ * @param metaKeyByPlanId 멤버십 플랜 id → **한국어** 플랜명.
+ *   membershipMeta 는 한국어 이름을 키로 쓴다. 번역된 이름으로 찾으면 전부 빗나가고,
+ *   기능 목록과 추천 배지가 통째로 사라진 채 배포된다. 원문 패스에서 만든 표를 넘겨받는다.
+ */
+const collectAndWrite = async (locale: Locale, metaKeyByPlanId: Map<number, string>) => {
+  const outDir = localeOutDir(locale)
   mkdirSync(outDir, { recursive: true })
 
   // ── 공지
-  const noticeRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.notice.key))
+  const noticeRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.notice.key, locale))
   const notices: { slug: string; title: string; description: string; date: string; html: string }[] = []
   for (const item of noticeRaw.list) {
     const { html, text } = await toHtml(item.content)
@@ -231,7 +256,7 @@ const main = async () => {
   }
   assertSlugs(notices, `${PUBLIC_CATEGORY.notice.label}(${PUBLIC_CATEGORY.notice.key})`)
 
-  writeFileSync(resolve(outDir, 'notices.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.notice.key)}`)}
+  writeFileSync(resolve(outDir, 'notices.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.notice.key, locale)}`)}
 import type { INotice } from '@entity/ContentEntry'
 
 export const notices: INotice[] = [
@@ -248,14 +273,14 @@ export const findNotice = (slug: string) => notices.find(item => item.slug === s
 `, 'utf-8')
 
   // ── FAQ
-  const faqRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.faq.key))
+  const faqRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.faq.key, locale))
 
   const faqs = faqRaw.list.map(item => ({
     question: item.subject ?? '',
     answer: (item.content ?? '').trim(),
   })).filter(f => f.question && f.answer)
 
-  writeFileSync(resolve(outDir, 'faqs.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.faq.key)}`)}
+  writeFileSync(resolve(outDir, 'faqs.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.faq.key, locale)}`)}
 export interface IFaq {
   question: string
   answer: string
@@ -270,7 +295,7 @@ ${faqs.map(f => `  {
 `, 'utf-8')
 
   // ── 후기
-  const storyRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.story.key))
+  const storyRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.story.key, locale))
   const stories: { slug: string; title: string; description: string; date: string; html: string; relatedActivity: string }[] = []
   for (const item of storyRaw.list) {
     const { html, text } = await toHtml(item.content)
@@ -286,7 +311,7 @@ ${faqs.map(f => `  {
   }
   assertSlugs(stories, `${PUBLIC_CATEGORY.story.label}(${PUBLIC_CATEGORY.story.key})`)
 
-  writeFileSync(resolve(outDir, 'stories.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.story.key)}`)}
+  writeFileSync(resolve(outDir, 'stories.ts'), `${header(`공개 API ${contentsUrl(PUBLIC_CATEGORY.story.key, locale)}`)}
 import type { IStory } from '@entity/ContentEntry'
 
 export const stories: IStory[] = [
@@ -304,7 +329,7 @@ export const findStory = (slug: string) => stories.find(item => item.slug === sl
 `, 'utf-8')
 
   // ── 활동
-  const activities = await api<PublicActivity[]>('/v1/public/activities')
+  const activities = await api<PublicActivity[]>(`/v1/public/activities?locale=${locale}`)
   const common = activities.find(g => g.id === COMMON_ACTIVITY_GROUP_ID)
   const groups = activities.filter(g => g.id !== COMMON_ACTIVITY_GROUP_ID)
 
@@ -342,7 +367,7 @@ export const findStory = (slug: string) => stories.find(item => item.slug === sl
       },`
   }).join('\n')
 
-  writeFileSync(resolve(outDir, 'activities.ts'), `${header('공개 API /v1/public/activities')}
+  writeFileSync(resolve(outDir, 'activities.ts'), `${header(`공개 API /v1/public/activities?locale=${locale}`)}
 import type { IPublicActivityGroup, IPublicActivityItem } from '@entity/PublicActivity'
 
 /** 회원 등록 시 전원에게 자동 부여되는 공통 활동. 주제 페이지를 만들지 않는다. */
@@ -354,20 +379,40 @@ export const activityGroups: IPublicActivityGroup[] = [
 ${groups.map(group => {
   const meta = activityMeta[group.id]
   const names = group.items.map(i => i.title).filter(Boolean).slice(0, 4).join(', ')
-  const title = meta.category.endsWith('활동') ? meta.category : `${meta.category} 활동`
-  const description = `${names} 등 ${group.items.length}가지. ${meta.category} 주제의 활동을 수행하고 인증으로 남겨 보세요.`
+  const category = meta.category[locale]
+  const count = group.items.length
 
-  const intro = `${meta.category} 주제에는 ${group.items.length}개의 활동이 있습니다. `
-    + '활동마다 무엇을 인증해야 하는지 정해져 있어, 무엇을 할지 고민할 필요 없이 고르고 수행하면 됩니다.'
+  /*
+   * 제목·설명·인트로는 여기서 조립한다. 문장 틀이 언어마다 다르므로
+   * 한 곳에 몰아 두지 않으면 ja/en 파일에 한국어가 섞여 들어간다.
+   */
+  const title = locale === 'ko'
+    ? (category.endsWith('활동') ? category : `${category} 활동`)
+    : category
+
+  const description = locale === 'ja'
+    ? `${names} など${count}種類。${category}のアクティビティを実行して、認証として残してみましょう。`
+    : locale === 'en'
+      ? `${names} and ${count} more. Take on the ${category} activities and log them as verified records.`
+      : `${names} 등 ${count}가지. ${category} 주제의 활동을 수행하고 인증으로 남겨 보세요.`
+
+  const intro = locale === 'ja'
+    ? `${category}のテーマには${count}個のアクティビティがあります。`
+      + 'アクティビティごとに何を認証すべきか決まっているので、何をするか悩む必要はありません。選んで実行するだけです。'
+    : locale === 'en'
+      ? `There are ${count} activities under ${category}. `
+        + 'Each one states what you need to submit as proof, so there is nothing to work out — just pick one and do it.'
+      : `${category} 주제에는 ${count}개의 활동이 있습니다. `
+        + '활동마다 무엇을 인증해야 하는지 정해져 있어, 무엇을 할지 고민할 필요 없이 고르고 수행하면 됩니다.'
 
   return `  {
     slug: ${q(meta.slug)},
     title: ${q(title)},
-    category: ${q(meta.category)},
+    category: ${q(category)},
     description: ${q(description)},
     intro: ${q(intro)},
     date: '2026-01-01',
-    targets: [${meta.targets.map(t => q(t)).join(', ')}],
+    targets: [${meta.targets.map(label => q(TARGET_LABELS[label]?.[locale] ?? label)).join(', ')}],
     items: [
 ${renderItems(group.items)}
     ],
@@ -383,23 +428,45 @@ export const totalActivityCount = activityGroups
 `, 'utf-8')
 
   // ── 멤버십
-  const plans = await api<PublicMembershipPlan[]>('/v1/public/membership-plans')
+  const plans = await api<PublicMembershipPlan[]>(`/v1/public/membership-plans?locale=${locale}`)
+
+  /*
+   * 가격·기간 표기는 로케일마다 다르다.
+   * 화면에서 $t 로 풀지 않고 여기서 굽는 이유: 이 값들은 이미 로케일별 파일로
+   * 나뉘어 생성되고, 통화 표기는 Intl 이 로케일을 알아야 제대로 나온다.
+   */
+  const FREE_LABEL: Record<Locale, string> = { ko: '무료', ja: '無料', en: 'Free' }
+  const INTL_LOCALE: Record<Locale, string> = { ko: 'ko-KR', ja: 'ja-JP', en: 'en-US' }
 
   const priceLabel = (price: string | null) => {
     const value = Number(price ?? 0)
 
-    return value === 0 ? '무료' : `₩${value.toLocaleString('ko-KR')}`
+    return value === 0 ? FREE_LABEL[locale] : `₩${value.toLocaleString(INTL_LOCALE[locale])}`
   }
 
-  const periodLabel = (plan: PublicMembershipPlan) =>
-    plan.durationInDays ? `${plan.durationInDays}일` : `${plan.durationInMonths ?? 1}개월`
+  const periodLabel = (plan: PublicMembershipPlan) => {
+    const days = plan.durationInDays
+    const months = plan.durationInMonths ?? 1
 
-  writeFileSync(resolve(outDir, 'membership.ts'), `${header('공개 API /v1/public/membership-plans')}
+    if (locale === 'ja') return days ? `${days}日` : `${months}か月`
+    // ⚠️ 영어는 단수/복수를 구분한다. 1 months 는 곧바로 어색해 보인다.
+    if (locale === 'en') {
+      return days
+        ? `${days} ${days === 1 ? 'day' : 'days'}`
+        : `${months} ${months === 1 ? 'month' : 'months'}`
+    }
+
+    return days ? `${days}일` : `${months}개월`
+  }
+
+  writeFileSync(resolve(outDir, 'membership.ts'), `${header(`공개 API /v1/public/membership-plans?locale=${locale}`)}
 import type { IPublicMembershipPlan } from '@entity/PublicMembershipPlan'
 
 export const membershipPlans: IPublicMembershipPlan[] = [
 ${plans.map(plan => {
-  const meta = membershipMeta[plan.name ?? ''] ?? { recommended: false, features: [] }
+  // ⚠️ 번역된 이름이 아니라 원문(한국어) 이름으로 찾는다. collectAndWrite 주석 참고.
+  const metaKey = metaKeyByPlanId.get(plan.id) ?? plan.name ?? ''
+  const meta = membershipMeta[metaKey] ?? { recommended: false, features: [] }
 
   return `  {
     code: ${q(plan.name)},
@@ -408,7 +475,7 @@ ${plans.map(plan => {
     period: ${q(periodLabel(plan))},
     summary: ${q(plan.shortDescription)},
     features: [
-${meta.features.map(f => `      { label: ${q(f.label)}, available: ${f.available} },`).join('\n')}
+${meta.features.map(f => `      { labelKey: ${q(f.labelKey)}, available: ${f.available} },`).join('\n')}
     ],
     recommended: ${meta.recommended},
   },`
@@ -416,8 +483,70 @@ ${meta.features.map(f => `      { label: ${q(f.label)}, available: ${f.available
 ]
 `, 'utf-8')
 
-  console.log(`✅ 공지 ${notices.length} · FAQ ${faqs.length} · 후기 ${stories.length} `
-    + `· 활동 ${groups.length}그룹 · 멤버십 ${plans.length} · 이미지 ${downloaded.size}장`)
+  console.log(`  [${locale}] 공지 ${notices.length} · FAQ ${faqs.length} · 후기 ${stories.length} `
+    + `· 활동 ${groups.length}그룹 · 멤버십 ${plans.length}`)
+
+  // 원문 패스에서 메타 조회용 표를 만들어 둔다. 번역 패스가 이 값을 쓴다.
+  return new Map<number, string>(plans.map(plan => [plan.id, plan.name ?? '']))
+}
+
+/**
+ * 세 언어를 묶는 배럴을 쓴다.
+ *
+ * ⚠️ 루트 이름(notices, activityGroups …)은 **원문(한국어)** 을 가리킨다.
+ *    scripts/routes.mts 가 Node 에서 이 이름들을 임포트해 사이트맵을 만드는데,
+ *    Node 에는 vue-i18n 도 쿠키도 없어서 현재 언어라는 개념 자체가 없다.
+ *    화면에서 언어를 따라가려면 <name>ByLocale 을 쓴다.
+ */
+const writeBarrels = () => {
+  const barrels: { file: string; names: string[] }[] = [
+    { file: 'notices.ts', names: ['notices', 'findNotice'] },
+    { file: 'faqs.ts', names: ['faqs'] },
+    { file: 'stories.ts', names: ['stories', 'findStory'] },
+    { file: 'activities.ts', names: ['commonActivities', 'activityGroups', 'findActivityGroup'] },
+    { file: 'membership.ts', names: ['membershipPlans'] },
+  ]
+
+  for (const { file, names } of barrels) {
+    const imports = LOCALES
+      .map(locale => `import * as ${locale} from './${locale}/${file.replace(/\.ts$/, '')}'`)
+      .join('\n')
+
+    const byLocale = names
+      .filter(name => !name.startsWith('find'))
+      .map(name => `export const ${name}ByLocale = {\n`
+        + LOCALES.map(locale => `  ${locale}: ${locale}.${name},`).join('\n')
+        + `\n} as const\n`)
+      .join('\n')
+
+    writeFileSync(resolve(generatedDir, file), `${header(`generated/<locale>/${file}`)}
+${imports}
+
+/** 원문(한국어). Node 스크립트와 기존 임포트가 이 이름을 쓴다. */
+export * from './${SOURCE_LOCALE}/${file.replace(/\.ts$/, '')}'
+
+${byLocale}`, 'utf-8')
+  }
+}
+
+const main = async () => {
+  console.log(`콘텐츠 수집 — ${API_BASE}`)
+
+  // 이미지는 로케일과 무관하다. 루프 밖에서 한 번만 비운다.
+  rmSync(imageDir, { recursive: true, force: true })
+  mkdirSync(generatedDir, { recursive: true })
+
+  // 원문을 먼저 수집해야 한다. 메타 조회 표가 여기서 나온다.
+  const metaKeyByPlanId = await collectAndWrite(SOURCE_LOCALE, new Map())
+
+  for (const locale of LOCALES) {
+    if (locale === SOURCE_LOCALE) continue
+    await collectAndWrite(locale, metaKeyByPlanId)
+  }
+
+  writeBarrels()
+
+  console.log(`✅ ${LOCALES.length}개 로케일 수집 완료 · 이미지 ${downloaded.size}장`)
 }
 
 await main()

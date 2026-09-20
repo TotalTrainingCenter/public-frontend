@@ -2,10 +2,11 @@
 import { useMouse } from '@vueuse/core'
 import { useTheme } from 'vuetify'
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
-import { activityGroups, totalActivityCount } from '@variables/activities'
 import { siteConfig } from '@variables/site'
 import heroDashboardImgDark from '@images/front-pages/landing-page/hero-dashboard-dark.png'
 import heroDashboardImgLight from '@images/front-pages/landing-page/hero-dashboard-light.png'
+
+const { activityGroups, totalActivityCount } = useLocalizedContent()
 
 const theme = useTheme()
 
@@ -46,11 +47,11 @@ const translateMouse = computed(() => {
           <div class="hero-text-box text-center px-6">
             <!-- ⚠️ 사이트 전체에서 h1 은 페이지당 1개. 홈의 h1 은 이것이다. -->
             <h1 class="hero-title mb-4">
-              {{ siteConfig.slogan }}
+              {{ $t('site.slogan') }}
             </h1>
             <h6 class="mb-6 text-h6">
-              일상 속 행동과 습관을 활동 주제로 제시하고, 수행한 뒤 기록하고 인증받는 플랫폼.<br class="d-none d-md-inline">
-              지금 {{ activityGroups.length }}개 주제 · {{ totalActivityCount }}개 활동이 준비돼 있습니다.
+              {{ $t('landing.heroLine1') }}<br class="d-none d-md-inline">
+              {{ $t('landing.heroLine2', { groups: activityGroups.length, activities: totalActivityCount }) }}
             </h6>
             <div>
               <div class="d-flex flex-wrap justify-center gap-4">
@@ -58,7 +59,7 @@ const translateMouse = computed(() => {
                   :size="$vuetify.display.smAndUp ? 'large' : 'default'"
                   :href="siteConfig.platformUrl"
                 >
-                  공식 플랫폼 바로가기
+                  {{ $t('cta.platform') }}
                 </VBtn>
 
                 <VBtn
@@ -66,12 +67,12 @@ const translateMouse = computed(() => {
                   variant="tonal"
                   to="/activities"
                 >
-                  활동 주제 둘러보기
+                  {{ $t('cta.browseActivities') }}
                 </VBtn>
               </div>
 
               <p class="text-body-2 text-medium-emphasis mt-6 mb-0">
-                LVL.0 등급은 7일 무료입니다. 해보고 결정하셔도 됩니다.
+                {{ $t('landing.heroTrial') }}
               </p>
             </div>
           </div>
@@ -95,7 +96,7 @@ const translateMouse = computed(() => {
             >
               <img
                 :src="heroDashboardImg"
-                alt="종합 훈련 센터 활동 목록 화면"
+                :alt="$t('landing.heroAlt')"
                 class="animation-img"
               >
             </div>

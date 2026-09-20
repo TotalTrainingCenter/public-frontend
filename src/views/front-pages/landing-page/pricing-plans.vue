@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import paperPlane from '@images/front-pages/icons/paper-airplane.png'
 import plane from '@images/front-pages/icons/plane.png'
-import { membershipPlans } from '@variables/membership'
 import { siteConfig } from '@variables/site'
+
+const { membershipPlans } = useLocalizedContent()
 
 /**
  * 멤버십 섹션.
@@ -32,19 +33,19 @@ const planImages = [paperPlane, plane]
             class="mb-4"
             size="small"
           >
-            멤버십
+            {{ $t('landing.pricingChip') }}
           </VChip>
           <h2 class="d-flex align-center text-h4 mb-1 flex-wrap justify-center">
             <div class="position-relative me-2">
               <div class="section-title">
-                먼저 해보고
+                {{ $t('landing.pricingHeadingA') }}
               </div>
             </div>
-            결정하세요
+            {{ $t('landing.pricingHeadingB') }}
           </h2>
           <div class="text-center text-body-1">
             <p class="mb-0">
-              두 등급 모두 활동 주제 전체를 이용할 수 있습니다. 차이는 기간뿐입니다.
+              {{ $t('landing.pricingLead') }}
             </p>
           </div>
         </div>
@@ -100,7 +101,7 @@ const planImages = [paperPlane, plane]
                         class="text-h6"
                         :class="{ 'text-disabled': !item.available }"
                       >
-                        {{ item.label }}
+                        {{ $t(item.labelKey) }}
                       </span>
                     </template>
                   </VListItem>
@@ -111,18 +112,18 @@ const planImages = [paperPlane, plane]
                   class="mt-8"
                   :href="siteConfig.platformUrl"
                 >
-                  가입하고 시작하기
+                  {{ $t('landing.pricingCta') }}
                 </VBtn>
               </VCardText>
             </VCard>
           </VCol>
         </VRow>
         <p class="text-center text-body-2 text-disabled mt-10 mb-0">
-          기관·단체 단위 운영 등급은
+          {{ $t('landing.pricingGroupPre') }}
           <RouterLink to="/partnership">
-            제휴 문의
+            {{ $t('nav.partnership') }}
           </RouterLink>
-          를 통해 별도 안내드립니다.
+          {{ $t('landing.pricingGroupPost') }}
         </p>
       </div>
     </VContainer>
