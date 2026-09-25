@@ -51,7 +51,7 @@ useSeo({
             </div>
 
             <div class="d-flex align-baseline gap-x-1 mb-2">
-              <span class="text-h5 font-weight-bold">{{ plan.price }}</span>
+              <span class="text-h5 font-weight-bold">{{ formatNumber(plan.price) }}</span>
               <span class="text-body-2">/ {{ plan.period }}</span>
             </div>
 

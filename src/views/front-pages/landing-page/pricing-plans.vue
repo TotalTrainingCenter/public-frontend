@@ -74,7 +74,7 @@ const planImages = [paperPlane, plane]
                 <div class="d-flex justify-center mb-8">
                   <div class="d-flex align-end">
                     <div class="pricing-title text-primary me-1">
-                      {{ plan.price }}
+                      {{ formatNumber(plan.price) }}
                     </div>
                     <span class="text-disabled mb-2">/ {{ plan.period }}</span>
                   </div>
