@@ -22,6 +22,16 @@ const messages = Object.fromEntries(
 )
 
 /**
+ * 언어 쿠키 이름. 앱 네임스페이스를 붙이지 않는다.
+ *
+ * total / mypage / owner ... 가 서브도메인으로 나뉘어 있어서 이름에 앱 타이틀을
+ * 붙이면 사이트를 옮길 때마다 언어가 초기화된다. 운영에서는 쿠키 도메인이
+ * VITE_COOKIE_BASE_URL 로 잡혀 있어, 이름만 공용으로 두면 그대로 공유된다.
+ * accessToken · userData 와 같은 취급이다.
+ */
+export const LANGUAGE_COOKIE = 'language'
+
+/**
  * 저장된 언어를 '읽기만' 한다.
  *
  * cookieRef 를 쓰지 않는 이유: useCookie 는 쿠키가 없을 때 기본값을 즉시
@@ -33,7 +43,14 @@ const storedLocale = (): string | null => {
   if (typeof document === 'undefined')
     return null
 
-  const raw = parse(document.cookie)[namespaceConfig('language')]
+  const jar = parse(document.cookie)
+
+  /*
+   * 예전에는 앱 네임스페이스가 붙은 이름으로 저장했다.
+   * 공용 쿠키가 아직 없는 사용자는 그 값을 살려 쓰고,
+   * initCore 워처가 곧바로 공용 이름으로 다시 써 준다.
+   */
+  const raw = jar[LANGUAGE_COOKIE] ?? jar[namespaceConfig('language')]
 
   return raw ? decodeURIComponent(raw) : null
 }

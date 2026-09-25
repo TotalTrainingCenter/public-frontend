@@ -1,12 +1,15 @@
 import { useStorage } from '@vueuse/core'
 import { useTheme } from 'vuetify'
 import { useConfigStore } from '@core/stores/config'
-import { cookieRef, namespaceConfig } from '@layouts/stores/config'
+import { namespaceConfig } from '@layouts/stores/config'
+import { LANGUAGE_COOKIE } from '@/plugins/i18n'
 import { themeConfig } from '@themeConfig'
 
 const _syncAppRtl = () => {
   const configStore = useConfigStore()
-  const storedLang = cookieRef<string | null>('language', null)
+
+  // ⚠️ 앱 네임스페이스를 붙이지 않는다. 붙이면 사이트를 옮길 때마다 언어가 초기화된다.
+  const storedLang = useCookie<string | null>(LANGUAGE_COOKIE, { default: () => null })
 
   const { locale } = useI18n({ useScope: 'global' })
 
