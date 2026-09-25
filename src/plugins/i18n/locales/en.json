@@ -293,6 +293,10 @@
     "storyTopicCta": "View topic",
     "storyTopicHeading": "Topic featured in this story"
   },
+  "pagination": {
+    "showing": "{start}–{end} of {total}",
+    "empty": "Nothing to show"
+  },
   "partner": {
     "askHeading": "Helpful things to include",
     "caseCompanyBody": "Useful for employee wellbeing, culture work and benefits programmes. Run it by department or as a fixed-term challenge, and see participation as a record.",

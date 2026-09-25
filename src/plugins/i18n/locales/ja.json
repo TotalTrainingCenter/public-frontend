@@ -293,6 +293,10 @@
     "storyTopicCta": "テーマを見る",
     "storyTopicHeading": "このレポートに登場したテーマ"
   },
+  "pagination": {
+    "showing": "全 {total} 件中 {start}–{end}",
+    "empty": "表示する内容がありません"
+  },
   "partner": {
     "askHeading": "お問い合わせの際にお知らせいただきたいこと",
     "caseCompanyBody": "従業員の健康管理、組織文化の改善、福利厚生プログラムの運営に活用できます。部署単位の参加や期間限定チャレンジの運営が可能で、参加状況を記録で確認できます。",
