@@ -83,10 +83,15 @@ const buildProjectUrl = (project: string, path = '/') => {
     return `${window.location.protocol}//${window.location.hostname}:${port}${path}`
   }
 
-  return new URI()
-    .subdomain(normalizedProject)
-    .path(path)
-    .toString()
+  /*
+   * ⚠️ path 에 쿼리가 들어올 수 있다('/message?room=1', '/profile?tab=billing').
+   *    URI.js 의 .path() 에 그대로 넘기면 '?' 가 '%3F' 로 바뀌어 '/message%3Froom=1' 이라는
+   *    없는 경로가 되고(운영에서 404), 지금 페이지의 쿼리까지 따라 붙는다. 개발 모드는 문자열을
+   *    이어 붙여서 드러나지 않았다. 호스트만 URI.js 로 바꾸고 경로·쿼리는 URL 로 해석한다.
+   */
+  const host = new URI().subdomain(normalizedProject).host()
+
+  return new URL(path, `${window.location.protocol}//${host}`).toString()
 }
 
 export const isTrainingCenterHost = () => {
