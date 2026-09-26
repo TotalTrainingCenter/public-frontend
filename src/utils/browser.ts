@@ -14,6 +14,7 @@ const DEFAULT_DEV_PORTS: Record<string, number> = {
   // ai-frontend 는 chat.training-center.org 로 서비스한다. 프로젝트 키는 서브도메인을 따른다.
   chat: 7308,
   message: 7309,
+  sns: 7310,
 }
 
 const KNOWN_PROJECTS = new Set(Object.keys(DEFAULT_DEV_PORTS))
