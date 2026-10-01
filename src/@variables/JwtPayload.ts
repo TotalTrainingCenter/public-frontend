@@ -1,7 +1,7 @@
-import type { IMembershipPlan } from '@entity/MembershipPlan'
-import type { IPermission } from '@entity/Permission'
-import type { IRole } from '@entity/Role'
-
+/**
+ * 액세스 토큰의 내용. 계정 번호와 아이디만 있다.
+ * 역할·권한은 토큰에 없다 — `@/utils/authProfile` 로 받는다.
+ */
 export interface JwtPayload {
   sub: string
   iat: number
@@ -9,12 +9,5 @@ export interface JwtPayload {
   account: {
     id: number
     username: string
-    resetPassword: boolean
-    email: string
-    emailConfirm: boolean
-    changeInformation: boolean
-    roles: IRole[]
-    permissions: IPermission[]
-    membershipPlan: IMembershipPlan | null
   }
 }
