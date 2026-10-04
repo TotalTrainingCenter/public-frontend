@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import ctaDashborad from '@images/front-pages/landing-page/cta-dashboard.png'
+import LogoMark from '@images/brand/logo-mark.svg?component'
 import { siteConfig } from '@variables/site'
+
+// ⚠️ Vuexy 원본은 여기에 견본 대시보드 그림(cta-dashboard.png — 'Vuexy' 로고·가짜 매출)을 썼다.
+//    우리 서비스 화면이 아닌 그림을 싣는 것이라 심볼 마크로 바꿨다.
 </script>
 
 <template>
@@ -26,11 +29,8 @@ import { siteConfig } from '@variables/site'
           </VBtn>
         </div>
 
-        <div class="banner-img">
-          <img
-            :src="ctaDashborad"
-            class="w-100"
-          >
+        <div class="banner-img d-none d-sm-flex align-center">
+          <LogoMark class="banner-mark text-primary" />
         </div>
       </div>
     </VContainer>
@@ -44,7 +44,12 @@ import { siteConfig } from '@variables/site'
 }
 
 .banner-img {
-  margin-block-end: -22px;
+  padding-block-end: 3rem;
+}
+
+.banner-mark {
+  block-size: 160px;
+  inline-size: 160px;
 }
 
 .banner-title {

@@ -44,7 +44,9 @@ export const getRoutes = (): RouteEntry[] => [
    */
   { path: '/404', priority: 0.1, changefreq: 'yearly', excludeFromSitemap: true },
   { path: '/notice', priority: 0.7, changefreq: 'weekly' },
-  { path: '/stories', priority: 0.8, changefreq: 'weekly' },
+
+  // 후기가 없으면 빈 페이지라 noindex 로 굽는다(pages/stories/index.vue). 사이트맵에도 넣지 않는다.
+  { path: '/stories', priority: 0.8, changefreq: 'weekly', excludeFromSitemap: stories.length === 0 },
 
   ...activityGroups
     .filter(item => !item.noindex)

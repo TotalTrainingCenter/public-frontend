@@ -15,6 +15,12 @@ const { membershipPlans } = useLocalizedContent()
  *    여기에 숫자를 직접 적지 말 것 — 공개 사이트의 잘못된 가격 표기는 표시광고 문제가 된다.
  */
 const planImages = [paperPlane, plane]
+
+/*
+ * 홈에는 입문 플랜(기능 비교 항목이 있는 LVL.0 · LVL.1)만 싣는다.
+ * 플랜이 14개로 늘어 전부 싣으면 홈이 가격표로 덮인다. 나머지는 /membership 에서 본다.
+ */
+const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.features.length))
 </script>
 
 <template>
@@ -52,7 +58,7 @@ const planImages = [paperPlane, plane]
 
         <VRow>
           <VCol
-            v-for="(plan, index) in membershipPlans"
+            v-for="(plan, index) in entryPlans"
             :key="plan.code"
             cols="12"
             md="6"
@@ -74,7 +80,7 @@ const planImages = [paperPlane, plane]
                 <div class="d-flex justify-center mb-8">
                   <div class="d-flex align-end">
                     <div class="pricing-title text-primary me-1">
-                      {{ formatNumber(plan.price) }}
+                      {{ plan.price }}
                     </div>
                     <span class="text-disabled mb-2">/ {{ plan.period }}</span>
                   </div>
@@ -118,6 +124,17 @@ const planImages = [paperPlane, plane]
             </VCard>
           </VCol>
         </VRow>
+        <div
+          v-if="membershipPlans.length > entryPlans.length"
+          class="text-center mt-10"
+        >
+          <VBtn
+            variant="outlined"
+            to="/membership"
+          >
+            {{ $t('landing.pricingAll') }}
+          </VBtn>
+        </div>
         <p class="text-center text-body-2 text-disabled mt-10 mb-0">
           {{ $t('landing.pricingGroupPre') }}
           <RouterLink to="/partnership">
