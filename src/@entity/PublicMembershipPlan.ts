@@ -1,5 +1,8 @@
 export interface IPublicMembershipFeature {
   labelKey: string
+
+  /** labelKey 에 끼울 값. 예: { plan: 'LVL.4' } → 'LVL.4 의 모든 기능'. */
+  labelParams?: Record<string, string>
   available: boolean
 }
 
@@ -29,4 +32,7 @@ export interface IPublicMembershipPlan {
   summary: string
   features: IPublicMembershipFeature[]
   recommended: boolean
+
+  /** 입문 플랜(LVL.0 · LVL.1). 홈 멤버십 영역에는 이것만 싣는다. */
+  entry: boolean
 }

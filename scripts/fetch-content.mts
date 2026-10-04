@@ -16,9 +16,13 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, extname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { Buffer } from 'node:buffer'
 import { COMMON_ACTIVITY_GROUP_ID, TARGET_LABELS, activityMeta } from '../src/@variables/activity-meta.js'
 import { BOARD_ATTRIBUTE_KEY, PUBLIC_CATEGORY } from '../src/@variables/public-category.js'
 import { membershipMeta } from '../src/@variables/membership-meta.js'
+
+// ESM 에서는 .mts 를 .mjs 로 적어야 tsx 가 찾는다. 린트 규칙과 맞지 않아 이 줄만 끈다.
+// eslint-disable-next-line import/extensions
 import { extractText, renderTiptap } from './tiptap-html.mjs'
 import type { TiptapNode } from './tiptap-html.mjs'
 
@@ -232,12 +236,14 @@ const assertSlugs = (items: { slug: string }[], label: string) => {
 /**
  * 한 로케일분을 수집해 `generated/<locale>/` 에 쓴다.
  *
+ * @param locale 수집할 언어.
  * @param metaKeyByPlanId 멤버십 플랜 id → **한국어** 플랜명.
  *   membershipMeta 는 한국어 이름을 키로 쓴다. 번역된 이름으로 찾으면 전부 빗나가고,
  *   기능 목록과 추천 배지가 통째로 사라진 채 배포된다. 원문 패스에서 만든 표를 넘겨받는다.
  */
 const collectAndWrite = async (locale: Locale, metaKeyByPlanId: Map<number, string>) => {
   const outDir = localeOutDir(locale)
+
   mkdirSync(outDir, { recursive: true })
 
   // ── 공지
@@ -448,7 +454,9 @@ export const totalActivityCount = activityGroups
     const days = plan.durationInDays
     const months = plan.durationInMonths ?? 1
 
-    if (locale === 'ja') return days ? `${days}日` : `${months}か月`
+    if (locale === 'ja')
+      return days ? `${days}日` : `${months}か月`
+
     // ⚠️ 영어는 단수/복수를 구분한다. 1 months 는 곧바로 어색해 보인다.
     if (locale === 'en') {
       return days
@@ -466,7 +474,10 @@ export const membershipPlans: IPublicMembershipPlan[] = [
 ${plans.map(plan => {
   // ⚠️ 번역된 이름이 아니라 원문(한국어) 이름으로 찾는다. collectAndWrite 주석 참고.
   const metaKey = metaKeyByPlanId.get(plan.id) ?? plan.name ?? ''
-  const meta = membershipMeta[metaKey] ?? { recommended: false, features: [] }
+  const meta = membershipMeta[metaKey] ?? { recommended: false, entry: false, features: [] }
+
+  if (!membershipMeta[metaKey])
+    console.warn(`⚠️ 멤버십 플랜 '${metaKey}' 의 기능 목록이 없다 — src/@variables/membership-meta.ts 의 LADDER 에 추가할 것`)
 
   return `  {
     code: ${q(plan.name)},
@@ -475,9 +486,10 @@ ${plans.map(plan => {
     period: ${q(periodLabel(plan))},
     summary: ${q(plan.shortDescription)},
     features: [
-${meta.features.map(f => `      { labelKey: ${q(f.labelKey)}, available: ${f.available} },`).join('\n')}
+${meta.features.map(f => `      { labelKey: ${q(f.labelKey)}, ${f.labelParams ? `labelParams: ${JSON.stringify(f.labelParams)}, ` : ''}available: ${f.available} },`).join('\n')}
     ],
     recommended: ${meta.recommended},
+    entry: ${meta.entry},
   },`
 }).join('\n')}
 ]
@@ -514,9 +526,9 @@ const writeBarrels = () => {
 
     const byLocale = names
       .filter(name => !name.startsWith('find'))
-      .map(name => `export const ${name}ByLocale = {\n`
-        + LOCALES.map(locale => `  ${locale}: ${locale}.${name},`).join('\n')
-        + `\n} as const\n`)
+      .map(name => `export const ${name}ByLocale = {\n${
+         LOCALES.map(locale => `  ${locale}: ${locale}.${name},`).join('\n')
+         }\n} as const\n`)
       .join('\n')
 
     writeFileSync(resolve(generatedDir, file), `${header(`generated/<locale>/${file}`)}
@@ -540,7 +552,8 @@ const main = async () => {
   const metaKeyByPlanId = await collectAndWrite(SOURCE_LOCALE, new Map())
 
   for (const locale of LOCALES) {
-    if (locale === SOURCE_LOCALE) continue
+    if (locale === SOURCE_LOCALE)
+      continue
     await collectAndWrite(locale, metaKeyByPlanId)
   }
 

@@ -66,7 +66,7 @@ useSeo({
               <VListItem
                 v-for="feature in plan.features"
                 :key="feature.labelKey"
-                :title="$t(feature.labelKey)"
+                :title="$t(feature.labelKey, feature.labelParams ?? {})"
               >
                 <template #prepend>
                   <VIcon

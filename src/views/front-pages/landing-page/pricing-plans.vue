@@ -17,10 +17,10 @@ const { membershipPlans } = useLocalizedContent()
 const planImages = [paperPlane, plane]
 
 /*
- * 홈에는 입문 플랜(기능 비교 항목이 있는 LVL.0 · LVL.1)만 싣는다.
+ * 홈에는 입문 플랜(LVL.0 · LVL.1)만 싣는다.
  * 플랜이 14개로 늘어 전부 싣으면 홈이 가격표로 덮인다. 나머지는 /membership 에서 본다.
  */
-const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.features.length))
+const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.entry))
 </script>
 
 <template>
@@ -107,7 +107,7 @@ const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.feat
                         class="text-h6"
                         :class="{ 'text-disabled': !item.available }"
                       >
-                        {{ $t(item.labelKey) }}
+                        {{ $t(item.labelKey, item.labelParams ?? {}) }}
                       </span>
                     </template>
                   </VListItem>
