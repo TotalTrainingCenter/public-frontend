@@ -33,6 +33,7 @@ declare module 'vue' {
     CustomRadiosWithImage: typeof import('./src/@core/components/app-form-elements/CustomRadiosWithImage.vue')['default']
     DialogCloseBtn: typeof import('./src/@core/components/DialogCloseBtn.vue')['default']
     DropZone: typeof import('./src/@core/components/DropZone.vue')['default']
+    GuestInquiryForm: typeof import('./src/components/GuestInquiryForm.vue')['default']
     I18n: typeof import('./src/@core/components/I18n.vue')['default']
     LoadingIndicator: typeof import('./src/@core/components/LoadingIndicator.vue')['default']
     MoreBtn: typeof import('./src/@core/components/MoreBtn.vue')['default']

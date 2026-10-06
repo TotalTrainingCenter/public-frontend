@@ -66,15 +66,21 @@ useSeo({
         class="mt-10"
       >
         <VCardText class="text-center py-8">
-          <h2 class="text-h6 mb-4">
+          <h2 class="text-h6 mb-2">
             {{ $t('page.faqNoAnswer') }}
           </h2>
 
-          <VBtn :href="`mailto:${siteConfig.contact.email}`">
-            {{ siteConfig.contact.email }}
-          </VBtn>
+          <p class="text-body-2 mb-0">
+            {{ $t('guestInquiry.orMail') }}
+            <a :href="`mailto:${siteConfig.contact.email}`">{{ siteConfig.contact.email }}</a>
+          </p>
         </VCardText>
       </VCard>
+
+      <GuestInquiryForm
+        category="USAGE"
+        class="mt-6"
+      />
     </div>
   </VContainer>
 </template>

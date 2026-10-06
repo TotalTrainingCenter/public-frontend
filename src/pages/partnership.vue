@@ -74,32 +74,14 @@ useSeo({
         <VListItem :title="$t('landing.contactItem4')" />
       </VList>
 
-      <VCard
-        variant="tonal"
-        color="primary"
-      >
-        <VCardText class="text-center py-8">
-          <h2 class="text-h6 mb-2">
-            {{ $t('partner.mailLabel') }}
-          </h2>
+      <!-- 비회원 문의 폼. 개인정보 수집·이용 동의는 폼 안에 있다(필수). -->
+      <GuestInquiryForm category="PARTNERSHIP" />
 
-          <p class="text-body-2 mb-6">
-            {{ $t('partner.replyNote') }}
-          </p>
-
-          <VBtn
-            :href="`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent($t('landing.contactMailSubject'))}`"
-            size="large"
-          >
-            {{ siteConfig.contact.email }}
-          </VBtn>
-        </VCardText>
-      </VCard>
-
-      <!--
-        TODO: 백엔드 문의 API 또는 외부 폼이 준비되면 메일 링크를 폼으로 교체.
-        폼 전환 시 개인정보 수집·이용 동의 체크박스가 반드시 필요하다.
-      -->
+      <p class="text-body-2 text-medium-emphasis text-center mt-6 mb-0">
+        {{ $t('partner.replyNote') }}
+        {{ $t('guestInquiry.orMail') }}
+        <a :href="`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent($t('landing.contactMailSubject'))}`">{{ siteConfig.contact.email }}</a>
+      </p>
     </div>
   </VContainer>
 </template>

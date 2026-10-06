@@ -388,5 +388,33 @@
     "required": "This field is required.",
     "requiredSelect": "Please make a selection.",
     "url": "Enter a valid URL."
+  },
+  "guestInquiry": {
+    "title": "Send us a message",
+    "lead": "No sign-in needed — we'll reply to the email you enter. Members can use Support in My Page to also see answers on the site.",
+    "name": "Name (or organization)",
+    "email": "Email for our reply",
+    "categoryLabel": "Type",
+    "subject": "Subject",
+    "content": "Message",
+    "consentTitle": "Consent to collection and use of personal information (required)",
+    "consentItems": "Collected: name (organization), email address, message",
+    "consentPurpose": "Purpose: reviewing and answering your inquiry",
+    "consentPeriod": "Retention: destroyed 3 years after the inquiry is handled (consumer complaint records under Korean e-commerce law)",
+    "consentRefuse": "You may decline, but we won't be able to receive your inquiry.",
+    "agree": "I have read the above and agree to the collection and use of my personal information.",
+    "submit": "Send",
+    "sentTitle": "Your message has been received",
+    "sentBody": "We'll reply to {email} after reviewing it.",
+    "again": "Send another message",
+    "orMail": "You can also email us:",
+    "category": {
+      "USAGE": "Using the service",
+      "PAYMENT": "Payment & membership",
+      "ACCOUNT": "Account & sign-in",
+      "REPORT": "Report & rights",
+      "PARTNERSHIP": "Partnership",
+      "OTHER": "Other"
+    }
   }
 }
