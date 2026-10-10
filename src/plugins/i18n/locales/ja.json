@@ -46,6 +46,7 @@
     "companyName": "商号",
     "copy": "{label} をコピー",
     "email": "メールアドレス",
+    "hostingProvider": "ホスティングサービス提供者",
     "lookup": "事業者登録情報の照会",
     "mailOrderNo": "通信販売業申告番号",
     "open": "事業者情報を見る",

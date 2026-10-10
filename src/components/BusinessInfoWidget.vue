@@ -14,6 +14,9 @@ const businessInfo = {
   tel: '010-3980-2818',
   email: 'help@training-center.org',
   privacyOfficer: '김태민',
+
+  // 전자상거래법 제10조(사이버몰 운영자 표시). 처리방침의 위탁·국외 이전 항목과 같은 표기
+  hostingProvider: 'Amazon Web Services, Inc.',
 }
 
 const isOpen = ref(false)
@@ -33,6 +36,7 @@ const rows = computed(() => [
   { icon: 'tabler-phone', label: t('business.tel'), value: businessInfo.tel },
   { icon: 'tabler-mail', label: t('business.email'), value: businessInfo.email },
   { icon: 'tabler-shield-lock', label: t('business.privacyOfficer'), value: businessInfo.privacyOfficer },
+  { icon: 'tabler-server', label: t('business.hostingProvider'), value: businessInfo.hostingProvider },
 ])
 
 const copiedLabel = ref<string | null>(null)

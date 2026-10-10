@@ -46,6 +46,7 @@
     "companyName": "상호명",
     "copy": "{label} 복사",
     "email": "이메일",
+    "hostingProvider": "호스팅 서비스 제공자",
     "lookup": "사업자등록정보 조회",
     "mailOrderNo": "통신판매업 신고번호",
     "open": "사업자 정보 보기",

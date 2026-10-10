@@ -46,6 +46,7 @@
     "companyName": "Company",
     "copy": "Copy {label}",
     "email": "Email",
+    "hostingProvider": "Hosting provider",
     "lookup": "Look up business registration",
     "mailOrderNo": "Mail-order licence no.",
     "open": "View business information",
