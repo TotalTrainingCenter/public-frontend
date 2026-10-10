@@ -60,6 +60,14 @@ useSeo({
         />
         <!-- eslint-enable vue/no-v-html -->
 
+        <!-- 회원 후기를 운영진이 다듬었으면 그 사실을 밝힌다(#78, 표시광고법·추천보증 심사지침) -->
+        <p
+          v-if="story.refined"
+          class="text-body-2 text-medium-emphasis mt-6"
+        >
+          {{ $t('page.storyRefined') }}
+        </p>
+
         <!-- 👉 관련 활동으로 내부 링크. 색인에 크게 기여한다. -->
         <VCard
           v-if="relatedActivity"

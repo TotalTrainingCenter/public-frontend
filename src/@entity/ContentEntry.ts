@@ -31,4 +31,7 @@ export interface IStory extends IContentEntry {
 
   /** 관련 활동 그룹 slug. 비어 있으면 연결 카드를 그리지 않는다. */
   relatedActivity: string
+
+  /** 회원 후기를 운영진이 다듬었는지. true 면 "일부 표현을 다듬었습니다" 를 붙인다(#78, 표시광고법). */
+  refined?: boolean
 }

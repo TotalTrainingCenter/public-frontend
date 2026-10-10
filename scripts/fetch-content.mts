@@ -143,6 +143,9 @@ interface PublicContent {
   content: string | null
   summary: string | null
   attributes: Record<string, string | null>
+
+  /** 회원 후기를 운영진이 다듬었는지(#78). 예전 서버는 이 칸이 없다. */
+  refined?: boolean
   createdAt: string | null
   updatedAt: string | null
 }
@@ -302,7 +305,7 @@ ${faqs.map(f => `  {
 
   // ── 후기
   const storyRaw = await api<{ total: number; list: PublicContent[] }>(contentsUrl(PUBLIC_CATEGORY.story.key, locale))
-  const stories: { slug: string; title: string; description: string; date: string; html: string; relatedActivity: string }[] = []
+  const stories: { slug: string; title: string; description: string; date: string; html: string; relatedActivity: string; refined: boolean }[] = []
   for (const item of storyRaw.list) {
     const { html, text } = await toHtml(item.content)
 
@@ -313,6 +316,7 @@ ${faqs.map(f => `  {
       date: dateOf(item),
       html,
       relatedActivity: item.attributes?.[BOARD_ATTRIBUTE_KEY.relatedActivity] ?? '',
+      refined: item.refined === true,
     })
   }
   assertSlugs(stories, `${PUBLIC_CATEGORY.story.label}(${PUBLIC_CATEGORY.story.key})`)
@@ -328,6 +332,7 @@ ${stories.map(s => `  {
     date: ${q(s.date)},
     html: ${q(s.html)},
     relatedActivity: ${q(s.relatedActivity)},
+    refined: ${s.refined},
   },`).join('\n')}
 ]
 
