@@ -94,9 +94,11 @@ const year = new Date().getFullYear()
             :key="policy.titleKey"
           >
             <!-- 정책 원문은 외부(policy.training-center.org), 허브는 내부 라우트 -->
+            <!-- ℹ️ 개인정보 처리방침은 다른 고지와 구분되게 굵게 -->
             <a
               v-if="policy.href"
               :href="policy.href"
+              :class="{ 'font-weight-bold': policy.titleKey === 'policy.privacy' }"
               target="_blank"
               rel="noopener noreferrer"
             >
