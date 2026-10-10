@@ -120,12 +120,6 @@ export const resolveLocale = (): SupportedLocale => {
   return isSupported(fallback) ? fallback : 'en'
 }
 
-/**
- * 우리가 직접 만든 i18n 키의 모양. `action.save` 처럼 ASCII 네임스페이스 + 점이다.
- * 아직 추출하지 않은 한국어 원문과 구분하는 데 쓴다.
- */
-const TRANSLATION_KEY_PATTERN = /^[a-z][\w-]*\./i
-
 let _i18n: any = null
 
 export const getI18n = () => {
@@ -144,21 +138,6 @@ export const getI18n = () => {
       locale,
       fallbackLocale: themeConfig.app.i18n.defaultLocale ?? 'en',
       messages,
-
-      /*
-       * ⚠️ 경고는 '진짜 키'에만 낸다.
-       *
-       * Vuexy 레이아웃(@layouts/utils.ts 의 getDynamicI18nProps)은 네비 제목을
-       * 그대로 i18n 키로 넘긴다. 아직 추출하지 않은 화면은 제목이 한국어 원문이라
-       * 페이지 하나 열 때마다 "Not found '계정 관련' key" 가 수십 건씩 쏟아진다.
-       * 그 소음에 묻히면 정작 오타 난 키를 못 본다.
-       *
-       * 그래서 `namespace.key` 꼴(ASCII + 점)인 키가 없을 때만 경고한다.
-       * 한국어 원문은 조용히 키 그대로 표시된다 — 추출 전까지의 정상 동작이다.
-       * 문자열 추출이 끝나면 이 두 줄을 지워 전체 경고를 되살릴 것.
-       */
-      missingWarn: TRANSLATION_KEY_PATTERN,
-      fallbackWarn: TRANSLATION_KEY_PATTERN,
     })
   }
 
