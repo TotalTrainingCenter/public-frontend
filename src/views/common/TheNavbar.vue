@@ -52,9 +52,14 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
 
       <VSpacer />
 
-      <!-- 👉 데스크톱 GNB -->
+      <!--
+        👉 데스크톱 GNB — lg(1280px) 부터 편다.
+        md(960~1279px)에서 펴면 로고 락업(212px)·언어·테마·CTA 와 합쳐
+        영어·일본어가 알약 폭을 넘고 CTA 가 '公式プラッ…' 처럼 잘린다(#67).
+        그 구간은 햄버거 드로어로 보낸다. 메뉴 버튼 좌우 여백도 8px 로 줄였다.
+      -->
       <nav
-        class="d-none d-md-flex align-center gap-x-1"
+        class="public-navbar__gnb d-none d-lg-flex align-center gap-x-1"
         :aria-label="$t('nav.mainMenu')"
       >
         <template
@@ -115,7 +120,7 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
       <VBtn
         icon
         variant="text"
-        class="d-md-none"
+        class="d-lg-none"
         :aria-label="$t('nav.openMenu')"
         @click="isDrawerOpen = true"
       >
@@ -196,6 +201,12 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
     backdrop-filter: blur(10px);
     padding-block: 0.5rem;
     transition: box-shadow 0.25s ease, background-color 0.25s ease;
+  }
+
+  // 메뉴 버튼 좌우 여백(기본 12px)을 줄여 일본어 메뉴가 1280px 알약에 들어가게 한다.
+  // Vuexy 의 `.v-btn:not(.v-btn--icon, .v-tab).v-btn--variant-text.v-btn--size-default` 를 이기도록 클래스를 맞춰 쓴다.
+  &__gnb .v-btn.v-btn--variant-text.v-btn--size-default {
+    padding-inline: 0.5rem;
   }
 
   &--scrolled &__inner {

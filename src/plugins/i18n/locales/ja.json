@@ -232,11 +232,11 @@
     "uploadStartFailed": "アップロードを開始できませんでした。"
   },
   "nav": {
-    "about": "サービス紹介",
+    "about": "サービス",
     "aboutService": "サービスについて",
     "activities": "アクティビティ",
     "activityTopics": "アクティビティ一覧",
-    "faq": "よくある質問",
+    "faq": "FAQ",
     "features": "主な機能",
     "guide": "ご利用ガイド",
     "home": "ホーム",
@@ -245,7 +245,7 @@
     "news": "お知らせ",
     "notice": "お知らせ",
     "openMenu": "メニューを開く",
-    "partnership": "提携のお問い合わせ",
+    "partnership": "提携相談",
     "platformCta": "公式プラットフォームへ",
     "stories": "活動レポート"
   },
