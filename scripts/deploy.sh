@@ -23,6 +23,9 @@ NOTIFICATION_SCRIPT="${NOTIFICATION_SCRIPT:-${ROOT_DIR}/scripts/notification.sh}
 
 SSH_ARGS=(-p "$DEPLOY_PORT")
 RSYNC_SSH_ARGS=(-p "$DEPLOY_PORT")
+# 서버가 잠깐 응답하지 않으면 끝없이 기다리던 것(10/17 세 번) — 접속 15초, 응답 없으면 1분 안에 끊는다.
+SSH_ARGS+=(-o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=4)
+RSYNC_SSH_ARGS+=(-o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=4)
 
 if [[ -n "${DEPLOY_KEY:-}" ]]; then
   SSH_ARGS+=(-i "$DEPLOY_KEY")
