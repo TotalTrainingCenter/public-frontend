@@ -45,10 +45,19 @@ echo "Building locally"
 #
 # ⚠️ npm run build 는 fetch:content → vite build → prerender → sitemap 까지 포함한다.
 #    fetch:content 가 공개 API(VITE_API_BASE_URL)를 호출하므로 백엔드가 먼저 떠 있어야 한다.
-npm i && npm run build
+# ⚠️ 빌드가 실패하면 반드시 여기서 멈춘다(document#60).
+# 예전에는 설치와 빌드를 '&&' 로 한 줄에 이었다. set -e 는 && 목록의 앞 명령 실패로는 멈추지 않아서,
+# 설치(설치 뒤 아이콘 빌드)가 실패하면 그냥 넘어가 남아 있던 옛 빌드 결과를 올렸다
+# (esoteric 이 9/26 판을 계속 다시 올린 원인). 그래서 명령을 한 줄씩 두고, 옛 결과는 먼저 지운다.
+case "$BUILD_DIR" in
+  "" | "." | ".." | /* | *..*) echo "BUILD_DIR 값이 이상하다(지우지 않는다): ${BUILD_DIR}" >&2; exit 1 ;;
+esac
+rm -rf "$LOCAL_BUILD_PATH"
+npm i
+npm run build
 
-if [[ ! -d "$LOCAL_BUILD_PATH" ]]; then
-  echo "Build directory not found: ${LOCAL_BUILD_PATH}" >&2
+if [[ ! -f "${LOCAL_BUILD_PATH}/index.html" ]]; then
+  echo "Build output not found (빌드 실패로 보고 배포하지 않는다): ${LOCAL_BUILD_PATH}/index.html" >&2
   exit 1
 fi
 
