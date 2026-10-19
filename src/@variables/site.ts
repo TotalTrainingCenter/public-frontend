@@ -46,9 +46,9 @@ export const siteConfig = {
   apps: {
     mac: {
       url: 'https://training-center.org/downloads/mac/TTC.dmg',
-      version: '1.0.0',
-      sizeBytes: 90_928_245,
-      sha256: '99557692bcf7e7830f7274ff8dcde91d6bbce4df976adbcd7e0f30481f0ec974',
+      version: '1.0.1',
+      sizeBytes: 90_951_899,
+      sha256: 'd76cc51d223e5f34fcbfafdadb0b99f1516c068c1f9db41fd4f94ff6caac5435',
     },
   },
 
