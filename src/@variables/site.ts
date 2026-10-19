@@ -91,6 +91,7 @@ export const navigation: NavItem[] = [
       { titleKey: 'nav.aboutService', to: '/about' },
       { titleKey: 'nav.features', to: '/features' },
       { titleKey: 'nav.download', to: '/download' },
+      { titleKey: 'nav.changelog', to: '/changelog' },
     ],
   },
   {

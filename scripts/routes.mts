@@ -1,4 +1,5 @@
 import { activityGroups } from '../src/@variables/activities'
+import { releases } from '../src/@variables/changelog'
 import { notices } from '../src/@variables/notices'
 import { stories } from '../src/@variables/stories'
 
@@ -34,6 +35,9 @@ export const getRoutes = (): RouteEntry[] => [
   { path: '/partnership', priority: 0.7, changefreq: 'monthly' },
   { path: '/faq', priority: 0.7, changefreq: 'monthly' },
   { path: '/download', priority: 0.7, changefreq: 'monthly' },
+
+  // 변경 기록은 GitHub 저장소에서 빌드 때 가져온다(scripts/fetch-changelog.mts). 최신 배포일을 lastmod 로.
+  { path: '/changelog', priority: 0.5, changefreq: 'weekly', lastmod: releases[0]?.date },
 
   // 정책 원문은 policy.training-center.org 에 있다. 중복 색인을 피해 사이트맵에서 제외.
   { path: '/policy', priority: 0.3, changefreq: 'yearly', excludeFromSitemap: true },

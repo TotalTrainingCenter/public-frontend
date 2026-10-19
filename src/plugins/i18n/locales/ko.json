@@ -252,7 +252,8 @@
     "partnership": "제휴 문의",
     "platformCta": "공식 플랫폼 바로가기",
     "stories": "활동 후기",
-    "download": "앱 다운로드"
+    "download": "앱 다운로드",
+    "changelog": "변경 기록"
   },
   "noti": {
     "defaultTitle": "새로운 알림이 도착 하였습니다."
@@ -456,5 +457,19 @@
     "webTitle": "웹",
     "webStatus": "바로 이용",
     "webBody": "앱을 설치하지 않아도 회원은 언제든 브라우저에서 이용할 수 있습니다."
+  },
+  "changelog": {
+    "title": "변경 기록",
+    "lead": "종합 훈련 센터 웹 서비스와 앱에서 새로 생기고, 바뀌고, 고친 것을 배포일 순으로 모았습니다.",
+    "seoDesc": "종합 훈련 센터 웹 서비스와 맥·iPhone·Android 앱의 변경 기록입니다. 새로 생긴 기능, 바뀐 점, 고친 문제를 배포일별로 확인하세요.",
+    "empty": "아직 게시된 변경 기록이 없습니다.",
+    "koreanOnly": "변경 기록은 한국어로만 제공됩니다.",
+    "github": "GitHub 에서 보기",
+    "platform": {
+      "web": "웹",
+      "ios": "iOS",
+      "android": "안드로이드",
+      "mac": "맥"
+    }
   }
 }

@@ -252,7 +252,8 @@
     "partnership": "提携相談",
     "platformCta": "公式プラットフォームへ",
     "stories": "活動レポート",
-    "download": "アプリ"
+    "download": "アプリ",
+    "changelog": "変更履歴"
   },
   "noti": {
     "defaultTitle": "新しい通知が届きました。"
@@ -456,5 +457,19 @@
     "webTitle": "Web",
     "webStatus": "すぐに利用可能",
     "webBody": "アプリをインストールしなくても、会員はいつでもブラウザからご利用いただけます。"
+  },
+  "changelog": {
+    "title": "変更履歴",
+    "lead": "総合トレーニングセンターのウェブサービスとアプリで新しく追加・変更・修正された内容を、リリース日順にまとめました。",
+    "seoDesc": "総合トレーニングセンターのウェブサービスとMac・iPhone・Androidアプリの変更履歴です。新機能、変更点、修正内容をリリース日ごとに確認できます。",
+    "empty": "まだ公開された変更履歴はありません。",
+    "koreanOnly": "変更履歴は韓国語のみで提供しています。",
+    "github": "GitHub で見る",
+    "platform": {
+      "web": "ウェブ",
+      "ios": "iOS",
+      "android": "Android",
+      "mac": "Mac"
+    }
   }
 }

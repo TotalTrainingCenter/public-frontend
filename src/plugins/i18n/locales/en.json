@@ -252,7 +252,8 @@
     "partnership": "Partnership",
     "platformCta": "Go to the platform",
     "stories": "Stories",
-    "download": "Download"
+    "download": "Download",
+    "changelog": "Changelog"
   },
   "noti": {
     "defaultTitle": "You have a new notification."
@@ -456,5 +457,19 @@
     "webTitle": "Web",
     "webStatus": "Available now",
     "webBody": "Members can always use the service in a browser, without installing anything."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "lead": "What is new, what changed, and what we fixed in the Total Training Center web service and apps, listed by release date.",
+    "seoDesc": "Changelog for the Total Training Center web service and Mac, iPhone and Android apps. See new features, changes and fixes by release date.",
+    "empty": "No changelog entries have been published yet.",
+    "koreanOnly": "Changelog entries are written in Korean only.",
+    "github": "View on GitHub",
+    "platform": {
+      "web": "Web",
+      "ios": "iOS",
+      "android": "Android",
+      "mac": "Mac"
+    }
   }
 }
