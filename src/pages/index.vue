@@ -8,6 +8,7 @@ import HeroSection from '@/views/front-pages/landing-page/hero-section.vue'
 import PricingPlans from '@/views/front-pages/landing-page/pricing-plans.vue'
 import ProductStats from '@/views/front-pages/landing-page/product-stats.vue'
 import ActivitiesSection from '@/views/landing/ActivitiesSection.vue'
+import DownloadSection from '@/views/landing/DownloadSection.vue'
 import { organizationJsonLd, useSeo } from '@/composables/useSeo'
 import { useConfigStore } from '@core/stores/config'
 
@@ -44,6 +45,8 @@ useSeo({
   <CustomersReview />
 
   <FaqSection />
+
+  <DownloadSection />
 
   <Banner />
 

@@ -33,6 +33,7 @@ export const getRoutes = (): RouteEntry[] => [
   { path: '/membership', priority: 0.8, changefreq: 'monthly' },
   { path: '/partnership', priority: 0.7, changefreq: 'monthly' },
   { path: '/faq', priority: 0.7, changefreq: 'monthly' },
+  { path: '/download', priority: 0.7, changefreq: 'monthly' },
 
   // 정책 원문은 policy.training-center.org 에 있다. 중복 색인을 피해 사이트맵에서 제외.
   { path: '/policy', priority: 0.3, changefreq: 'yearly', excludeFromSitemap: true },

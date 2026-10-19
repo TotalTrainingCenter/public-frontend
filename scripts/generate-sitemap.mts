@@ -130,6 +130,7 @@ const llms = `# ${siteConfig.name} (${siteConfig.nameEn})
 - [서비스 소개](${siteConfig.url}/about)
 - [주요 기능](${siteConfig.url}/features): 활동 제시 → 수행 → 기록 → 인증 → 누적
 - [이용 가이드](${siteConfig.url}/guide)
+- [앱 다운로드](${siteConfig.url}/download): Mac 앱(Apple 실리콘), iPhone·Android 앱은 준비 중
 - [제휴 문의](${siteConfig.url}/partnership): 기업·학교·공공기관 단체 운영
 
 ## 멤버십

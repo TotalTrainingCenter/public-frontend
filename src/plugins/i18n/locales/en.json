@@ -170,7 +170,11 @@
     "whyResumeDesc": "Miss a day and you do not start over. The days you missed are part of the record too.",
     "whyResumeTitle": "A missed day is not a reset",
     "whyTogetherDesc": "Records from people doing the same activity pile up alongside yours. You can tell you are not alone.",
-    "whyTogetherTitle": "Not on your own"
+    "whyTogetherTitle": "Not on your own",
+    "downloadHeadingA": "Get",
+    "downloadHeadingB": "the app",
+    "downloadLead": "Total Training Center is now available as a Mac app. iPhone and Android apps are on the way.",
+    "downloadCta": "Go to downloads"
   },
   "language": {
     "en": "English",
@@ -247,7 +251,8 @@
     "openMenu": "Open menu",
     "partnership": "Partnership",
     "platformCta": "Go to the platform",
-    "stories": "Stories"
+    "stories": "Stories",
+    "download": "Download"
   },
   "noti": {
     "defaultTitle": "You have a new notification."
@@ -418,5 +423,38 @@
       "PARTNERSHIP": "Partnership",
       "OTHER": "Other"
     }
+  },
+  "download": {
+    "title": "Download the app",
+    "lead": "Use Total Training Center as a Mac app. iPhone and Android apps are in preparation, and the web is always available with nothing to install.",
+    "seoDesc": "Download the Total Training Center app for Mac (Apple silicon). iPhone and Android apps are being prepared. You can also use the service on the web right away.",
+    "available": "Available",
+    "preparing": "Coming soon",
+    "iosPreparing": "Coming soon to the App Store",
+    "macTitle": "Mac",
+    "macBody": "A Mac app notarized by Apple.",
+    "macButton": "Download for Mac",
+    "version": "Version",
+    "size": "Size",
+    "sizeValue": "About {mb} MB",
+    "requirement": "Supported",
+    "requirementValue": "Macs with Apple silicon (M1 or later)",
+    "intelNote": "Macs with Intel processors are not supported yet. Please use the web on Intel Macs.",
+    "installTitle": "How to install",
+    "install1": "Open the downloaded TTC.dmg file.",
+    "install2": "In the window that opens, drag the TTC icon into the Applications folder.",
+    "install3": "Launch TTC from the Applications folder. On first launch, if macOS asks to confirm an app downloaded from the internet, click Open.",
+    "checksumTitle": "File checksum (SHA-256)",
+    "checksumHint": "Run shasum -a 256 TTC.dmg in Terminal. If the result matches the value below, your download is identical to the original.",
+    "copy": "Copy",
+    "copied": "Copied.",
+    "copyFailed": "Could not copy. Please select the value and copy it manually.",
+    "iosTitle": "iPhone · iPad",
+    "iosBody": "We will announce it on this page once it is released.",
+    "androidTitle": "Android",
+    "androidBody": "An Android app is in preparation.",
+    "webTitle": "Web",
+    "webStatus": "Available now",
+    "webBody": "Members can always use the service in a browser, without installing anything."
   }
 }

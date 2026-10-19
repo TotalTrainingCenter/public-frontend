@@ -170,7 +170,11 @@
     "whyResumeDesc": "1日抜けても最初からやり直しにはなりません。できなかった日も記録の一部です。",
     "whyResumeTitle": "崩れても続けられる",
     "whyTogetherDesc": "同じアクティビティに取り組む人たちの記録が一緒に積み上がります。自分だけではないという感覚が残ります。",
-    "whyTogetherTitle": "ひとりではない記録"
+    "whyTogetherTitle": "ひとりではない記録",
+    "downloadHeadingA": "アプリ",
+    "downloadHeadingB": "ダウンロード",
+    "downloadLead": "総合トレーニングセンターがMacアプリでも使えるようになりました。iPhone・Androidアプリも準備中です。",
+    "downloadCta": "ダウンロードページへ"
   },
   "language": {
     "en": "英語",
@@ -247,7 +251,8 @@
     "openMenu": "メニューを開く",
     "partnership": "提携相談",
     "platformCta": "公式プラットフォームへ",
-    "stories": "活動レポート"
+    "stories": "活動レポート",
+    "download": "アプリ"
   },
   "noti": {
     "defaultTitle": "新しい通知が届きました。"
@@ -418,5 +423,38 @@
       "PARTNERSHIP": "提携・協業",
       "OTHER": "その他"
     }
+  },
+  "download": {
+    "title": "アプリのダウンロード",
+    "lead": "総合トレーニングセンターをMacアプリでご利用いただけます。iPhone・Androidアプリは準備中で、Webならインストール不要でいつでもご利用いただけます。",
+    "seoDesc": "総合トレーニングセンターのMacアプリ(Appleシリコン搭載Mac用)をダウンロードできます。iPhone・Androidアプリはリリース準備中です。Webでもすぐにご利用いただけます。",
+    "available": "ダウンロード可能",
+    "preparing": "準備中",
+    "iosPreparing": "App Store リリース準備中",
+    "macTitle": "Mac",
+    "macBody": "Appleの公証を受けたMac用アプリです。",
+    "macButton": "Mac版をダウンロード",
+    "version": "バージョン",
+    "size": "サイズ",
+    "sizeValue": "約{mb}MB",
+    "requirement": "対応機種",
+    "requirementValue": "Appleシリコン搭載Mac(M1以降)",
+    "intelNote": "Intelプロセッサ搭載のMacにはまだ対応していません。Intel MacではWebをご利用ください。",
+    "installTitle": "インストール方法",
+    "install1": "ダウンロードした TTC.dmg ファイルを開きます。",
+    "install2": "開いたウィンドウで、TTC のアイコンを「アプリケーション」(Applications)フォルダにドラッグします。",
+    "install3": "アプリケーションフォルダから TTC を起動します。初回起動時にインターネットからダウンロードしたアプリである旨の確認が表示されたら「開く」をクリックします。",
+    "checksumTitle": "ファイルのチェックサム(SHA-256)",
+    "checksumHint": "ターミナルで shasum -a 256 TTC.dmg を実行し、結果が下の値と一致すれば、ダウンロードしたファイルは元のファイルと同一です。",
+    "copy": "コピー",
+    "copied": "コピーしました。",
+    "copyFailed": "コピーできませんでした。値を選択して手動でコピーしてください。",
+    "iosTitle": "iPhone · iPad",
+    "iosBody": "リリースされたらこのページでお知らせします。",
+    "androidTitle": "Android",
+    "androidBody": "Androidアプリを準備しています。",
+    "webTitle": "Web",
+    "webStatus": "すぐに利用可能",
+    "webBody": "アプリをインストールしなくても、会員はいつでもブラウザからご利用いただけます。"
   }
 }

@@ -170,7 +170,11 @@
     "whyResumeDesc": "하루 빠뜨려도 처음부터 다시 시작하지 않습니다. 못 한 날도 기록의 일부입니다.",
     "whyResumeTitle": "무너져도 이어집니다",
     "whyTogetherDesc": "같은 활동을 하는 사람들의 기록이 함께 쌓입니다. 나만 하고 있는 게 아니라는 감각이 남습니다.",
-    "whyTogetherTitle": "혼자가 아닌 기록"
+    "whyTogetherTitle": "혼자가 아닌 기록",
+    "downloadHeadingA": "앱",
+    "downloadHeadingB": "다운로드",
+    "downloadLead": "이제 맥 앱으로도 종합 훈련 센터를 이용할 수 있습니다. iPhone·Android 앱도 준비하고 있습니다.",
+    "downloadCta": "다운로드 페이지로"
   },
   "language": {
     "en": "영어",
@@ -247,7 +251,8 @@
     "openMenu": "메뉴 열기",
     "partnership": "제휴 문의",
     "platformCta": "공식 플랫폼 바로가기",
-    "stories": "활동 후기"
+    "stories": "활동 후기",
+    "download": "앱 다운로드"
   },
   "noti": {
     "defaultTitle": "새로운 알림이 도착 하였습니다."
@@ -418,5 +423,38 @@
       "PARTNERSHIP": "제휴·협업",
       "OTHER": "기타"
     }
+  },
+  "download": {
+    "title": "앱 다운로드",
+    "lead": "종합 훈련 센터를 맥 앱으로 이용해 보세요. iPhone·Android 앱은 준비 중이며, 웹에서는 설치 없이 언제든 이용할 수 있습니다.",
+    "seoDesc": "종합 훈련 센터 맥(Mac) 앱을 내려받으세요. Apple 실리콘 맥용 앱이며, iPhone·Android 앱은 출시를 준비하고 있습니다. 웹에서도 바로 이용할 수 있습니다.",
+    "available": "다운로드 가능",
+    "preparing": "준비 중",
+    "iosPreparing": "App Store 출시 준비 중",
+    "macTitle": "Mac",
+    "macBody": "Apple 공증을 마친 맥용 앱입니다.",
+    "macButton": "Mac용 다운로드",
+    "version": "버전",
+    "size": "크기",
+    "sizeValue": "약 {mb}MB",
+    "requirement": "지원 기기",
+    "requirementValue": "Apple 실리콘 맥(M1 이후)",
+    "intelNote": "Intel 프로세서 맥은 아직 지원하지 않습니다. Intel 맥에서는 웹으로 이용해 주세요.",
+    "installTitle": "설치 방법",
+    "install1": "내려받은 TTC.dmg 파일을 엽니다.",
+    "install2": "열린 창에서 TTC 아이콘을 '응용 프로그램'(Applications) 폴더로 끌어다 놓습니다.",
+    "install3": "응용 프로그램 폴더에서 TTC를 실행합니다. 처음 실행할 때 인터넷에서 내려받은 앱이라는 확인 창이 뜨면 '열기'를 누릅니다.",
+    "checksumTitle": "파일 확인값(SHA-256)",
+    "checksumHint": "터미널에서 shasum -a 256 TTC.dmg 를 실행해 나온 값이 아래와 같으면 내려받은 파일이 원본과 같습니다.",
+    "copy": "복사",
+    "copied": "복사했습니다.",
+    "copyFailed": "복사하지 못했습니다. 값을 직접 선택해 복사해 주세요.",
+    "iosTitle": "iPhone · iPad",
+    "iosBody": "출시되면 이 페이지에서 안내하겠습니다.",
+    "androidTitle": "Android",
+    "androidBody": "Android 앱을 준비하고 있습니다.",
+    "webTitle": "웹",
+    "webStatus": "바로 이용",
+    "webBody": "앱을 설치하지 않아도 회원은 언제든 브라우저에서 이용할 수 있습니다."
   }
 }

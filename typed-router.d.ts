@@ -23,6 +23,7 @@ declare module 'vue-router/auto-routes' {
     'about': RouteRecordInfo<'about', '/about', Record<never, never>, Record<never, never>>,
     'activities': RouteRecordInfo<'activities', '/activities', Record<never, never>, Record<never, never>>,
     'activities-slug': RouteRecordInfo<'activities-slug', '/activities/:slug', { slug: ParamValue<true> }, { slug: ParamValue<false> }>,
+    'download': RouteRecordInfo<'download', '/download', Record<never, never>, Record<never, never>>,
     'faq': RouteRecordInfo<'faq', '/faq', Record<never, never>, Record<never, never>>,
     'features': RouteRecordInfo<'features', '/features', Record<never, never>, Record<never, never>>,
     'guide': RouteRecordInfo<'guide', '/guide', Record<never, never>, Record<never, never>>,

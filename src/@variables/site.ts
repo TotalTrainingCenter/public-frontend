@@ -39,6 +39,19 @@ export const siteConfig = {
     email: 'contact@training-center.org',
   },
 
+  /**
+   * 앱 내려받기(/download).
+   * ℹ️ 맥 설치 파일 주소는 판이 바뀌어도 그대로인 고정 링크다. 새 판을 올리면 version·크기·sha256 만 바꾼다.
+   */
+  apps: {
+    mac: {
+      url: 'https://training-center.org/downloads/mac/TTC.dmg',
+      version: '1.0.0',
+      sizeBytes: 90_928_245,
+      sha256: '99557692bcf7e7830f7274ff8dcde91d6bbce4df976adbcd7e0f30481f0ec974',
+    },
+  },
+
   /** 약관·정책 원문이 있는 곳. 공개 사이트는 중복 게시하지 않고 이곳으로 보낸다. */
   policyUrl: 'https://policy.training-center.org',
 
@@ -77,6 +90,7 @@ export const navigation: NavItem[] = [
     children: [
       { titleKey: 'nav.aboutService', to: '/about' },
       { titleKey: 'nav.features', to: '/features' },
+      { titleKey: 'nav.download', to: '/download' },
     ],
   },
   {
