@@ -8,8 +8,8 @@ definePage({ meta: { layout: 'public' } })
 
 const mac = siteConfig.apps.mac
 
-/** 화면 표기용 크기(MiB). 맥 Finder 는 10진(MB)으로 보여 조금 더 크게 나온다. */
-const macSizeMb = Math.round(mac.sizeBytes / 1024 / 1024)
+/** 화면 표기용 크기(MB). 맥 Finder 와 같은 1000 단위 — 1024 로 나누면 Finder 표시(약 91MB)보다 작게 보인다. */
+const macSizeMb = Math.round(mac.sizeBytes / 1000 / 1000)
 
 const installSteps = computed(() => ([
   t('download.install1'),
