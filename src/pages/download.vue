@@ -7,6 +7,7 @@ const { t } = useI18n()
 definePage({ meta: { layout: 'public' } })
 
 const mac = siteConfig.apps.mac
+const ios = siteConfig.apps.ios
 
 /** 화면 표기용 크기(MB). 맥 Finder 와 같은 1000 단위 — 1024 로 나누면 Finder 표시(약 91MB)보다 작게 보인다. */
 const macSizeMb = Math.round(mac.sizeBytes / 1000 / 1000)
@@ -19,7 +20,6 @@ const installSteps = computed(() => ([
 
 /** 준비 중인 플랫폼. 출시되면 Mac 카드처럼 링크를 단다. */
 const upcoming = computed(() => ([
-  { key: 'ios', icon: 'tabler-brand-apple', title: t('download.iosTitle'), status: t('download.iosPreparing'), body: t('download.iosBody') },
   { key: 'android', icon: 'tabler-brand-android', title: t('download.androidTitle'), status: t('download.preparing'), body: t('download.androidBody') },
 ]))
 
@@ -75,6 +75,67 @@ useSeo({
       class="download-body mx-auto"
       style="max-inline-size: 56rem;"
     >
+      <!-- 👉 iPhone -->
+      <VCard class="mb-6">
+        <VCardText class="pa-6 pa-sm-8">
+          <div class="d-flex align-center flex-wrap gap-3 mb-3">
+            <VAvatar
+              color="primary"
+              variant="tonal"
+              rounded
+              size="44"
+            >
+              <VIcon
+                icon="tabler-brand-apple"
+                size="26"
+              />
+            </VAvatar>
+
+            <h2 class="text-h4 mb-0">
+              {{ $t('download.iphoneTitle') }}
+            </h2>
+
+            <VChip
+              color="success"
+              variant="tonal"
+              size="small"
+            >
+              {{ $t('download.available') }}
+            </VChip>
+          </div>
+
+          <p class="text-body-1 mb-6">
+            {{ $t('download.iphoneBody') }}
+          </p>
+
+          <VBtn
+            :href="ios.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            size="large"
+            prepend-icon="tabler-brand-apple"
+            class="mb-6"
+          >
+            {{ $t('download.iphoneButton') }}
+          </VBtn>
+
+          <dl class="download-spec mb-0">
+            <div>
+              <dt>{{ $t('download.version') }}</dt>
+              <dd>{{ ios.version }}</dd>
+            </div>
+            <div>
+              <dt>{{ $t('download.price') }}</dt>
+              <dd>{{ $t('download.free') }}</dd>
+            </div>
+            <div>
+              <dt>{{ $t('download.requirement') }}</dt>
+              <dd>{{ $t('download.iphoneRequirementValue', { version: ios.minOs }) }}</dd>
+            </div>
+          </dl>
+        </VCardText>
+      </VCard>
+
       <!-- 👉 Mac -->
       <VCard class="mb-6">
         <VCardText class="pa-6 pa-sm-8">
@@ -193,12 +254,12 @@ useSeo({
       </VCard>
 
       <VRow>
-        <!-- 👉 iPhone · Android (준비 중) -->
+        <!-- 👉 Android (준비 중) -->
         <VCol
           v-for="item in upcoming"
           :key="item.key"
           cols="12"
-          md="4"
+          md="6"
         >
           <VCard class="h-100">
             <VCardText>
@@ -230,7 +291,7 @@ useSeo({
         <!-- 👉 웹 -->
         <VCol
           cols="12"
-          md="4"
+          md="6"
         >
           <VCard class="h-100">
             <VCardText>

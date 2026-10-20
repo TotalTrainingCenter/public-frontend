@@ -50,6 +50,13 @@ export const siteConfig = {
       sizeBytes: 90_951_899,
       sha256: 'd76cc51d223e5f34fcbfafdadb0b99f1516c068c1f9db41fd4f94ff6caac5435',
     },
+
+    /** iPhone 앱(App Store). 아이패드에서도 돌지만 아이폰 화면을 키운 것이라 안내는 iPhone 으로만 한다. */
+    ios: {
+      url: 'https://apps.apple.com/kr/app/id6823595030',
+      version: '1.0.0',
+      minOs: '17.0',
+    },
   },
 
   /** 약관·정책 원문이 있는 곳. 공개 사이트는 중복 게시하지 않고 이곳으로 보낸다. */

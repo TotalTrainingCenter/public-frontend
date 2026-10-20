@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const platforms = [
+  { key: 'ios', icon: 'tabler-brand-apple', titleKey: 'download.iphoneTitle', statusKey: 'download.available', ready: true },
   { key: 'mac', icon: 'tabler-device-laptop', titleKey: 'download.macTitle', statusKey: 'download.available', ready: true },
-  { key: 'ios', icon: 'tabler-brand-apple', titleKey: 'download.iosTitle', statusKey: 'download.preparing', ready: false },
   { key: 'android', icon: 'tabler-brand-android', titleKey: 'download.androidTitle', statusKey: 'download.preparing', ready: false },
 ]
 </script>
