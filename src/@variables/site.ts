@@ -54,7 +54,7 @@ export const siteConfig = {
     /** iPhone 앱(App Store). 아이패드에서도 돌지만 아이폰 화면을 키운 것이라 안내는 iPhone 으로만 한다. */
     ios: {
       url: 'https://apps.apple.com/kr/app/id6823595030',
-      version: '1.0.0',
+      version: '1.0.1',
       minOs: '17.0',
     },
   },
