@@ -154,10 +154,10 @@ useSeo({
               </p>
 
               <VBtn
-                :href="siteConfig.platformUrl"
+                :href="siteConfig.signUpUrl"
                 block
               >
-                {{ $t('page.activityJoinPlatform') }}
+                {{ $t('cta.signUp') }}
               </VBtn>
             </VCardText>
           </VCard>

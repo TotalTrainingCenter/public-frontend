@@ -29,8 +29,11 @@ export const membershipMeta: Record<string, IMembershipMeta> = {
   'LVL.0': {
     recommended: false,
     entry: true,
+
+    // 체험은 활동 수가 첫날 1개에서 7일 동안 늘어난다(전체 주제는 둘러보기만). '전체 이용'으로 읽히지 않게 한 줄 더 둔다.
     features: [
       { labelKey: 'member.featAllTopics', available: true },
+      { labelKey: 'member.featTrialRamp', available: true },
       { labelKey: 'member.featRecord', available: true },
       { labelKey: 'member.featUnlimited', available: false },
     ],

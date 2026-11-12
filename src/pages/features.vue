@@ -76,10 +76,10 @@ useSeo({
 
       <div class="text-center">
         <VBtn
-          :href="siteConfig.platformUrl"
+          :href="siteConfig.signUpUrl"
           size="large"
         >
-          {{ $t('cta.platform') }}
+          {{ $t('cta.signUp') }}
         </VBtn>
       </div>
     </div>

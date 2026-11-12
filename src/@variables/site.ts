@@ -28,6 +28,12 @@ export const siteConfig = {
   platformUrl: env('VITE_PLATFORM_URL') || 'https://total.training-center.org',
 
   /**
+   * 가입 화면(auth) 주소. 본문 CTA 는 여기로 바로 보낸다(가입 → 메일 인증 → 체험 시작).
+   * 로그인은 상단 '공식 플랫폼 바로가기'(platformUrl)로 그대로 갈 수 있다.
+   */
+  signUpUrl: `${env('VITE_AUTH_URL') || 'https://auth.training-center.org'}/register`,
+
+  /**
    * 사이트맵/RSS 등 로케일 개념이 없는 산출물의 기본값.
    * ⚠️ 페이지 메타의 og:locale 은 이걸 쓰지 않는다. useSeo 가 현재 언어로 만든다.
    */

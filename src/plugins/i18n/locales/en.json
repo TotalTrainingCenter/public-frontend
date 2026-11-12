@@ -58,7 +58,8 @@
   "cta": {
     "allActivities": "See all activities",
     "browseActivities": "Browse activities",
-    "platform": "Go to the platform"
+    "platform": "Go to the platform",
+    "signUp": "Sign up free and start the trial"
   },
   "diff": {
     "beyondBody": "Beyond personal habits, we build topics that help vulnerable groups. We are open to working with companies, schools and public institutions.",
@@ -86,11 +87,10 @@
     "howToDesc": "From signing up to your first verified activity",
     "howToName": "Getting started with Total Training Center",
     "lead": "Six steps from sign-up to your first verification.",
-    "platformCta": "Start on the platform",
     "rejectBody": "Too long a gap between doing it and logging it, an edited file, or a format other than the one the activity requires.",
     "rejectStrong": "When proof is rejected",
     "seoDesc": "Six steps from signing up to your first verified activity, plus what counts as valid proof and which topics to start with.",
-    "step1Body": "Create an account on the platform. LVL.0 is free and gives you every topic for seven days. You can pick activities straight away, so there is no need to enter payment details first.",
+    "step1Body": "Create an account on the platform and verify your email. Then pick your status and one activity topic, and your 7-day free trial (LVL.0) starts right away. You begin with one easy activity on day 1 and get a few more as the days go by, and you can browse every topic at any time. There is no need to enter payment details first.",
     "step1Title": "Sign up",
     "step2Body": "Before picking activities, read the notices and rules. They cover what counts as valid proof, how records are kept, and how the community is run. Skipping this can get your proof rejected.",
     "step2Title": "Read the notices and rules",
@@ -187,8 +187,8 @@
     "diffPeriodPre": "From LVL.2,",
     "diffPeriodRest": ". Every plan includes everything below it, adding messenger, AI and SNS features step by step. Try seven days first, then pick the plan that has what you need.",
     "diffPeriodStrong": "each plan adds one feature",
-    "diffSameRest": "Both let you see every topic and get activities verified. LVL.0 lasts seven days; LVL.1 has no time limit, so your records keep building.",
-    "diffSameStrong": "LVL.0 and LVL.1 differ only in how long they last.",
+    "diffSameRest": "Both let you browse every topic. LVL.0 starts with one easy activity on day 1 and grows gradually over seven days; LVL.1 has no time limit, so your records keep building.",
+    "diffSameStrong": "LVL.0 is a 7-day trial that starts gently.",
     "featAiChat": "AI chat",
     "featAiDocs": "AI document search",
     "featAiGroup": "AI group chat",
@@ -224,7 +224,8 @@
     "refundPost": "for details.",
     "refundPre": "See",
     "seoDesc": "LVL.0 is free for 7 days; LVL.1 is 4,512 KRW a month. Prices and features for every plan, up to the ones that add messenger, AI and SNS.",
-    "title": "Membership"
+    "title": "Membership",
+    "featTrialRamp": "1 activity on day 1, growing over 7 days"
   },
   "message": {
     "cancelled": "Cancelled",
@@ -268,7 +269,6 @@
     "activitiesTitle": "Activity topics",
     "activityFallbackDesc": "An activity topic from Total Training Center.",
     "activityHowToProve": "How does verification work?",
-    "activityJoinPlatform": "Join on the platform",
     "activityMissing": "That topic does not exist.",
     "activityOptional": "Optional activities",
     "activityOptionalLead": "Add as many of these as you like.",

@@ -138,7 +138,7 @@ useSeo({
 
       <div class="text-center">
         <VBtn
-          :href="siteConfig.platformUrl"
+          :href="siteConfig.signUpUrl"
           size="large"
         >
           {{ $t('landing.pricingCta') }}

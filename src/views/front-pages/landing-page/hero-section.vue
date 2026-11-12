@@ -57,9 +57,9 @@ const translateMouse = computed(() => {
               <div class="d-flex flex-wrap justify-center gap-4">
                 <VBtn
                   :size="$vuetify.display.smAndUp ? 'large' : 'default'"
-                  :href="siteConfig.platformUrl"
+                  :href="siteConfig.signUpUrl"
                 >
-                  {{ $t('cta.platform') }}
+                  {{ $t('cta.signUp') }}
                 </VBtn>
 
                 <VBtn

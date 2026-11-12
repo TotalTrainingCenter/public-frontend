@@ -116,7 +116,7 @@ const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.entr
                   block
                   :variant="plan.recommended ? 'elevated' : 'tonal'"
                   class="mt-8"
-                  :href="siteConfig.platformUrl"
+                  :href="siteConfig.signUpUrl"
                 >
                   {{ $t('landing.pricingCta') }}
                 </VBtn>

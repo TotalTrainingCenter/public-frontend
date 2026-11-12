@@ -22,10 +22,10 @@ import { siteConfig } from '@variables/site'
           </p>
           <VBtn
             color="primary"
-            :href="siteConfig.platformUrl"
+            :href="siteConfig.signUpUrl"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           >
-            {{ $t('cta.platform') }}
+            {{ $t('cta.signUp') }}
           </VBtn>
         </div>
 
