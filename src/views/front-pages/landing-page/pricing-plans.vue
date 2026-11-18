@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import paperPlane from '@images/front-pages/icons/paper-airplane.png'
 import plane from '@images/front-pages/icons/plane.png'
-import { siteConfig } from '@variables/site'
+import { useSignUpUrl } from '@/composables/useSignUpUrl'
+
+// 가입 경로(?from=채널)를 받아 둔 방문자면 가입 화면 주소에도 붙인다.
+const signUpUrl = useSignUpUrl()
 
 const { membershipPlans } = useLocalizedContent()
 
@@ -116,7 +119,7 @@ const entryPlans = computed(() => membershipPlans.value.filter(plan => plan.entr
                   block
                   :variant="plan.recommended ? 'elevated' : 'tonal'"
                   class="mt-8"
-                  :href="siteConfig.signUpUrl"
+                  :href="signUpUrl"
                 >
                   {{ $t('landing.pricingCta') }}
                 </VBtn>

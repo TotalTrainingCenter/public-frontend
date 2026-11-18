@@ -3,8 +3,12 @@ import { useMouse } from '@vueuse/core'
 import { useTheme } from 'vuetify'
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
 import { siteConfig } from '@variables/site'
+import { useSignUpUrl } from '@/composables/useSignUpUrl'
 import heroDashboardImgDark from '@images/front-pages/landing-page/hero-dashboard-dark.png'
 import heroDashboardImgLight from '@images/front-pages/landing-page/hero-dashboard-light.png'
+
+// 가입 경로(?from=채널)를 받아 둔 방문자면 가입 화면 주소에도 붙인다.
+const signUpUrl = useSignUpUrl()
 
 const { activityGroups, totalActivityCount } = useLocalizedContent()
 
@@ -57,7 +61,7 @@ const translateMouse = computed(() => {
               <div class="d-flex flex-wrap justify-center gap-4">
                 <VBtn
                   :size="$vuetify.display.smAndUp ? 'large' : 'default'"
-                  :href="siteConfig.signUpUrl"
+                  :href="signUpUrl"
                 >
                   {{ $t('cta.signUp') }}
                 </VBtn>

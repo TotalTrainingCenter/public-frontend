@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import LogoMark from '@images/brand/logo-mark.svg?component'
-import { siteConfig } from '@variables/site'
+import { useSignUpUrl } from '@/composables/useSignUpUrl'
+
+// 가입 경로(?from=채널)를 받아 둔 방문자면 가입 화면 주소에도 붙인다.
+const signUpUrl = useSignUpUrl()
 
 // ⚠️ Vuexy 원본은 여기에 견본 대시보드 그림(cta-dashboard.png — 'Vuexy' 로고·가짜 매출)을 썼다.
 //    우리 서비스 화면이 아닌 그림을 싣는 것이라 심볼 마크로 바꿨다.
@@ -22,7 +25,7 @@ import { siteConfig } from '@variables/site'
           </p>
           <VBtn
             color="primary"
-            :href="siteConfig.signUpUrl"
+            :href="signUpUrl"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           >
             {{ $t('cta.signUp') }}

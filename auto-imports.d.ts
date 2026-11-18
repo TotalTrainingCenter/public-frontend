@@ -9,6 +9,8 @@ declare global {
   const $api: typeof import('./src/utils/api')['$api']
   const COOKIE_MAX_AGE_1_YEAR: typeof import('./src/utils/constants')['COOKIE_MAX_AGE_1_YEAR']
   const EffectScope: typeof import('vue')['EffectScope']
+  const SIGNUP_CHANNELS: typeof import('./src/utils/signupChannel')['SIGNUP_CHANNELS']
+  const SIGNUP_CHANNEL_PARAM: typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_PARAM']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const alphaDashValidator: typeof import('./src/@core/utils/validators')['alphaDashValidator']
   const alphaValidator: typeof import('./src/@core/utils/validators')['alphaValidator']
@@ -18,7 +20,9 @@ declare global {
   const betweenValidator: typeof import('./src/@core/utils/validators')['betweenValidator']
   const birthdayValidator: typeof import('./src/@core/utils/validators')['birthdayValidator']
   const buildEditorPayload: typeof import('./src/utils/editorContent')['buildEditorPayload']
+  const captureSignupChannelFromRoute: typeof import('./src/utils/signupChannel')['captureSignupChannelFromRoute']
   const clearAuthSession: typeof import('./src/utils/authSession')['clearAuthSession']
+  const clearSignupChannel: typeof import('./src/utils/signupChannel')['clearSignupChannel']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -103,6 +107,7 @@ declare global {
   const navigateAfterAuth: typeof import('./src/utils/browser')['navigateAfterAuth']
   const nextTick: typeof import('vue')['nextTick']
   const normalizeEditorContent: typeof import('./src/utils/editorContent')['normalizeEditorContent']
+  const normalizeSignupChannel: typeof import('./src/utils/signupChannel')['normalizeSignupChannel']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
   const onBeforeRouteLeave: typeof import('vue-router/auto')['onBeforeRouteLeave']
@@ -136,6 +141,7 @@ declare global {
   const reactiveComputed: typeof import('@vueuse/core')['reactiveComputed']
   const reactiveOmit: typeof import('@vueuse/core')['reactiveOmit']
   const reactivePick: typeof import('@vueuse/core')['reactivePick']
+  const readSignupChannel: typeof import('./src/utils/signupChannel')['readSignupChannel']
   const readonly: typeof import('vue')['readonly']
   const redirectToAuthLogin: typeof import('./src/utils/browser')['redirectToAuthLogin']
   const redirectToAuthLogout: typeof import('./src/utils/browser')['redirectToAuthLogout']
@@ -148,6 +154,7 @@ declare global {
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
   const regexValidator: typeof import('./src/@core/utils/validators')['regexValidator']
   const registerPlugins: typeof import('./src/@core/utils/plugins')['registerPlugins']
+  const rememberSignupChannel: typeof import('./src/utils/signupChannel')['rememberSignupChannel']
   const requestNotificationPermission: typeof import('./src/utils/firebaseUtils')['requestNotificationPermission']
   const requiredValidator: typeof import('./src/@core/utils/validators')['requiredValidator']
   const resolveComponent: typeof import('vue')['resolveComponent']
@@ -324,6 +331,7 @@ declare global {
   const useSeo: typeof import('./src/composables/useSeo')['useSeo']
   const useSessionStorage: typeof import('@vueuse/core')['useSessionStorage']
   const useShare: typeof import('@vueuse/core')['useShare']
+  const useSignUpUrl: typeof import('./src/composables/useSignUpUrl')['useSignUpUrl']
   const useSkins: typeof import('./src/@core/composable/useSkins')['useSkins']
   const useSlots: typeof import('vue')['useSlots']
   const useSorted: typeof import('@vueuse/core')['useSorted']
@@ -384,6 +392,7 @@ declare global {
   const watchTriggerable: typeof import('@vueuse/core')['watchTriggerable']
   const watchWithFilter: typeof import('@vueuse/core')['watchWithFilter']
   const whenever: typeof import('@vueuse/core')['whenever']
+  const withSignupChannel: typeof import('./src/utils/signupChannel')['withSignupChannel']
 }
 // for type re-export
 declare global {
@@ -400,6 +409,8 @@ declare module 'vue' {
     readonly $api: UnwrapRef<typeof import('./src/utils/api')['$api']>
     readonly COOKIE_MAX_AGE_1_YEAR: UnwrapRef<typeof import('./src/utils/constants')['COOKIE_MAX_AGE_1_YEAR']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly SIGNUP_CHANNELS: UnwrapRef<typeof import('./src/utils/signupChannel')['SIGNUP_CHANNELS']>
+    readonly SIGNUP_CHANNEL_PARAM: UnwrapRef<typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_PARAM']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly alphaDashValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['alphaDashValidator']>
     readonly alphaValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['alphaValidator']>
@@ -408,6 +419,8 @@ declare module 'vue' {
     readonly avatarText: UnwrapRef<typeof import('./src/@core/utils/formatters')['avatarText']>
     readonly betweenValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['betweenValidator']>
     readonly birthdayValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['birthdayValidator']>
+    readonly captureSignupChannelFromRoute: UnwrapRef<typeof import('./src/utils/signupChannel')['captureSignupChannelFromRoute']>
+    readonly clearSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['clearSignupChannel']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -488,6 +501,7 @@ declare module 'vue' {
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly navigateAfterAuth: UnwrapRef<typeof import('./src/utils/browser')['navigateAfterAuth']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
+    readonly normalizeSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['normalizeSignupChannel']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
     readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router/auto')['onBeforeRouteLeave']>
@@ -521,6 +535,7 @@ declare module 'vue' {
     readonly reactiveComputed: UnwrapRef<typeof import('@vueuse/core')['reactiveComputed']>
     readonly reactiveOmit: UnwrapRef<typeof import('@vueuse/core')['reactiveOmit']>
     readonly reactivePick: UnwrapRef<typeof import('@vueuse/core')['reactivePick']>
+    readonly readSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['readSignupChannel']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
     readonly redirectToAuthLogin: UnwrapRef<typeof import('./src/utils/browser')['redirectToAuthLogin']>
     readonly redirectToAuthLogout: UnwrapRef<typeof import('./src/utils/browser')['redirectToAuthLogout']>
@@ -533,6 +548,7 @@ declare module 'vue' {
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
     readonly regexValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['regexValidator']>
     readonly registerPlugins: UnwrapRef<typeof import('./src/@core/utils/plugins')['registerPlugins']>
+    readonly rememberSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['rememberSignupChannel']>
     readonly requiredValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['requiredValidator']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
@@ -706,6 +722,7 @@ declare module 'vue' {
     readonly useSeo: UnwrapRef<typeof import('./src/composables/useSeo')['useSeo']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>
+    readonly useSignUpUrl: UnwrapRef<typeof import('./src/composables/useSignUpUrl')['useSignUpUrl']>
     readonly useSkins: UnwrapRef<typeof import('./src/@core/composable/useSkins')['useSkins']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useSorted: UnwrapRef<typeof import('@vueuse/core')['useSorted']>
@@ -766,5 +783,6 @@ declare module 'vue' {
     readonly watchTriggerable: UnwrapRef<typeof import('@vueuse/core')['watchTriggerable']>
     readonly watchWithFilter: UnwrapRef<typeof import('@vueuse/core')['watchWithFilter']>
     readonly whenever: UnwrapRef<typeof import('@vueuse/core')['whenever']>
+    readonly withSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['withSignupChannel']>
   }
 }

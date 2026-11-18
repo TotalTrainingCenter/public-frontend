@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { serviceSteps } from '@variables/features'
 import { siteConfig } from '@variables/site'
+import { useSignUpUrl } from '@/composables/useSignUpUrl'
 import { useSeo } from '@/composables/useSeo'
+
+// 가입 경로(?from=채널)를 받아 둔 방문자면 가입 화면 주소에도 붙인다.
+const signUpUrl = useSignUpUrl()
 
 const { t } = useI18n()
 
@@ -76,7 +80,7 @@ useSeo({
 
       <div class="text-center">
         <VBtn
-          :href="siteConfig.signUpUrl"
+          :href="signUpUrl"
           size="large"
         >
           {{ $t('cta.signUp') }}
