@@ -45,7 +45,6 @@ export interface IInformationLivingAndActivityForm {
   preferredExercise: string
   preferredActivity: string
   controlPreference: string | undefined
-  aiLearningStatus: string | undefined
   activeHours: string
   weekendStyle: string
   targetType: string
@@ -62,7 +61,6 @@ export const defaultInformationLivingAndActivityForm = reactive<IInformationLivi
   preferredExercise: '',
   preferredActivity: '',
   controlPreference: undefined,
-  aiLearningStatus: undefined,
   activeHours: '',
   weekendStyle: '',
   targetType: '',
