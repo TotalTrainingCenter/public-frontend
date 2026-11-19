@@ -4,9 +4,12 @@
  * - 브라우저에 미끼 요소(광고 차단 목록이 숨기는 이름의 빈 상자)를 잠깐 넣어 숨겨졌는지만 본다.
  * - 결과는 '차단됐다/아니다' 하나만 서버 하루 합계에 더한다(/v1/public/adblock-tally). 개인별로 남기지 않는다 —
  *   계정·토큰·기기 정보를 싣지 않고(쿠키도 보내지 않는다), 서버도 날짜별 숫자만 올린다.
- * - 같은 브라우저는 하루 한 번만 보낸다. 보낸 날짜만 이 기기의 localStorage 에 둔다.
+ * - 같은 브라우저는 하루 한 번만 보낸다. 보낸 날짜만 이 기기의 localStorage 에 둔다. 서버가 받지 못하면(오류) 적지 않는다.
+ * - 운영 설정 기록 시작일(처리방침 새 판 시행일) 전에는 확인도 전송도 하지 않는다(/v1/public/access-features 의 recording).
  * - 무엇이 실패해도 화면에 알리지 않는다(통계일 뿐이다).
  */
+
+import { fetchAccessFeatures } from '@/utils/accessFeatures'
 
 const STORAGE_KEY = 'ttc.adblockTallyDay'
 
@@ -64,17 +67,22 @@ export const reportAdblockTallyOncePerDay = async () => {
     return
 
   try {
+    if (!(await fetchAccessFeatures()).recording)
+      return
+
     const blocked = await detectAdblock()
     const base = import.meta.env.VITE_API_BASE_URL || '/api'
 
-    await fetch(`${base}/v1/public/adblock-tally`, {
+    const response = await fetch(`${base}/v1/public/adblock-tally`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ blocked }),
       credentials: 'omit',
       keepalive: true,
     })
-    writeSentDay(today)
+
+    if (response.ok)
+      writeSentDay(today)
   }
   catch {
     // 통계일 뿐이다
