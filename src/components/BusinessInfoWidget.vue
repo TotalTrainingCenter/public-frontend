@@ -1,37 +1,17 @@
 <script setup lang="ts">
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { businessFtcUrl, businessInfo } from '@variables/BusinessInfo'
 
+// 👉 사업자 정보 값은 @variables/BusinessInfo 한 곳에 있다(화면 하단 BusinessInfoFooter 와 같이 쓴다)
 const { t } = useI18n()
 
-// 👉 사업자 정보 (여기 값만 실제 정보로 바꾸면 됩니다)
-// ⚠️ 아래 값은 법적 등록 정보다. 번역하지 말 것. 라벨만 i18n 키를 쓴다.
-const businessInfo = {
-  companyName: '종합 훈련 센터 (Total Training Center)',
-  ceo: '김태민',
-  regNo: '684-17-02954',
-  mailOrderNo: '제0000-지역0000-00000호',
-  address: '부산광역시 해운대구 재반로30번길 135, 1동 605호(재송동, 센텀안성타워)',
-  tel: '010-3980-2818',
-  email: 'help@training-center.org',
-  privacyOfficer: '김태민',
-
-  // 전자상거래법 제10조(사이버몰 운영자 표시). 처리방침의 위탁·국외 이전 항목과 같은 표기
-  hostingProvider: 'Amazon Web Services, Inc.',
-}
-
 const isOpen = ref(false)
-
-// 사업자등록번호는 하이픈 제거 후 조회
-const ftcUrl = computed(
-  () => `https://www.ftc.go.kr/bizCommPop.do?wrkr_no=${businessInfo.regNo.replaceAll('-', '')}`,
-)
 
 const rows = computed(() => [
   { icon: 'tabler-building-store', label: t('business.companyName'), value: businessInfo.companyName },
   { icon: 'tabler-user', label: t('business.ceo'), value: businessInfo.ceo },
   { icon: 'tabler-id-badge-2', label: t('business.regNo'), value: businessInfo.regNo },
-
-  // { icon: 'tabler-certificate', label: t('business.mailOrderNo'), value: businessInfo.mailOrderNo },
+  { icon: 'tabler-certificate', label: t('business.mailOrderNo'), value: businessInfo.mailOrderNo ?? t('business.mailOrderExempt') },
   { icon: 'tabler-map-pin', label: t('business.address'), value: businessInfo.address },
   { icon: 'tabler-phone', label: t('business.tel'), value: businessInfo.tel },
   { icon: 'tabler-mail', label: t('business.email'), value: businessInfo.email },
@@ -142,7 +122,7 @@ onKeyStroke('Escape', () => {
             size="small"
             variant="tonal"
             prepend-icon="tabler-external-link"
-            :href="ftcUrl"
+            :href="businessFtcUrl"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -48,6 +48,7 @@
     "email": "メールアドレス",
     "hostingProvider": "ホスティングサービス提供者",
     "lookup": "事業者登録情報の照会",
+    "mailOrderExempt": "申告免除(前年度の通信販売取引が50回未満)",
     "mailOrderNo": "通信販売業申告番号",
     "open": "事業者情報を見る",
     "privacyOfficer": "個人情報管理責任者",

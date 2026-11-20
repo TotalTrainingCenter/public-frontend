@@ -147,9 +147,10 @@ export const policyDocuments: NavItem[] = [
   { titleKey: 'policy.marketing', href: `${siteConfig.policyUrl}/policy8` },
 ]
 
-/** 푸터 하단 법적 고지 링크. */
+/** 푸터 하단 법적 고지 링크. 위치기반서비스 이용약관은 내리는 중이라 넣지 않는다. */
 export const policyLinks: NavItem[] = [
   { titleKey: 'policy.terms', href: `${siteConfig.policyUrl}/policy2` },
   { titleKey: 'policy.privacy', href: `${siteConfig.policyUrl}/policy1` },
+  { titleKey: 'policy.youth', href: `${siteConfig.policyUrl}/policy7` },
   { titleKey: 'policy.all', to: '/policy' },
 ]

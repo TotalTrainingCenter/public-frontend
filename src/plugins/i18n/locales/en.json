@@ -48,6 +48,7 @@
     "email": "Email",
     "hostingProvider": "Hosting provider",
     "lookup": "Look up business registration",
+    "mailOrderExempt": "Exempt from filing (fewer than 50 mail-order transactions in the previous year)",
     "mailOrderNo": "Mail-order licence no.",
     "open": "View business information",
     "privacyOfficer": "Data protection officer",

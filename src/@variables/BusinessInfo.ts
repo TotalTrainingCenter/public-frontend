@@ -1,0 +1,24 @@
+/**
+ * 사업자 정보 — 전자상거래법 제10조(사이버몰 운영자 표시).
+ * 화면 하단 표시(BusinessInfoFooter)와 오른쪽 아래 사업자 정보 창(BusinessInfoWidget)이 이 한 곳의 값을 쓴다.
+ * ⚠️ 법적 등록 정보다. 번역하지 말 것. 라벨만 i18n 키(business.*)를 쓴다.
+ */
+export const businessInfo = {
+  companyName: '종합 훈련 센터 (Total Training Center)',
+  ceo: '김태민',
+  regNo: '684-17-02954',
+
+  // 통신판매업은 아직 신고하지 않았다(대표 결정, 나중에 신고). 신고하면 번호를 넣는다.
+  // 비어 있는 동안은 빈칸 대신 면제 사유(business.mailOrderExempt)를 보인다(2026-11 법률 자문 C)
+  mailOrderNo: null as string | null,
+  address: '부산광역시 해운대구 재반로30번길 135, 1동 605호(재송동, 센텀안성타워)',
+  tel: '010-3980-2818',
+  email: 'help@training-center.org',
+  privacyOfficer: '김태민',
+
+  // 처리방침의 위탁·국외 이전 항목과 같은 표기
+  hostingProvider: 'Amazon Web Services, Inc.',
+}
+
+/** 공정거래위원회 사업자 정보 공개 페이지(사업자등록번호는 하이픈을 빼고 조회) */
+export const businessFtcUrl = `https://www.ftc.go.kr/bizCommPop.do?wrkr_no=${businessInfo.regNo.replaceAll('-', '')}`

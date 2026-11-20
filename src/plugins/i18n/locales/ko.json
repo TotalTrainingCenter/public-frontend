@@ -48,6 +48,7 @@
     "email": "이메일",
     "hostingProvider": "호스팅 서비스 제공자",
     "lookup": "사업자등록정보 조회",
+    "mailOrderExempt": "신고 면제 (직전 연도 통신판매 거래 횟수 50회 미만)",
     "mailOrderNo": "통신판매업 신고번호",
     "open": "사업자 정보 보기",
     "privacyOfficer": "개인정보관리책임자",

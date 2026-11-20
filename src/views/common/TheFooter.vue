@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LogoMark from '@images/brand/logo-mark.svg?component'
 import { navigation, policyLinks, siteConfig } from '@variables/site'
+import { businessFtcUrl, businessInfo } from '@variables/BusinessInfo'
 
 const snsLinks = computed(() => ([
   { titleKey: 'sns.instagram', href: siteConfig.sns.instagram, icon: 'tabler-brand-instagram' },
@@ -12,6 +13,9 @@ const snsLinks = computed(() => ([
 ].filter(item => item.href)))
 
 const year = new Date().getFullYear()
+
+const telHref = `tel:${businessInfo.tel.replaceAll('-', '')}`
+const mailHref = `mailto:${businessInfo.email}`
 </script>
 
 <template>
@@ -79,41 +83,65 @@ const year = new Date().getFullYear()
 
       <VDivider class="my-6" />
 
-      <div class="d-flex flex-wrap justify-space-between align-center gap-4">
-        <!--
-          TODO: 사업자 정보 표기 (통신판매업 신고 완료 시 법적 의무)
-          상호 / 대표자 / 사업자등록번호 / 통신판매업신고번호 / 주소 / 연락처
-        -->
-        <small class="text-disabled">
-          © {{ year }} {{ siteConfig.nameEn }}. All rights reserved.
-        </small>
-
-        <ul class="public-footer__list public-footer__list--inline">
-          <li
-            v-for="policy in policyLinks"
-            :key="policy.titleKey"
+      <!-- ℹ️ 약관·처리방침·청소년 보호정책 링크. 개인정보 처리방침은 다른 고지와 구분되게 굵게 -->
+      <ul class="public-footer__list public-footer__list--inline mb-4">
+        <li
+          v-for="policy in policyLinks"
+          :key="policy.titleKey"
+        >
+          <!-- 정책 원문은 외부(policy.training-center.org), 허브는 내부 라우트 -->
+          <a
+            v-if="policy.href"
+            :href="policy.href"
+            :class="{ 'font-weight-bold': policy.titleKey === 'policy.privacy' }"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <!-- 정책 원문은 외부(policy.training-center.org), 허브는 내부 라우트 -->
-            <!-- ℹ️ 개인정보 처리방침은 다른 고지와 구분되게 굵게 -->
+            {{ $t(policy.titleKey) }}
+          </a>
+
+          <RouterLink
+            v-else
+            :to="policy.to!"
+          >
+            {{ $t(policy.titleKey) }}
+          </RouterLink>
+        </li>
+      </ul>
+
+      <!--
+        👉 사업자 정보 (전자상거래법 제10조 사이버몰 운영자 표시)
+        버튼 속 창(BusinessInfoWidget)만으로는 초기 화면 표시로 인정받지 못할 위험이 있다는 2026-11 법률 자문 C 에 따라 바닥글에 직접 적는다.
+        값은 @variables/BusinessInfo 한 곳에서 가져온다.
+      -->
+      <address
+        class="public-footer__business text-caption"
+        :aria-label="$t('business.sectionTitle')"
+      >
+        <div class="public-footer__business-line">
+          <span><b>{{ $t('business.companyName') }}</b> {{ businessInfo.companyName }}</span>
+          <span><b>{{ $t('business.ceo') }}</b> {{ businessInfo.ceo }}</span>
+          <span>
+            <b>{{ $t('business.regNo') }}</b> {{ businessInfo.regNo }}
             <a
-              v-if="policy.href"
-              :href="policy.href"
-              :class="{ 'font-weight-bold': policy.titleKey === 'policy.privacy' }"
+              :href="businessFtcUrl"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              {{ $t(policy.titleKey) }}
-            </a>
+            >[{{ $t('business.lookup') }}]</a>
+          </span>
+          <span><b>{{ $t('business.mailOrderNo') }}</b> {{ businessInfo.mailOrderNo ?? $t('business.mailOrderExempt') }}</span>
+        </div>
+        <div class="public-footer__business-line">
+          <span><b>{{ $t('business.address') }}</b> {{ businessInfo.address }}</span>
+          <span><b>{{ $t('business.tel') }}</b> <a :href="telHref">{{ businessInfo.tel }}</a></span>
+          <span><b>{{ $t('business.email') }}</b> <a :href="mailHref">{{ businessInfo.email }}</a></span>
+          <span><b>{{ $t('business.hostingProvider') }}</b> {{ businessInfo.hostingProvider }}</span>
+        </div>
+      </address>
 
-            <RouterLink
-              v-else
-              :to="policy.to!"
-            >
-              {{ $t(policy.titleKey) }}
-            </RouterLink>
-          </li>
-        </ul>
-      </div>
+      <small class="d-block text-disabled mt-4">
+        © {{ year }} {{ siteConfig.nameEn }}. All rights reserved.
+      </small>
     </VContainer>
   </footer>
 </template>
@@ -143,12 +171,40 @@ const year = new Date().getFullYear()
 
     &--inline {
       display: flex;
-      gap: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
 
       li + li {
         margin-block-start: 0;
       }
     }
+  }
+
+  &__business {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+    font-style: normal;
+    line-height: 1.6;
+
+    b {
+      font-weight: 500;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  // 항목끼리는 간격으로만 나눈다. 좁은 화면에서 줄이 바뀌어도 줄 앞에 구분 기호가 남지 않게.
+  &__business-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.125rem 1rem;
+  }
+
+  // 휴대폰·태블릿 폭에서는 오른쪽 아래 사업자 정보 버튼이 맨 아래 줄을 덮는다. 끝까지 내리면 비켜서게 버튼 높이만큼 여유를 둔다.
+  @media (max-width: 959px) {
+    padding-block-end: 4.5rem;
   }
 }
 </style>
