@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { siteConfig } from '@variables/site'
+import { businessInfo } from '@variables/BusinessInfo'
 import { useSeo } from '@/composables/useSeo'
 
 const { t } = useI18n()
@@ -73,6 +74,15 @@ useSeo({
           <p class="text-body-2 mb-0">
             {{ $t('guestInquiry.orMail') }}
             <a :href="`mailto:${siteConfig.contact.email}`">{{ siteConfig.contact.email }}</a>
+          </p>
+
+          <!-- ℹ️ 불법촬영물 등 신고 전용 창구. 비회원·피해자도 바로 쓸 수 있게 문의 화면에 따로 적는다(2026-11 법률 자문 C) -->
+          <p class="text-body-2 mt-3 mb-0">
+            {{ $t('guestInquiry.reportMail') }}
+            <a
+              class="text-break"
+              :href="`mailto:${businessInfo.reportEmail}`"
+            >{{ businessInfo.reportEmail }}</a>
           </p>
         </VCardText>
       </VCard>

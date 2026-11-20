@@ -14,6 +14,9 @@ export const businessInfo = {
   address: '부산광역시 해운대구 재반로30번길 135, 1동 605호(재송동, 센텀안성타워)',
   tel: '010-3980-2818',
   email: 'help@training-center.org',
+
+  // 불법촬영물·허위영상물·아동·청소년성착취물 신고 전용 메일(2026-11 법률 자문 C, 비회원·피해자도 보낼 수 있는 공개 창구)
+  reportEmail: 'report@training-center.org',
   privacyOfficer: '김태민',
 
   // 처리방침의 위탁·국외 이전 항목과 같은 표기

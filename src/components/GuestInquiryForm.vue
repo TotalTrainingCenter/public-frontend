@@ -7,6 +7,7 @@
 -->
 <script setup lang="ts">
 import { $api } from '@/utils/api'
+import { businessInfo } from '@variables/BusinessInfo'
 
 const props = withDefaults(defineProps<{
   category?: string
@@ -139,6 +140,11 @@ const again = () => {
         class="text-body-2 text-error mt-n2"
       >
         {{ $t('guestInquiry.illegalFilmingHint') }}
+        {{ $t('guestInquiry.illegalFilmingMail') }}
+        <a
+          class="text-error font-weight-medium"
+          :href="`mailto:${businessInfo.reportEmail}`"
+        >{{ businessInfo.reportEmail }}</a>
       </div>
       <AppTextField
         v-model="form.subject"

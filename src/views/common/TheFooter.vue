@@ -16,6 +16,7 @@ const year = new Date().getFullYear()
 
 const telHref = `tel:${businessInfo.tel.replaceAll('-', '')}`
 const mailHref = `mailto:${businessInfo.email}`
+const reportMailHref = `mailto:${businessInfo.reportEmail}`
 </script>
 
 <template>
@@ -135,6 +136,8 @@ const mailHref = `mailto:${businessInfo.email}`
           <span><b>{{ $t('business.address') }}</b> {{ businessInfo.address }}</span>
           <span><b>{{ $t('business.tel') }}</b> <a :href="telHref">{{ businessInfo.tel }}</a></span>
           <span><b>{{ $t('business.email') }}</b> <a :href="mailHref">{{ businessInfo.email }}</a></span>
+          <!-- ℹ️ 불법촬영물 등 신고 창구. 비회원·피해자도 찾을 수 있게 모든 화면 하단에 둔다(2026-11 법률 자문 C) -->
+          <span><b>{{ $t('business.reportEmail') }}</b> <a :href="reportMailHref">{{ businessInfo.reportEmail }}</a></span>
           <span><b>{{ $t('business.hostingProvider') }}</b> {{ businessInfo.hostingProvider }}</span>
         </div>
       </address>

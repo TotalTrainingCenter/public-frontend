@@ -53,6 +53,7 @@
     "open": "View business information",
     "privacyOfficer": "Data protection officer",
     "regNo": "Business registration no.",
+    "reportEmail": "Report illegal content",
     "sectionTitle": "Business information",
     "tel": "Phone"
   },
@@ -417,7 +418,9 @@
     "sentBody": "We'll reply to {email} after reviewing it.",
     "again": "Send another message",
     "illegalFilmingHint": "Please include the URL or location of the post with the content. Staff will check and hide it right away.",
+    "illegalFilmingMail": "You can also report directly by email:",
     "orMail": "You can also email us:",
+    "reportMail": "Anyone, including non-members and people other than the victim, can report illegal filming, deepfakes, or child sexual abuse material directly to our dedicated address:",
     "category": {
       "USAGE": "Using the service",
       "PAYMENT": "Payment & membership",
