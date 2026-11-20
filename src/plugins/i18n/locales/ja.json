@@ -415,12 +415,14 @@
     "sentTitle": "お問い合わせを受け付けました",
     "sentBody": "確認後、{email} に回答をお送りします。",
     "again": "別のお問い合わせを送る",
+    "illegalFilmingHint": "被害映像があるURLや投稿の場所を書いてください。運営がすぐに確認して非表示にします。",
     "orMail": "メールでも受け付けています:",
     "category": {
       "USAGE": "ご利用について",
       "PAYMENT": "決済・メンバーシップ",
       "ACCOUNT": "アカウント・ログイン",
       "REPORT": "通報・権利侵害",
+      "ILLEGAL_FILMING": "盗撮・違法撮影物・ディープフェイク・児童性的搾取物の通報（緊急）",
       "PARTNERSHIP": "提携・協業",
       "OTHER": "その他"
     }

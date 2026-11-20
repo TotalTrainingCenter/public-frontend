@@ -415,12 +415,14 @@
     "sentTitle": "Your message has been received",
     "sentBody": "We'll reply to {email} after reviewing it.",
     "again": "Send another message",
+    "illegalFilmingHint": "Please include the URL or location of the post with the content. Staff will check and hide it right away.",
     "orMail": "You can also email us:",
     "category": {
       "USAGE": "Using the service",
       "PAYMENT": "Payment & membership",
       "ACCOUNT": "Account & sign-in",
       "REPORT": "Report & rights",
+      "ILLEGAL_FILMING": "Report illegal filming, deepfakes, or child sexual abuse material (urgent)",
       "PARTNERSHIP": "Partnership",
       "OTHER": "Other"
     }

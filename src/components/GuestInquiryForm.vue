@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<{
 
 const { t } = useI18n()
 
-const CATEGORIES = ['USAGE', 'PAYMENT', 'ACCOUNT', 'REPORT', 'PARTNERSHIP', 'OTHER'] as const
+const CATEGORIES = ['USAGE', 'PAYMENT', 'ACCOUNT', 'REPORT', 'ILLEGAL_FILMING', 'PARTNERSHIP', 'OTHER'] as const
 
 const form = reactive({
   name: '',
@@ -133,6 +133,13 @@ const again = () => {
         :items="categoryItems"
         :label="$t('guestInquiry.categoryLabel')"
       />
+      <!-- 피해자·기관이 이 유형을 고르면 위치를 적어 달라고 안내한다(운영진이 바로 가린다) -->
+      <div
+        v-if="form.category === 'ILLEGAL_FILMING'"
+        class="text-body-2 text-error mt-n2"
+      >
+        {{ $t('guestInquiry.illegalFilmingHint') }}
+      </div>
       <AppTextField
         v-model="form.subject"
         :label="$t('guestInquiry.subject')"
