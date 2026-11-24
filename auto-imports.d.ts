@@ -10,6 +10,7 @@ declare global {
   const COOKIE_MAX_AGE_1_YEAR: typeof import('./src/utils/constants')['COOKIE_MAX_AGE_1_YEAR']
   const EffectScope: typeof import('vue')['EffectScope']
   const SIGNUP_CHANNELS: typeof import('./src/utils/signupChannel')['SIGNUP_CHANNELS']
+  const SIGNUP_CHANNEL_COLLECT_FROM: typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_COLLECT_FROM']
   const SIGNUP_CHANNEL_PARAM: typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_PARAM']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const alphaDashValidator: typeof import('./src/@core/utils/validators')['alphaDashValidator']
@@ -51,10 +52,12 @@ declare global {
   const defineComponent: typeof import('vue')['defineComponent']
   const definePage: typeof import('unplugin-vue-router/runtime')['definePage']
   const defineStore: typeof import('pinia')['defineStore']
+  const detectAdblock: typeof import('./src/utils/adblockTally')['detectAdblock']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const emailValidator: typeof import('./src/@core/utils/validators')['emailValidator']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const fetchAccessFeatures: typeof import('./src/utils/accessFeatures')['fetchAccessFeatures']
   const formatBoolean: typeof import('./src/@core/utils/formatters')['formatBoolean']
   const formatDate: typeof import('./src/@core/utils/formatters')['formatDate']
   const formatDateTime: typeof import('./src/@core/utils/formatters')['formatDateTime']
@@ -78,6 +81,7 @@ declare global {
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const integerValidator: typeof import('./src/@core/utils/validators')['integerValidator']
+  const isCollectingSignupChannel: typeof import('./src/utils/signupChannel')['isCollectingSignupChannel']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isEmpty: typeof import('./src/@core/utils/helpers')['isEmpty']
   const isEmptyArray: typeof import('./src/@core/utils/helpers')['isEmptyArray']
@@ -155,6 +159,7 @@ declare global {
   const regexValidator: typeof import('./src/@core/utils/validators')['regexValidator']
   const registerPlugins: typeof import('./src/@core/utils/plugins')['registerPlugins']
   const rememberSignupChannel: typeof import('./src/utils/signupChannel')['rememberSignupChannel']
+  const reportAdblockTallyOncePerDay: typeof import('./src/utils/adblockTally')['reportAdblockTallyOncePerDay']
   const requestNotificationPermission: typeof import('./src/utils/firebaseUtils')['requestNotificationPermission']
   const requiredValidator: typeof import('./src/@core/utils/validators')['requiredValidator']
   const resolveComponent: typeof import('vue')['resolveComponent']
@@ -410,6 +415,7 @@ declare module 'vue' {
     readonly COOKIE_MAX_AGE_1_YEAR: UnwrapRef<typeof import('./src/utils/constants')['COOKIE_MAX_AGE_1_YEAR']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly SIGNUP_CHANNELS: UnwrapRef<typeof import('./src/utils/signupChannel')['SIGNUP_CHANNELS']>
+    readonly SIGNUP_CHANNEL_COLLECT_FROM: UnwrapRef<typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_COLLECT_FROM']>
     readonly SIGNUP_CHANNEL_PARAM: UnwrapRef<typeof import('./src/utils/signupChannel')['SIGNUP_CHANNEL_PARAM']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly alphaDashValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['alphaDashValidator']>
@@ -449,10 +455,12 @@ declare module 'vue' {
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly definePage: UnwrapRef<typeof import('unplugin-vue-router/runtime')['definePage']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
+    readonly detectAdblock: UnwrapRef<typeof import('./src/utils/adblockTally')['detectAdblock']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly emailValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['emailValidator']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fetchAccessFeatures: UnwrapRef<typeof import('./src/utils/accessFeatures')['fetchAccessFeatures']>
     readonly formatBoolean: UnwrapRef<typeof import('./src/@core/utils/formatters')['formatBoolean']>
     readonly formatDate: UnwrapRef<typeof import('./src/@core/utils/formatters')['formatDate']>
     readonly formatDateTime: UnwrapRef<typeof import('./src/@core/utils/formatters')['formatDateTime']>
@@ -475,6 +483,7 @@ declare module 'vue' {
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
     readonly integerValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['integerValidator']>
+    readonly isCollectingSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['isCollectingSignupChannel']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isEmpty: UnwrapRef<typeof import('./src/@core/utils/helpers')['isEmpty']>
     readonly isEmptyArray: UnwrapRef<typeof import('./src/@core/utils/helpers')['isEmptyArray']>
@@ -549,6 +558,7 @@ declare module 'vue' {
     readonly regexValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['regexValidator']>
     readonly registerPlugins: UnwrapRef<typeof import('./src/@core/utils/plugins')['registerPlugins']>
     readonly rememberSignupChannel: UnwrapRef<typeof import('./src/utils/signupChannel')['rememberSignupChannel']>
+    readonly reportAdblockTallyOncePerDay: UnwrapRef<typeof import('./src/utils/adblockTally')['reportAdblockTallyOncePerDay']>
     readonly requiredValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['requiredValidator']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
