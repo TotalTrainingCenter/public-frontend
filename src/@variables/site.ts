@@ -52,9 +52,9 @@ export const siteConfig = {
   apps: {
     mac: {
       url: 'https://training-center.org/downloads/mac/TTC.dmg',
-      version: '1.0.1',
-      sizeBytes: 90_951_899,
-      sha256: 'd76cc51d223e5f34fcbfafdadb0b99f1516c068c1f9db41fd4f94ff6caac5435',
+      version: '1.0.2',
+      sizeBytes: 91_342_658,
+      sha256: 'b9c6906dcf50f3beeb1753bc951f6dfc320d5c0e5e2db98f54f29aa614425003',
     },
 
     /** iPhone 앱(App Store). 아이패드에서도 돌지만 아이폰 화면을 키운 것이라 안내는 iPhone 으로만 한다. */
