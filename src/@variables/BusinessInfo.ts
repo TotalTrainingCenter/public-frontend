@@ -8,9 +8,8 @@ export const businessInfo = {
   ceo: '김태민',
   regNo: '684-17-02954',
 
-  // 통신판매업은 아직 신고하지 않았다(대표 결정, 나중에 신고). 신고하면 번호를 넣는다.
-  // 비어 있는 동안은 빈칸 대신 면제 사유(business.mailOrderExempt)를 보인다(2026-11 법률 자문 C)
-  mailOrderNo: null as string | null,
+  // 통신판매업 신고번호 — 2026-11-25 해운대구청 수리(신고증은 document 맨 위). 비면 business.mailOrderExempt 를 보인다.
+  mailOrderNo: '제2026-부산해운대-1546호' as string | null,
   address: '부산광역시 해운대구 재반로30번길 135, 1동 605호(재송동, 센텀안성타워)',
   tel: '010-3980-2818',
   email: 'help@training-center.org',
