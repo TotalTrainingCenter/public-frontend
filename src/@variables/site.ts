@@ -52,15 +52,15 @@ export const siteConfig = {
   apps: {
     mac: {
       url: 'https://training-center.org/downloads/mac/TTC.dmg',
-      version: '1.0.2',
-      sizeBytes: 91_342_658,
-      sha256: 'b9c6906dcf50f3beeb1753bc951f6dfc320d5c0e5e2db98f54f29aa614425003',
+      version: '1.0.3',
+      sizeBytes: 92_262_669,
+      sha256: 'cd775bca3e72dd43c40b16032a141c8a6cdffb6c8fe79d97062b5b9373fa053a',
     },
 
     /** iPhone 앱(App Store). 아이패드에서도 돌지만 아이폰 화면을 키운 것이라 안내는 iPhone 으로만 한다. */
     ios: {
       url: 'https://apps.apple.com/kr/app/id6823595030',
-      version: '1.0.1',
+      version: '1.0.2',
       minOs: '17.0',
     },
   },
