@@ -164,7 +164,8 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
       </VList>
 
       <template #append>
-        <div class="pa-4">
+        <!-- 오른쪽 아래 사업자 정보 둥근 버튼(BusinessInfoWidget, 드로어보다 위)이 '플랫폼으로' 를 가리지 않게 아래를 비운다(document#98) -->
+        <div class="pa-4 public-navbar__drawer-append">
           <div
             v-if="themeConfig.app.i18n.enable && themeConfig.app.i18n.langConfig?.length"
             class="d-flex justify-center mb-2"
@@ -189,6 +190,11 @@ const isActive = (item: { to?: string; children?: { to?: string }[] }) => {
 </template>
 
 <style lang="scss" scoped>
+// 사업자 정보 런처: 바닥에서 1.5rem + 버튼 높이(약 2.5rem). 그 위로 0.75rem 여유.
+.public-navbar__drawer-append {
+  padding-block-end: 4.75rem !important;
+}
+
 .public-navbar {
   position: sticky;
   z-index: 10;
