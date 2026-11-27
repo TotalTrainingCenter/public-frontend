@@ -66,7 +66,7 @@ export const siteConfig = {
   },
 
   /** 약관·정책 원문이 있는 곳. 공개 사이트는 중복 게시하지 않고 이곳으로 보낸다. */
-  policyUrl: 'https://policy.training-center.org',
+  policyUrl: env('VITE_POLICY_URL') || 'https://policy.training-center.org',
 
   sns: {
     instagram: 'https://www.instagram.com/kr.ttc.ceo.ktm',
