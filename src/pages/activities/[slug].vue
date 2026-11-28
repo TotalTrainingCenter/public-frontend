@@ -15,8 +15,11 @@ const route = useRoute('activities-slug')
 
 const group = computed(() => findActivityGroup(String(route.params.slug)))
 
-const requiredItems = computed(() => group.value?.items.filter(item => item.required) ?? [])
-const optionalItems = computed(() => group.value?.items.filter(item => !item.required) ?? [])
+const requiredItems = computed(() => group.value?.items.filter(item => item.required && !item.requiredPercent) ?? [])
+const optionalItems = computed(() => group.value?.items.filter(item => !item.required && !item.requiredPercent) ?? [])
+
+// 랜덤 필수(document#105) — 날마다 정해진 확률로 필수가 되는 활동. 확률은 공개한다
+const randomItems = computed(() => group.value?.items.filter(item => item.requiredPercent) ?? [])
 
 /** 내부 링크용 다른 그룹. 내부 링크는 색인에 크게 기여한다. */
 const relatedGroups = computed(() =>
@@ -62,6 +65,15 @@ useSeo({
             {{ group.intro }}
           </p>
 
+          <VAlert
+            v-if="group.requiredPercent"
+            type="info"
+            variant="tonal"
+            class="mb-8"
+          >
+            {{ $t('page.activityGroupRandom', { n: formatNumber(group.requiredPercent) }) }}
+          </VAlert>
+
           <!-- 👉 기본 활동 -->
           <template v-if="requiredItems.length">
             <h2 class="text-h5 mb-2">
@@ -90,6 +102,48 @@ useSeo({
                     variant="tonal"
                   >
                     {{ $t('page.activityRequiredChip') }}
+                  </VChip>
+                </div>
+
+                <p class="text-body-2 mb-2">
+                  {{ item.description }}
+                </p>
+
+                <p class="text-body-2 text-disabled mb-0">
+                  {{ $t('page.activityProof', { proof: item.proof, type: item.proofType }) }}
+                </p>
+              </VCardText>
+            </VCard>
+          </template>
+
+          <!-- 👉 확률로 필수가 되는 활동 -->
+          <template v-if="randomItems.length">
+            <h2 class="text-h5 mt-10 mb-2">
+              {{ $t('page.activityRandom') }}
+            </h2>
+
+            <p class="text-body-2 mb-4">
+              {{ $t('page.activityRandomLead') }}
+            </p>
+
+            <VCard
+              v-for="item in randomItems"
+              :key="item.name"
+              variant="outlined"
+              class="mb-3"
+            >
+              <VCardText>
+                <div class="d-flex align-center flex-wrap gap-x-2 mb-2">
+                  <h3 class="text-h6 mb-0">
+                    {{ item.name }}
+                  </h3>
+
+                  <VChip
+                    size="x-small"
+                    color="warning"
+                    variant="tonal"
+                  >
+                    {{ $t('page.activityRandomChip', { n: formatNumber(item.requiredPercent) }) }}
                   </VChip>
                 </div>
 

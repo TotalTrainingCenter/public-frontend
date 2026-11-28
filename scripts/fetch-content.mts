@@ -155,6 +155,9 @@ interface PublicActivity {
   title: string | null
   description: string | null
   required: boolean
+
+  /** 랜덤 필수 확률 %(document#105). 활동이면 그 활동이, 주제면 세부 활동마다 이 확률로 필수가 된다. 운영에서 켜기 전이면 없다. */
+  requiredPercent?: number | null
   items: PublicActivity[]
 }
 
@@ -375,6 +378,7 @@ export const findStory = (slug: string) => stories.find(item => item.slug === sl
         proof: ${q(proof || '활동 화면의 안내를 따릅니다')},
         proofType: ${q(proofType(proof))},
         required: ${item.required},
+        requiredPercent: ${item.requiredPercent ?? null},
       },`
   }).join('\n')
 
@@ -424,6 +428,7 @@ ${groups.map(group => {
     intro: ${q(intro)},
     date: '2026-01-01',
     targets: [${meta.targets.map(label => q(TARGET_LABELS[label]?.[locale] ?? label)).join(', ')}],
+    requiredPercent: ${group.requiredPercent ?? null},
     items: [
 ${renderItems(group.items)}
     ],

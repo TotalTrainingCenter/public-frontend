@@ -316,7 +316,11 @@
     "storyOther": "ほかのレポート",
     "storyRefined": "一部の表現を整えました。会員の実際の活動記録を、同意を得て名前や本人と分かる情報を伏せて掲載しています。",
     "storyTopicCta": "テーマを見る",
-    "storyTopicHeading": "このレポートに登場したテーマ"
+    "storyTopicHeading": "このレポートに登場したテーマ",
+    "activityRandom": "確率で必須になる活動",
+    "activityRandomLead": "毎日決まった確率で必須になる活動です。その日の必須・任意はその日のうちは変わらず、体験期間中は任意です。",
+    "activityRandomChip": "{n}%の確率で必須",
+    "activityGroupRandom": "このテーマの活動は、活動ごとに毎日{n}%の確率で必須になります(体験期間中は任意)。"
   },
   "pagination": {
     "showing": "全 {total} 件中 {start}–{end}",

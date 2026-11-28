@@ -316,7 +316,11 @@
     "storyOther": "Other stories",
     "storyRefined": "Some wording has been edited. This is a real member's activity record, shared with their consent, with their name and identifying details removed.",
     "storyTopicCta": "View topic",
-    "storyTopicHeading": "Topic featured in this story"
+    "storyTopicHeading": "Topic featured in this story",
+    "activityRandom": "Activities required by chance",
+    "activityRandomLead": "These become required each day with the stated chance. Whether one is required stays the same for that day, and they are optional during the trial.",
+    "activityRandomChip": "{n}% chance of required",
+    "activityGroupRandom": "Each activity in this topic becomes required each day with its own {n}% chance (optional during the trial)."
   },
   "pagination": {
     "showing": "{start}–{end} of {total}",

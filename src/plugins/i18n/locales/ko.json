@@ -316,7 +316,11 @@
     "storyOther": "다른 후기",
     "storyRefined": "일부 표현을 다듬었습니다. 회원의 실제 활동 기록을 동의를 받아 이름과 알아볼 수 있는 정보를 가려 옮겼습니다.",
     "storyTopicCta": "활동 주제 보기",
-    "storyTopicHeading": "이 후기에 나온 활동 주제"
+    "storyTopicHeading": "이 후기에 나온 활동 주제",
+    "activityRandom": "확률로 필수가 되는 활동",
+    "activityRandomLead": "날마다 정해진 확률로 필수가 되는 활동입니다. 그날 필수인지 선택인지는 그날 하루 동안 바뀌지 않고, 체험 기간에는 선택입니다.",
+    "activityRandomChip": "{n}% 확률로 필수",
+    "activityGroupRandom": "이 주제의 활동은 활동마다 따로 {n}% 확률로 날마다 필수가 됩니다(체험 기간에는 선택)."
   },
   "pagination": {
     "showing": "전체 {total}건 중 {start}–{end}",

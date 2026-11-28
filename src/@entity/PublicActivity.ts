@@ -27,6 +27,9 @@ export interface IPublicActivityItem {
 
   /** 기본(필수) 활동 여부. false 면 선택 활동. */
   required: boolean
+
+  /** 랜덤이면 날마다 필수가 될 확률 %(document#105, 확률 공개). 없으면 required 대로 */
+  requiredPercent?: number | null
 }
 
 /**
@@ -52,4 +55,7 @@ export interface IPublicActivityGroup extends Omit<IContentEntry, 'html'> {
 
   /** 개별 활동 목록. */
   items: IPublicActivityItem[]
+
+  /** 주제 랜덤이면 세부 활동마다 필수가 될 확률 %(document#105) */
+  requiredPercent?: number | null
 }
